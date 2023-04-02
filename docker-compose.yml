@@ -1,0 +1,45 @@
+version: '3.5'
+
+services:
+  app:
+    build:
+      context: '.'
+      args:
+        uid: ${UID}
+    container_name: sapi
+    environment:
+      - APACHE_RUN_USER=#${UID}
+      - APACHE_RUN_GROUP=#${UID}
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - mysql
+    ports:
+      - 8080:80
+      - 80:80
+      - 443:443
+    networks:
+      backend:
+        aliases:
+          - sapi
+  mysql:
+      image: mariadb:10.7
+      restart: on-failure
+      container_name: mysql_sapi
+      volumes:
+          - ./run/var:/var/lib/mysql
+      ports:
+          - 3306:3306
+      environment:
+          - MYSQL_ROOT_PASSWORD=verystrongpass
+          - MYSQL_DATABASE=${DB_DATABASE}
+      networks:
+          backend:
+              aliases:
+                  - db
+                  - mysql_sapi
+                  - mysql
+
+networks:
+  backend:
+    name: backend-network

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Tanar;
+use Illuminate\Http\Request;
 
-class AdminController extends Controller
+class HomeController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -23,7 +23,6 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $tanarok = Tanar::all();
-        return view('admin', compact('tanarok'));
+        return view('home');
     }
 }

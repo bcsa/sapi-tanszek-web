@@ -2,7 +2,7 @@
 <html class="{{$htmlClass ?? ''}}" style="overflow: hidden">
     <head>
 
-        <title>Fomco</title>
+        <title>Sapi</title>
 
         <meta charset="utf-8">
 

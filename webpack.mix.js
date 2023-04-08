@@ -30,7 +30,9 @@ mix.webpackConfig({
             '@components': path.resolve(
                 __dirname,
                 'resources/js/components'
-            )
+            ),
+
+            'ziggy': path.resolve("vendor/tightenco/ziggy/dist"),
         }
     },
 

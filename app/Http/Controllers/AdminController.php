@@ -34,12 +34,13 @@ class AdminController extends Controller
     {
         $user = Auth::user();
 
-        $user->nev = $request->nev;
+        $user->name = $request->name;
         $user->pozicio = $request->pozicio;
         $user->leiras = $request->leiras;
         $user->avatar = $request->avatar;
 
-        $user->save();
+//        dd($user);
+//        $user->save();
 
 //        Mail::to('csongiika@gmail.com')
 //            ->queue(new ContactMessageReceived($user));

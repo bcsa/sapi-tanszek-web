@@ -14,117 +14,81 @@
                         </div>
                     @endif
 
-                    <form method="POST" action="{{ route('adminsubmit') }}">
+                    <v-form ref="updateForm" lazy-validation @submit.prevent="submitUserUpdate">
                         @csrf
 
                         <div class="row mx-auto justify-content-center">
-                            <div class="col-8 mb-3">
-                                <div class="form-group">
-                                    <label class="required-field" for="nev">Név</label>
-                                    <input type="text" class="form-control" name="nev" placeholder="{{ $user->name }}">
-                                </div>
-                            </div>
+                            <v-col cols="8" class="py-0">
+                                <v-label>
+                                    Név*
+                                </v-label>
+                                <v-text-field
+                                    v-model="name"
+                                    solo
+                                    placeholder="{{ $user->name }}"
+                                    :rules="nameRules"
+                                    required
+                                ></v-text-field>
+                            </v-col>
 
-                            <div class="col-8 mb-3">
-                                <div class="form-group">
-                                    <label for="pozicio">Pozíció</label>
-                                    <input type="text" class="form-control" name="pozicio" placeholder="{{ $user->pozicio ?? 'tanár' }}">
-                                </div>
-                            </div>
+                            <v-col cols="8" class="py-0">
+                                <v-label>
+                                    Email*
+                                </v-label>
+                                <v-text-field
+                                    v-model="email"
+                                    solo
+                                    placeholder="{{ $user->email }}"
+                                    :rules="emailRules"
+                                    required
+                                ></v-text-field>
+                            </v-col>
 
-                            <div class="col-8 mb-3">
-                                <div class="form-group">
-                                    <label for="email">Email</label>
-                                    <input type="email" class="form-control" name="email" placeholder="{{ $user->email }}">
-                                </div>
-                            </div>
+                            <v-col cols="8" class="py-0">
+                                <v-label>
+                                    Pozíció
+                                </v-label>
+                                <v-text-field
+                                    v-model="pozicio"
+                                    solo
+                                    placeholder="{{ $user->pozicio ?? 'tanár' }}"
+                                ></v-text-field>
+                            </v-col>
 
-                            <div class="col-8 mb-3">
-                                <div class="form-group">
-                                    <label for="leiras">Leírás</label>
-                                    <input type="text" class="form-control" name="leiras" placeholder="{{ $user->leiras ?? 'leírás' }}">
-                                </div>
-                            </div>
+                            <v-col cols="8" class="py-0">
+                                <v-label>
+                                    Leírás
+                                </v-label>
+                                <v-text-field
+                                    v-model="leiras"
+                                    solo
+                                    placeholder="{{ $user->leiras ?? 'leírás' }}"
+                                ></v-text-field>
+                            </v-col>
 
-                            <div class="col-8 mb-3">
-                                <div class="form-group">
-                                    <label for="avatar">Avatar</label>
-                                    <input type="text" class="form-control" name="avatar" placeholder="{{ $user->avatar ?? 'avatar' }}">
-                                </div>
-                            </div>
+                            <v-col cols="8" class="py-0">
+                                <v-label>
+                                    Avatar
+                                </v-label>
+                                <v-text-field
+                                    v-model="avatar"
+                                    solo
+                                    placeholder="{{ $user->avatar ?? 'avatar' }}"
+                                ></v-text-field>
+                            </v-col>
 
-                            <div class="col-8 mb-3">
-                                <button type="submit" class="btn btn-primary">Küldés</button>
-                            </div>
+                            <v-col cols="8">
+                                <v-btn
+                                    type="submit"
+                                    :disabled="isBusy"
+                                    :loading="isBusy"
+                                    depressed
+                                >
+                                    Küldés
+                                </v-btn>
+                            </v-col>
                         </div>
-                    </form>
-
-{{--                    <v-row>--}}
-{{--                        <v-col cols="12" md="8" offset-md="4" class="my-auto contact-wrapper">--}}
-{{--                            <form @submit.prevent="submitContact()">--}}
-{{--                                <v-label>Department*</v-label>--}}
-{{--                                <v-select--}}
-{{--                                    v-model="selectedDepartment"--}}
-{{--                                    :items="departmentList"--}}
-{{--                                    dark--}}
-{{--                                    flat--}}
-{{--                                    outlined--}}
-{{--                                    solo--}}
-{{--                                    single-line--}}
-{{--                                    hide-details--}}
-{{--                                >--}}
-{{--                                </v-select>--}}
-{{--                                <v-label>Name*</v-label>--}}
-{{--                                <v-text-field--}}
-{{--                                    required--}}
-{{--                                    data-hj-allow--}}
-{{--                                    class="data-hj-allow"--}}
-{{--                                    v-model="name"--}}
-{{--                                    single-line--}}
-{{--                                    hide-details--}}
-{{--                                    outlined--}}
-{{--                                    placeholder="Example"--}}
-{{--                                >--}}
-{{--                                </v-text-field>--}}
-
-{{--                                <v-label>E-Mail*</v-label>--}}
-{{--                                <v-text-field--}}
-{{--                                    data-hj-allow--}}
-{{--                                    class="data-hj-allow"--}}
-{{--                                    type="email"--}}
-{{--                                    v-model="email"--}}
-{{--                                    required--}}
-{{--                                    single-line--}}
-{{--                                    hide-details--}}
-{{--                                    outlined--}}
-{{--                                    placeholder="example@gmail.com"--}}
-{{--                                >--}}
-{{--                                </v-text-field>--}}
-
-{{--                                <v-label>Message*</v-label>--}}
-{{--                                <v-textarea--}}
-{{--                                    data-hj-allow--}}
-{{--                                    class="data-hj-allow"--}}
-{{--                                    v-model="message"--}}
-{{--                                    required--}}
-{{--                                    outlined--}}
-{{--                                    auto-grow--}}
-{{--                                    placeholder="Write your message here"--}}
-{{--                                >--}}
-{{--                                </v-textarea>--}}
-
-{{--                                <v-btn--}}
-{{--                                    class="cta yellow"--}}
-{{--                                    type="submit"--}}
-{{--                                    :disabled="isBusy"--}}
-{{--                                    :loading="isBusy"--}}
-{{--                                    depressed--}}
-{{--                                >--}}
-{{--                                    SEND MESSAGE--}}
-{{--                                </v-btn>--}}
-{{--                            </form>--}}
-{{--                        </v-col>--}}
-{{--                    </v-row>--}}
+                    </v-form>
                 </div>
             </div>
         </div>
@@ -137,20 +101,33 @@
         let mixin = {
 
             data: {
-                nev: null,
+                name: null,
                 email: null,
+                leiras: null,
+                pozicio: null,
+                avatar: null,
                 message: null,
                 isBusy: false,
                 isSent: false,
                 errorMessage: null,
-            },
 
-            mounted() {
-                console.log('test')
+                nameRules: [
+                    v => !!v || 'Név kötelező',
+                    v => (v && v.length >= 3) || 'Minimum 3 karakter',
+                ],
+
+                emailRules: [
+                    v => !!v || 'Email kötelező',
+                    v => /.+@.+\..+/.test(v) || 'Email érvényes kell legyen',
+                ],
             },
 
             methods: {
-                submitContact() {
+                submitUserUpdate() {
+                    if (!this.$refs.updateForm.validate()) {
+                        return
+                    }
+
                     this.errorMessage = null
                     if (!this.isBusy) {
                         this.isBusy = true
@@ -158,16 +135,9 @@
                         axios.post(route('adminsubmit'), {
                             name: this.name,
                             email: this.email,
-                            message: this.message,
-                            department: this.selectedDepartment
+                            pozicio: this.pozicio,
+                            leiras: this.leiras,
                         }).then((response) => {
-                            this.trackClick('Lead', 'ContactForm', {
-                                email: this.email
-                            })
-
-                            this.name = null
-                            this.email = null
-                            this.message = null
                             this.isBusy = false
                             this.isSent = true
                         }).catch((error) => {

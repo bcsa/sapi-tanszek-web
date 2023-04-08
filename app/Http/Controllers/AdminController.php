@@ -2,7 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreAffiliate;
+use App\Http\Requests\UpdateUserRequest;
+use App\Mail\AffiliateRegistrationReceived;
+use App\Mail\ContactMessageReceived;
+use App\Models\ContactMessage;
 use App\Models\Tanar;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
 {
@@ -16,14 +24,26 @@ class AdminController extends Controller
         $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function index()
     {
-        $tanarok = Tanar::all();
-        return view('admin', compact('tanarok'));
+        $user = User::where('id', Auth::id())->first();
+        return view('admin', compact('user'));
+    }
+
+    public function store(UpdateUserRequest $request)
+    {
+        $user = Auth::user();
+
+        $user->nev = $request->nev;
+        $user->pozicio = $request->pozicio;
+        $user->leiras = $request->leiras;
+        $user->avatar = $request->avatar;
+
+        $user->save();
+
+//        Mail::to('csongiika@gmail.com')
+//            ->queue(new ContactMessageReceived($user));
+
+        return response(['success' => true]);
     }
 }

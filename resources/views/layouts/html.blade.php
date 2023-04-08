@@ -45,7 +45,6 @@
                 {
                     data: {
                         appURL: {!! json_encode(url('/')) !!},
-                        packageData: {!! $packageData !!},
                         @if(env('APP_ENV') == 'production')
                         isProduction: true
                         @else

@@ -15,6 +15,9 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
 
+    <!-- Scripts -->
+{{--    <script src="{{ mix('js/app.js') }}" defer></script>--}}
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -34,7 +37,13 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('rendezvenyek') }}">{{ __('Rendezvények') }}</a>
+                        </li>
 
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('tanarok') }}">{{ __('Tanárok') }}</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -53,20 +62,18 @@
                                 </li>
                             @endif
                         @else
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('admin') }}" role="button" v-pre>
-                                    Admin
-                                </a>
-                            </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('profile') }}">
+                                        Profil
+                                    </a>
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                       onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
@@ -92,8 +99,7 @@
         {
             data: {
                 appURL: {!! json_encode(url('/')) !!},
-                {{--packageData: {!! $packageData !!},--}}
-                    @if(env('APP_ENV') == 'production')
+                @if(env('APP_ENV') == 'production')
                 isProduction: true
                 @else
                 isProduction: false

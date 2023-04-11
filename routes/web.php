@@ -29,9 +29,14 @@ use Illuminate\Support\Facades\Route;
 //Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 //Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
 
-Route::get('admin', 'AdminController@index')->name('admin');
-Route::post('admin', 'AdminController@store')->name('adminsubmit');
+Route::get('profile', 'AdminController@index')->name('profile');
+Route::post('profile', 'AdminController@store')->name('submit-profile');
 
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('rendezvenyek', [App\Http\Controllers\RendezvenyController::class, 'index'])->name('rendezvenyek');
+
+Route::get('tanarok', [App\Http\Controllers\TanarController::class, 'index'])->name('tanarok');
+

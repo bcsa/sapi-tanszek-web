@@ -39,8 +39,7 @@ class AdminController extends Controller
         $user->leiras = $request->leiras;
         $user->avatar = $request->avatar;
 
-//        dd($user);
-//        $user->save();
+        $user->save();
 
 //        Mail::to('csongiika@gmail.com')
 //            ->queue(new ContactMessageReceived($user));

@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function($table) {
-            $table->string('pozicio')->nullable();
-            $table->string('leiras')->nullable();
-            $table->string('avatar')->nullable();
+            $table->string('avatar')->nullable()->after('name');
+            $table->string('leiras')->nullable()->after('name');
+            $table->string('pozicio')->nullable()->after('name');
         });
     }
 

@@ -14,7 +14,15 @@
                         </div>
                     @endif
 
-                    <v-form ref="updateForm" lazy-validation @submit.prevent="submitUserUpdate">
+                    <v-alert light v-if="errorMessage" type="error">
+                        @{{ errorMessage }}
+                    </v-alert>
+
+                    <v-alert light v-if="isSent" type="success">
+                        Profil frissítve!
+                    </v-alert>
+
+                    <v-form v-else ref="updateForm" lazy-validation @submit.prevent="submitUserUpdate">
                         @csrf
 
                         <div class="row mx-auto justify-content-center">
@@ -31,18 +39,18 @@
                                 ></v-text-field>
                             </v-col>
 
-                            <v-col cols="8" class="py-0">
-                                <v-label>
-                                    Email*
-                                </v-label>
-                                <v-text-field
-                                    v-model="email"
-                                    solo
-                                    placeholder="{{ $user->email }}"
-                                    :rules="emailRules"
-                                    required
-                                ></v-text-field>
-                            </v-col>
+{{--                            <v-col cols="8" class="py-0">--}}
+{{--                                <v-label>--}}
+{{--                                    Email*--}}
+{{--                                </v-label>--}}
+{{--                                <v-text-field--}}
+{{--                                    v-model="email"--}}
+{{--                                    solo--}}
+{{--                                    placeholder="{{ $user->email }}"--}}
+{{--                                    :rules="emailRules"--}}
+{{--                                    required--}}
+{{--                                ></v-text-field>--}}
+{{--                            </v-col>--}}
 
                             <v-col cols="8" class="py-0">
                                 <v-label>
@@ -132,12 +140,13 @@
                     if (!this.isBusy) {
                         this.isBusy = true
 
-                        axios.post(route('adminsubmit'), {
+                        axios.post(route('submit-profile'), {
                             name: this.name,
                             email: this.email,
                             pozicio: this.pozicio,
                             leiras: this.leiras,
                         }).then((response) => {
+                            this.$refs.updateForm.reset()
                             this.isBusy = false
                             this.isSent = true
                         }).catch((error) => {

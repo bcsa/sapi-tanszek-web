@@ -7,6 +7,7 @@ import vueRoutes from '@js/routes.js'
 import VueRouter from 'vue-router';
 import RoundSlider from 'vue-round-slider-simple'
 import 'vuejs-google-maps/dist/vuejs-google-maps.css'
+import _ from 'lodash'
 
 import bootstrap from 'bootstrap'
 
@@ -19,6 +20,8 @@ Vue.use(VueGoogleMaps, {
         libraries: "places"
     }
 });
+
+Vue.prototype._ = _
 
 Vue.prototype.$helpers = {
     string: stringHelpers
@@ -41,20 +44,11 @@ let app = new Vue({
 
     data() {
         return {
-            showApprovalDialog: false,
-            isSystemLoading: false,
+
         }
     },
 
     methods: {
-        setSystemLoading(loading) {
-            this.isSystemLoading = loading
-        },
 
-        trackClick(category, action, label) {
-            if (this.isProduction) {
-                window.sendEvent(category, label, action)
-            }
-        },
     }
 })

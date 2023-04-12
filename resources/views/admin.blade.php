@@ -14,11 +14,11 @@
                         </div>
                     @endif
 
-                    <v-alert light v-if="errorMessage" type="error">
+                    <v-alert v-if="errorMessage" type="error">
                         @{{ errorMessage }}
                     </v-alert>
 
-                    <v-alert light v-if="isSent" type="success">
+                    <v-alert v-if="isSent" type="success">
                         Profil frissítve!
                     </v-alert>
 
@@ -114,7 +114,6 @@
                 leiras: null,
                 pozicio: null,
                 avatar: null,
-                message: null,
                 isBusy: false,
                 isSent: false,
                 errorMessage: null,
@@ -151,10 +150,6 @@
                             this.isSent = true
                         }).catch((error) => {
                             if (error) {
-                                if (_.get(error.response.data.errors, 'message')) {
-                                    this.errorMessage = error.response.data.errors.message[0]
-                                }
-
                                 if (_.get(error.response.data.errors, 'email')) {
                                     this.errorMessage = error.response.data.errors.email[0]
                                 }

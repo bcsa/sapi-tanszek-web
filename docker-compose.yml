@@ -15,7 +15,6 @@ services:
     depends_on:
       - mysql
     ports:
-      - 8080:80
       - 80:80
       - 443:443
     networks:
@@ -42,4 +41,4 @@ services:
 
 networks:
   backend:
-    name: backend-network
+    name: network

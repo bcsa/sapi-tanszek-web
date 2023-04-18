@@ -44,11 +44,11 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('rendezvenyek') }}">{{ __('Rendezvények') }}</a>
+                            <a class="nav-link" href="{{ route('rendezvenyek.index') }}">{{ __('Rendezvények') }}</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('tanarok') }}">{{ __('Tanárok') }}</a>
+                            <a class="nav-link" href="{{ route('tanarok.index') }}">{{ __('Tanárok') }}</a>
                         </li>
                     </ul>
 

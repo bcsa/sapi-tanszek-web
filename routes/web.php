@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\RendezvenyController;
+use App\Http\Controllers\TanarController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,7 +39,19 @@ Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('rendezvenyek', [App\Http\Controllers\RendezvenyController::class, 'index'])->name('rendezvenyek');
+Route::resource('rendezvenyek', RendezvenyController::class);
 
-Route::get('tanarok', [App\Http\Controllers\TanarController::class, 'index'])->name('tanarok');
+Route::resource('tanarok', TanarController::class);
+
+Route::get('proxy', function () {
+    $request = Http::withHeaders([
+        'User-Agent' => 'KSARetail/1.1 CFNetwork/1406.0.4 Darwin/22.4.0'
+    ])
+        ->timeout(60)
+        ->get("https://ksaretail.ro/shop/app/products");
+
+    $response = $request->json();
+
+    echo json_encode($response, JSON_PRETTY_PRINT);
+})->name('proxy');
 

@@ -39,9 +39,13 @@ Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::resource('rendezvenyek', RendezvenyController::class);
+Route::resource('rendezvenyek', RendezvenyController::class)->parameters([
+    'rendezvenyek' => 'rendezveny'
+]);
 
-Route::resource('tanarok', TanarController::class);
+Route::resource('tanarok', TanarController::class)->parameters([
+    'tanarok' => 'tanar'
+]);
 
 Route::get('proxy', function () {
     $request = Http::withHeaders([

@@ -41,10 +41,30 @@
                                 <div class="col-10 mx-auto">
                                     <div class="form-group">
                                         <strong>Tanár pozíció:</strong>
-                                        <input type="text" name="pozicio" value="{{ $tanar->address }}" class="form-control"
+                                        <input type="text" name="pozicio" value="{{ $tanar->pozicio }}" class="form-control"
                                                placeholder="Tanár pozíció">
-                                        @error('address')
+                                        @error('pozicio')
                                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-10 mx-auto">
+                                    <div class="form-group">
+                                        <strong>Tanár leírás:</strong>
+                                        <input type="text" name="bio" value="{{ $tanar->bio }}" class="form-control"
+                                               placeholder="Tanár leírás">
+                                        @error('bio')
+                                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-10 mx-auto">
+                                    <div class="form-group">
+                                        <strong>Tanár avatar:</strong>
+                                        <input type="text" name="avatar" value="{{ $tanar->avatar }}" class="form-control"
+                                               placeholder="Tanár avatar">
+                                        @error('avatar')
+                                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>

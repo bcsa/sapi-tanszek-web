@@ -15,7 +15,6 @@ class RendezvenyController extends Controller
     public function index()
     {
         $rendezvenyek = Rendezveny::orderBy('id','desc')->paginate(5);
-//        dd($rendezvenyek);
         return view('rendezvenyek.index', compact('rendezvenyek'));
     }
 
@@ -40,17 +39,19 @@ class RendezvenyController extends Controller
         return redirect()->route('rendezvenyek.index')->with('success', 'Sikeresen létrehoztad ezt a rendezvényt!');
     }
 
-    public function show(Rendezveny $rendezveny)
+    public function show(int $rendezvenyId)
     {
+        $rendezveny = Rendezveny::where('id', $rendezvenyId)->first();
         return view('rendezvenyek.show', compact('rendezveny'));
     }
 
-    public function edit(Rendezveny $rendezveny)
+    public function edit(int $rendezvenyId)
     {
-        return view('rendezvenyek.edit',compact('rendezveny'));
+        $rendezveny = Rendezveny::where('id', $rendezvenyId)->first();
+        return view('rendezvenyek.edit', compact('rendezveny'));
     }
 
-    public function update(Request $request, Rendezveny $rendezveny)
+    public function update(Request $request, int $rendezvenyId)
     {
         $request->validate([
             'nev' => 'required',
@@ -61,13 +62,16 @@ class RendezvenyController extends Controller
             'tipus' => 'required',
         ]);
 
+        $rendezveny = Rendezveny::where('id', $rendezvenyId)->first();
+
         $rendezveny->fill($request->post())->save();
 
         return redirect()->route('rendezvenyek.index')->with('success', 'Sikeresen frissítetted ezt a rendezvényt!');
     }
 
-    public function destroy(Rendezveny $rendezveny)
+    public function destroy(int $rendezvenyId)
     {
+        $rendezveny = Rendezveny::where('id', $rendezvenyId)->first();
         $rendezveny->delete();
         return redirect()->route('rendezvenyek.index')->with('success', 'Sikeresen törölted ezt a rendezvényt!');
     }

@@ -15,7 +15,6 @@ class TanarController extends Controller
     public function index()
     {
         $tanarok = Tanar::orderBy('id','desc')->paginate(5);
-//        dd($tanarok);
         return view('tanarok.index', compact('tanarok'));
     }
 
@@ -39,17 +38,19 @@ class TanarController extends Controller
         return redirect()->route('tanarok.index')->with('success', 'Sikeresen létrehoztad ezt a rendezvényt!');
     }
 
-    public function show(Tanar $tanar)
+    public function show(int $tanarId)
     {
+        $tanar = Tanar::where('id', $tanarId)->first();
         return view('tanarok.show', compact('tanar'));
     }
 
-    public function edit(Tanar $tanar)
+    public function edit(int $tanarId)
     {
-        return view('tanarok.edit',compact('tanar'));
+        $tanar = Tanar::where('id', $tanarId)->first();
+        return view('tanarok.edit', compact('tanar'));
     }
 
-    public function update(Request $request, Tanar $tanar)
+    public function update(Request $request, int $tanarId)
     {
         $request->validate([
             'nev' => 'required',
@@ -59,13 +60,16 @@ class TanarController extends Controller
             'avatar' => 'required',
         ]);
 
+        $tanar = Tanar::where('id', $tanarId)->first();
+
         $tanar->fill($request->post())->save();
 
         return redirect()->route('tanarok.index')->with('success', 'Sikeresen frissítetted ezt a rendezvényt!');
     }
 
-    public function destroy(Tanar $tanar)
+    public function destroy(int $tanarId)
     {
+        $tanar = Tanar::where('id', $tanarId)->first();
         $tanar->delete();
         return redirect()->route('tanarok.index')->with('success', 'Sikeresen törölted ezt a rendezvényt!');
     }

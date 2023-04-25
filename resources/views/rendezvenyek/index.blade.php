@@ -5,7 +5,13 @@
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="card">
-                    <div class="card-header">{{ __('Rendezvények') }}</div>
+                    <div class="card-header">
+                        Rendezvények
+
+                        <div class="float-end">
+                            <a class="btn btn-success" href="{{ route('rendezvenyek.create') }}">Új rendezvény</a>
+                        </div>
+                    </div>
 
                     <div class="card-body">
                         <table class="table table-bordered">
@@ -36,6 +42,9 @@
                                                 action="{{ route('rendezvenyek.destroy', $rendezveny->id) }}"
                                                 method="post"
                                             >
+                                                <a class="btn btn-info" href="{{ route('tanarok.show', $tanar->id) }}">
+                                                    Részletek
+                                                </a>
                                                 <a class="btn btn-primary" href="{{ route('rendezvenyek.edit', $rendezveny->id) }}">
                                                     Módosítás
                                                 </a>
@@ -50,6 +59,7 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        {!! $rendezvenyek->links() !!}
                     </div>
                 </div>
             </div>

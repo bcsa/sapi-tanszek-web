@@ -47,8 +47,8 @@
                                 <div class="col-10 mx-auto">
                                     <div class="form-group">
                                         <strong>Tanár leírás:</strong>
-                                        <input type="text" name="leiras" class="form-control" placeholder="Tanár leírás">
-                                        @error('leiras')
+                                        <input type="text" name="bio" class="form-control" placeholder="Tanár leírás">
+                                        @error('bio')
                                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                         @enderror
                                     </div>

@@ -13,7 +13,56 @@
                         </div>
                     </div>
 
-                    {{ $tanar }}
+                    <div class="row">
+                        <div class="col-10 mx-auto">
+                            <div class="form-group">
+                                <strong>Tanár ID:</strong>
+                                {{ $tanar->id }}
+                            </div>
+                        </div>
+                        <div class="col-10 mx-auto">
+                            <div class="form-group">
+                                <strong>Tanár név:</strong>
+                                {{ $tanar->nev }}
+                            </div>
+                        </div>
+                        <div class="col-10 mx-auto">
+                            <div class="form-group">
+                                <strong>Tanár email:</strong>
+                                {{ $tanar->email }}
+                            </div>
+                        </div>
+                        <div class="col-10 mx-auto">
+                            <div class="form-group">
+                                <strong>Tanár pozíció:</strong>
+                                {{ $tanar->pozicio }}
+                            </div>
+                        </div>
+                        <div class="col-10 mx-auto">
+                            <div class="form-group">
+                                <strong>Tanár leírás:</strong>
+                                {{ $tanar->bio }}
+                            </div>
+                        </div>
+                        <div class="col-10 mx-auto">
+                            <div class="form-group">
+                                <strong>Tanár avatar:</strong>
+                                {{ $tanar->avatar }}
+                            </div>
+                        </div>
+                        <div class="col-10 mx-auto">
+                            <div class="form-group">
+                                <strong>Tanár hozzáadva:</strong>
+                                {{ $tanar->created_at }}
+                            </div>
+                        </div>
+                        <div class="col-10 mx-auto">
+                            <div class="form-group">
+                                <strong>Tanár frissítve:</strong>
+                                {{ $tanar->updated_at }}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

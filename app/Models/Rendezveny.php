@@ -10,4 +10,6 @@ class Rendezveny extends Model
     use HasFactory;
 
     protected $table = 'rendezvenyek';
+
+    protected $fillable = ['nev', 'helyszin', 'idopont', 'kepek', 'leiras', 'tipus'];
 }

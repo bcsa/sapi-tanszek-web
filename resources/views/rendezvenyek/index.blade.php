@@ -42,7 +42,7 @@
                                                 action="{{ route('rendezvenyek.destroy', $rendezveny->id) }}"
                                                 method="post"
                                             >
-                                                <a class="btn btn-info" href="{{ route('tanarok.show', $tanar->id) }}">
+                                                <a class="btn btn-info" href="{{ route('rendezvenyek.show', $rendezveny->id) }}">
                                                     Részletek
                                                 </a>
                                                 <a class="btn btn-primary" href="{{ route('rendezvenyek.edit', $rendezveny->id) }}">

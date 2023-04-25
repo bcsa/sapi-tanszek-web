@@ -10,4 +10,6 @@ class Tanar extends Model
     use HasFactory;
 
     protected $table = 'tanarok';
+
+    protected $fillable = ['nev', 'email', 'pozicio', 'bio', 'avatar'];
 }

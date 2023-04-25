@@ -28,8 +28,8 @@ class RendezvenyController extends Controller
         $request->validate([
             'nev' => 'required',
             'helyszin' => 'required',
-            'idopont' => 'required',
-            'kepek' => 'required',
+            'idopont' => 'required|date',
+            'kepek' => 'nullable',
             'leiras' => 'required',
             'tipus' => 'required',
         ]);
@@ -41,6 +41,7 @@ class RendezvenyController extends Controller
 
     public function show(Rendezveny $rendezveny)
     {
+
         return view('rendezvenyek.show', compact('rendezveny'));
     }
 
@@ -54,8 +55,8 @@ class RendezvenyController extends Controller
         $request->validate([
             'nev' => 'required',
             'helyszin' => 'required',
-            'idopont' => 'required',
-            'kepek' => 'required',
+            'idopont' => 'required|date',
+            'kepek' => 'nullable',
             'leiras' => 'required',
             'tipus' => 'required',
         ]);

@@ -9,7 +9,7 @@
                         Új rendezvény
 
                         <div class="float-end">
-                            <a class="btn btn-primary" href="{{ route('rendezvenyek.index') }}">Vissza</a>
+                            <v-btn small href="{{ route('rendezvenyek.index') }}">Vissza</v-btn>
                         </div>
                     </div>
 
@@ -72,7 +72,7 @@
                                     </div>
                                 </div>
                                 <div class="col-10 mx-auto">
-                                    <button type="submit" class="btn btn-primary">Létrehozás</button>
+                                    <v-btn small type="submit">Létrehozás</v-btn>
                                 </div>
                             </div>
                         </form>

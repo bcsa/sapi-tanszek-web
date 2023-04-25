@@ -32,6 +32,7 @@
                                 </v-label>
                                 <v-text-field
                                     v-model="name"
+                                    dense
                                     solo
                                     placeholder="{{ $user->name }}"
                                     :rules="nameRules"
@@ -39,18 +40,19 @@
                                 ></v-text-field>
                             </v-col>
 
-{{--                            <v-col cols="8" class="py-0">--}}
-{{--                                <v-label>--}}
-{{--                                    Email*--}}
-{{--                                </v-label>--}}
-{{--                                <v-text-field--}}
-{{--                                    v-model="email"--}}
-{{--                                    solo--}}
-{{--                                    placeholder="{{ $user->email }}"--}}
-{{--                                    :rules="emailRules"--}}
-{{--                                    required--}}
-{{--                                ></v-text-field>--}}
-{{--                            </v-col>--}}
+                            <v-col cols="8" class="py-0">
+                                <v-label>
+                                    Email*
+                                </v-label>
+                                <v-text-field
+                                    v-model="email"
+                                    dense
+                                    solo
+                                    placeholder="{{ $user->email }}"
+                                    :rules="emailRules"
+                                    required
+                                ></v-text-field>
+                            </v-col>
 
                             <v-col cols="8" class="py-0">
                                 <v-label>
@@ -58,6 +60,7 @@
                                 </v-label>
                                 <v-text-field
                                     v-model="pozicio"
+                                    dense
                                     solo
                                     placeholder="{{ $user->pozicio ?? 'tanár' }}"
                                 ></v-text-field>
@@ -69,6 +72,7 @@
                                 </v-label>
                                 <v-text-field
                                     v-model="leiras"
+                                    dense
                                     solo
                                     placeholder="{{ $user->leiras ?? 'leírás' }}"
                                 ></v-text-field>
@@ -80,6 +84,7 @@
                                 </v-label>
                                 <v-text-field
                                     v-model="avatar"
+                                    dense
                                     solo
                                     placeholder="{{ $user->avatar ?? 'avatar' }}"
                                 ></v-text-field>
@@ -87,6 +92,7 @@
 
                             <v-col cols="8">
                                 <v-btn
+                                    small
                                     type="submit"
                                     :disabled="isBusy"
                                     :loading="isBusy"

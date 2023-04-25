@@ -9,7 +9,7 @@
                         Rendezvény módosítása
 
                         <div class="float-end">
-                            <a class="btn btn-primary" href="{{ route('rendezvenyek.index') }}">Vissza</a>
+                            <v-btn small href="{{ route('rendezvenyek.index') }}">Vissza</v-btn>
                         </div>
                     </div>
 
@@ -73,7 +73,7 @@
                                     </div>
                                 </div>
                                 <div class="col-10 mx-auto">
-                                    <button type="submit" class="btn btn-primary">Módosítás</button>
+                                    <v-btn small type="submit">Módosítás</v-btn>
                                 </div>
                             </div>
                         </form>

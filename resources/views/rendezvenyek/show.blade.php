@@ -9,7 +9,7 @@
                         Rendezvény részletek
 
                         <div class="float-end">
-                            <a class="btn btn-primary" href="{{ route('rendezvenyek.index') }}">Vissza</a>
+                            <v-btn small href="{{ route('rendezvenyek.index') }}">Vissza</v-btn>
                         </div>
                     </div>
 

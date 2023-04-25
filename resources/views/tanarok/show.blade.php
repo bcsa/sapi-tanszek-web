@@ -9,7 +9,7 @@
                         Tanár részletek
 
                         <div class="float-end">
-                            <a class="btn btn-primary" href="{{ route('tanarok.index') }}">Vissza</a>
+                            <v-btn small href="{{ route('tanarok.index') }}">Vissza</v-btn>
                         </div>
                     </div>
 

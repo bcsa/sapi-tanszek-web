@@ -9,7 +9,7 @@
                         Új tanár
 
                         <div class="float-end">
-                            <a class="btn btn-primary" href="{{ route('tanarok.index') }}">Vissza</a>
+                            <v-btn small href="{{ route('tanarok.index') }}">Vissza</v-btn>
                         </div>
                     </div>
 
@@ -19,8 +19,8 @@
                             <div class="row">
                                 <div class="col-10 mx-auto">
                                     <div class="form-group">
-                                        <strong>Tanár neve:</strong>
-                                        <input type="text" name="nev" class="form-control" placeholder="Tanár neve">
+                                        <strong>Tanár név:</strong>
+                                        <input type="text" name="nev" class="form-control" placeholder="Tanár név">
                                         @error('nev')
                                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                         @enderror
@@ -45,7 +45,25 @@
                                     </div>
                                 </div>
                                 <div class="col-10 mx-auto">
-                                    <button type="submit" class="btn btn-primary">Létrehozás</button>
+                                    <div class="form-group">
+                                        <strong>Tanár leírás:</strong>
+                                        <input type="text" name="leiras" class="form-control" placeholder="Tanár leírás">
+                                        @error('leiras')
+                                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-10 mx-auto">
+                                    <div class="form-group">
+                                        <strong>Tanár avatar:</strong>
+                                        <input type="text" name="avatar" class="form-control" placeholder="Tanár avatar">
+                                        @error('avatar')
+                                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-10 mx-auto">
+                                    <v-btn small type="submit">Létrehozás</v-btn>
                                 </div>
                             </div>
                         </form>

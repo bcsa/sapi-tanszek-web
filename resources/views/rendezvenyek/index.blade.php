@@ -9,7 +9,7 @@
                         Rendezvények
 
                         <div class="float-end">
-                            <a class="btn btn-success" href="{{ route('rendezvenyek.create') }}">Új rendezvény</a>
+                            <v-btn small href="{{ route('rendezvenyek.create') }}">Új rendezvény</v-btn>
                         </div>
                     </div>
 
@@ -42,17 +42,17 @@
                                                 action="{{ route('rendezvenyek.destroy', $rendezveny->id) }}"
                                                 method="post"
                                             >
-                                                <a class="btn btn-info" href="{{ route('rendezvenyek.show', $rendezveny->id) }}">
+                                                <v-btn block small rounded class="mb-3" href="{{ route('rendezvenyek.show', $rendezveny->id) }}">
                                                     Részletek
-                                                </a>
-                                                <a class="btn btn-primary" href="{{ route('rendezvenyek.edit', $rendezveny->id) }}">
+                                                </v-btn>
+                                                <v-btn block small rounded class="mb-3" href="{{ route('rendezvenyek.edit', $rendezveny->id) }}">
                                                     Módosítás
-                                                </a>
+                                                </v-btn>
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger">
+                                                <v-btn block small rounded class="mb-3" type="submit">
                                                     Törlés
-                                                </button>
+                                                </v-btn>
                                             </form>
                                         </td>
                                     </tr>

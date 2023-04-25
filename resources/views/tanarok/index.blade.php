@@ -9,7 +9,7 @@
                         Tanárok
 
                         <div class="float-end">
-                            <a class="btn btn-success" href="{{ route('tanarok.create') }}">Új tanár</a>
+                            <v-btn small href="{{ route('tanarok.create') }}">Új tanár</v-btn>
                         </div>
                     </div>
 
@@ -40,17 +40,17 @@
                                                 action="{{ route('tanarok.destroy', $tanar->id) }}"
                                                 method="post"
                                             >
-                                                <a class="btn btn-info" href="{{ route('tanarok.show', $tanar->id) }}">
+                                                <v-btn block small rounded class="mb-3" href="{{ route('tanarok.show', $tanar->id) }}">
                                                     Részletek
-                                                </a>
-                                                <a class="btn btn-primary" href="{{ route('tanarok.edit', $tanar->id) }}">
+                                                </v-btn>
+                                                <v-btn block small rounded class="mb-3" href="{{ route('tanarok.edit', $tanar->id) }}">
                                                     Módosítás
-                                                </a>
+                                                </v-btn>
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger">
+                                                <v-btn block small rounded type="submit">
                                                     Törlés
-                                                </button>
+                                                </v-btn>
                                             </form>
                                         </td>
                                     </tr>

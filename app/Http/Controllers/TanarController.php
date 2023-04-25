@@ -40,13 +40,13 @@ class TanarController extends Controller
 
     public function show(int $tanarId)
     {
-        $tanar = Tanar::where('id', $tanarId)->first();
+        $tanar = Tanar::find($tanarId);
         return view('tanarok.show', compact('tanar'));
     }
 
     public function edit(int $tanarId)
     {
-        $tanar = Tanar::where('id', $tanarId)->first();
+        $tanar = Tanar::find($tanarId);
         return view('tanarok.edit', compact('tanar'));
     }
 
@@ -60,7 +60,7 @@ class TanarController extends Controller
             'avatar' => 'required',
         ]);
 
-        $tanar = Tanar::where('id', $tanarId)->first();
+        $tanar = Tanar::find($tanarId);
 
         $tanar->fill($request->post())->save();
 
@@ -69,7 +69,7 @@ class TanarController extends Controller
 
     public function destroy(int $tanarId)
     {
-        $tanar = Tanar::where('id', $tanarId)->first();
+        $tanar = Tanar::find($tanarId);
         $tanar->delete();
         return redirect()->route('tanarok.index')->with('success', 'Sikeresen törölted ezt a rendezvényt!');
     }

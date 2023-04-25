@@ -41,13 +41,13 @@ class RendezvenyController extends Controller
 
     public function show(int $rendezvenyId)
     {
-        $rendezveny = Rendezveny::where('id', $rendezvenyId)->first();
+        $rendezveny = Rendezveny::find($rendezvenyId);
         return view('rendezvenyek.show', compact('rendezveny'));
     }
 
     public function edit(int $rendezvenyId)
     {
-        $rendezveny = Rendezveny::where('id', $rendezvenyId)->first();
+        $rendezveny = Rendezveny::find($rendezvenyId);
         return view('rendezvenyek.edit', compact('rendezveny'));
     }
 
@@ -62,7 +62,7 @@ class RendezvenyController extends Controller
             'tipus' => 'required',
         ]);
 
-        $rendezveny = Rendezveny::where('id', $rendezvenyId)->first();
+        $rendezveny = Rendezveny::find($rendezvenyId);
 
         $rendezveny->fill($request->post())->save();
 
@@ -71,7 +71,7 @@ class RendezvenyController extends Controller
 
     public function destroy(int $rendezvenyId)
     {
-        $rendezveny = Rendezveny::where('id', $rendezvenyId)->first();
+        $rendezveny = Rendezveny::find($rendezvenyId);
         $rendezveny->delete();
         return redirect()->route('rendezvenyek.index')->with('success', 'Sikeresen törölted ezt a rendezvényt!');
     }

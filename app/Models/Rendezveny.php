@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -24,18 +25,23 @@ class Rendezveny extends Model
         'kepek' => 'array'
     ];
 
-    public function getEvAttribute()
+    public function getIdopontAttribute($date): string
     {
-        return $this->idopont->format('Y');
+        return Carbon::parse($date)->toDateString();
     }
 
-    public function getHonapAttribute()
+    public function getEvAttribute(): string
     {
-        return $this->idopont->format('M');
+        return Carbon::parse($this->attributes['idopont'])->format('Y');
     }
 
-    public function getNapAttribute()
+    public function getHonapAttribute(): string
     {
-        return $this->idopont->format('d');
+        return Carbon::parse($this->attributes['idopont'])->getTranslatedShortMonthName();
+    }
+
+    public function getNapAttribute(): string
+    {
+        return Carbon::parse($this->attributes['idopont'])->format('d');
     }
 }

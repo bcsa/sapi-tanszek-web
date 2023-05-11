@@ -31,26 +31,28 @@ p {
 }
 
 .rendezveny-wrapper {
+    background-color: forestgreen;
     margin-bottom: 20px;
 
     .col {
-        background-color: lightblue;
+        background-color: lightgreen;
     }
 
     .details {
-        background-color: lightskyblue;
+        background-color: forestgreen;
 
         &.helyszin {
             text-align: center;
+            color: white;
         }
 
         .datum {
             display: block;
-            color: midnightblue;
+            color: white;
 
             &.honap {
                 font-weight: bold;
-                font-size: 1.5rem;
+                font-size: 1.3rem;
             }
 
             &.nap {
@@ -59,7 +61,7 @@ p {
             }
 
             &.ev {
-
+                font-size: 1.2rem;
             }
         }
     }

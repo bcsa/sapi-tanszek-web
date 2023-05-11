@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Carbon\Carbon;
 use Illuminate\Pagination\Paginator;
 use View;
 use Jenssegers\Agent\Agent;
@@ -29,5 +30,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Paginator::useBootstrapFive();
+
+        Carbon::setLocale('hu');
     }
 }

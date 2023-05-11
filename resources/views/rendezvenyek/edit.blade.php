@@ -39,7 +39,7 @@
                                 <div class="col-10 mx-auto">
                                     <div class="form-group">
                                         <strong>Rendezvény időpont:</strong>
-                                        <input type="date" name="idopont" value="{{ $rendezveny->idopont->toDateString() }}" class="form-control" placeholder="Rendezvény időpont">
+                                        <input type="date" name="idopont" value="{{ $rendezveny->idopont }}" class="form-control" placeholder="Rendezvény időpont">
                                         @error('idopont')
                                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                         @enderror
@@ -51,7 +51,8 @@
                                         @foreach ((array) $rendezveny->kepek as $kep)
                                             <img src="{{ asset('storage/kepek/'.$kep) }}" width="150" height="auto" alt="">
                                         @endforeach
-                                        @error('kepek')
+                                        <input type="file" accept="image/*" name="kepek[]" class="form-control" multiple />
+                                        @error('kepek.*')
                                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                         @enderror
                                     </div>

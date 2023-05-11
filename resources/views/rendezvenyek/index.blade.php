@@ -33,7 +33,7 @@
                                         <td>{{ $rendezveny->id }}</td>
                                         <td>{{ $rendezveny->nev }}</td>
                                         <td>{{ $rendezveny->helyszin }}</td>
-                                        <td>{{ $rendezveny->idopont->toDateString() }}</td>
+                                        <td>{{ $rendezveny->idopont }}</td>
                                         <td>
                                             @if ($rendezveny->kepek)
                                                 <img src="{{ asset('storage/kepek/' . $rendezveny->kepek[0]) }}" width="150" height="auto" alt="">

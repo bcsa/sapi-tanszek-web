@@ -14,13 +14,13 @@ class RendezvenyController extends Controller
 
     public function home()
     {
-        $rendezvenyek = Rendezveny::orderBy('id','desc')->cursorPaginate(10);
+        $rendezvenyek = Rendezveny::orderBy('idopont','desc')->cursorPaginate(10);
         return view('home', compact('rendezvenyek'));
     }
 
     public function index()
     {
-        $rendezvenyek = Rendezveny::orderBy('id','desc')->cursorPaginate(10);
+        $rendezvenyek = Rendezveny::orderBy('idopont','desc')->paginate(10);
         return view('rendezvenyek.index', compact('rendezvenyek'));
     }
 
@@ -65,8 +65,15 @@ class RendezvenyController extends Controller
 
     public function search(Request $request)
     {
+        $rendezvenyek = Rendezveny::orderBy('id','desc')
+            ->where('leiras', 'like', "%$request->search_term%")
+            ->orWhere('nev', 'like', "%$request->search_term%")
+            ->orWhere('idopont', 'like', "%$request->search_term%")
+            ->orWhere('helyszin', 'like', "%$request->search_term%")
+            ->orWhere('tipus', 'like', "%$request->search_term%")
+            ->cursorPaginate(10);
 
-        return $request->all();
+        return route('home', compact('rendezvenyek'));
     }
 
     public function show(Rendezveny $rendezveny)

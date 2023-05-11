@@ -48,7 +48,7 @@
                                     <div class="form-group">
                                         <strong>Rendezvény képek:</strong>
                                         <input type="file" accept="image/*" name="kepek[]" class="form-control" multiple />
-                                        @error('kepek')
+                                        @error('kepek.*')
                                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                         @enderror
                                     </div>

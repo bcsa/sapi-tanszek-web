@@ -30,25 +30,21 @@ class RendezvenyController extends Controller
             'helyszin' => 'required',
             'idopont' => 'required|date',
             'leiras' => 'required',
+            'kepek.*' => 'image',
             'tipus' => 'required',
+        ], [
+            'kepek.*.image' => 'Csak képek!',
         ]);
 
         if($request->hasFile('kepek'))
         {
-            $allowedExtensions = ['jpg','jpeg','png'];
             $files = $request->file('kepek');
 
             foreach($files as $file) {
                 $filename = $file->getClientOriginalName();
-                $extension = $file->getClientOriginalExtension();
-                $check = in_array($extension, $allowedExtensions);
+                $file->move(storage_path('app/public/kepek'), $filename);
 
-                if($check) {
-                    $file->move(storage_path('app/public/kepek'), $filename);
-                    $kepek[] = $filename;
-                } else {
-                    return false;
-                }
+                $kepek[] = $filename;
             }
         }
 
@@ -58,6 +54,12 @@ class RendezvenyController extends Controller
         Rendezveny::create($data->all());
 
         return redirect()->route('rendezvenyek.index')->with('success', 'Sikeresen létrehoztad ezt a rendezvényt!');
+    }
+
+    public function search(Request $request)
+    {
+
+        return $request->all();
     }
 
     public function show(Rendezveny $rendezveny)

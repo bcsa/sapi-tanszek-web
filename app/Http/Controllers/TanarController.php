@@ -30,23 +30,15 @@ class TanarController extends Controller
             'email' => 'required',
             'pozicio' => 'required',
             'bio' => 'required',
-            'avatar' => 'required',
+            'avatar' => 'required|image',
         ]);
 
         if($request->hasFile('avatar'))
         {
-            $allowedExtensions = ['jpg','jpeg','png'];
             $file = $request->file('avatar');
-
             $filename = $file->getClientOriginalName();
-            $extension = $file->getClientOriginalExtension();
-            $check = in_array($extension, $allowedExtensions);
 
-            if($check) {
-                $file->move(storage_path('app/public/kepek'), $filename);
-            } else {
-                return false;
-            }
+            $file->move(storage_path('app/public/kepek'), $filename);
         }
 
         $data = collect($request->all());

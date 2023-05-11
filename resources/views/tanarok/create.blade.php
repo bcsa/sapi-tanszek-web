@@ -56,7 +56,7 @@
                                 <div class="col-10 mx-auto">
                                     <div class="form-group">
                                         <strong>Tanár avatar:</strong>
-                                        <input type="text" name="avatar" class="form-control" placeholder="Tanár avatar">
+                                        <input type="file" accept="image/*" name="avatar" class="form-control" placeholder="Tanár avatar"/>
                                         @error('avatar')
                                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                         @enderror

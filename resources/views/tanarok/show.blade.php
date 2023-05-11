@@ -47,7 +47,7 @@
                         <div class="col-10 mx-auto">
                             <div class="form-group">
                                 <strong>Tanár avatar:</strong>
-                                {{ $tanar->avatar }}
+                                <img src="{{ asset('storage/kepek/'.$tanar->avatar) }}" width="150" height="auto" alt="">
                             </div>
                         </div>
                         <div class="col-10 mx-auto">

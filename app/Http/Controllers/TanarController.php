@@ -33,7 +33,26 @@ class TanarController extends Controller
             'avatar' => 'required',
         ]);
 
-        Tanar::create($request->post());
+        if($request->hasFile('avatar'))
+        {
+            $allowedExtensions = ['jpg','jpeg','png'];
+            $file = $request->file('avatar');
+
+            $filename = $file->getClientOriginalName();
+            $extension = $file->getClientOriginalExtension();
+            $check = in_array($extension, $allowedExtensions);
+
+            if($check) {
+                $file->move(storage_path('app/public/kepek'), $filename);
+            } else {
+                return false;
+            }
+        }
+
+        $data = collect($request->all());
+        $data->put('avatar', $filename);
+
+        Tanar::create($data->all());
 
         return redirect()->route('tanarok.index')->with('success', 'Sikeresen létrehoztad ezt a rendezvényt!');
     }
@@ -45,6 +64,7 @@ class TanarController extends Controller
 
     public function edit(Tanar $tanar)
     {
+        // TODO: avatar edit
         return view('tanarok.edit', compact('tanar'));
     }
 

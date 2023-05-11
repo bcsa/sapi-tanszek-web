@@ -47,7 +47,7 @@
                                 <div class="col-10 mx-auto">
                                     <div class="form-group">
                                         <strong>Rendezvény képek:</strong>
-                                        <input type="file" name="kepek[]" class="form-control" multiple />
+                                        <input type="file" accept="image/*" name="kepek[]" class="form-control" multiple />
                                         @error('kepek')
                                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                         @enderror

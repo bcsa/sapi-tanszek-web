@@ -34,7 +34,9 @@
                                         <td>{{ $tanar->email }}</td>
                                         <td>{{ $tanar->pozicio }}</td>
                                         <td>{{ $tanar->bio }}</td>
-                                        <td>{{ $tanar->avatar }}</td>
+                                        <td>
+                                            <img src="{{ asset('storage/kepek/'.$tanar->avatar) }}" width="150" height="auto" alt="">
+                                        </td>
                                         <td>
                                             <form
                                                 action="{{ route('tanarok.destroy', $tanar->id) }}"

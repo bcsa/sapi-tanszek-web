@@ -61,8 +61,7 @@
                                 <div class="col-10 mx-auto">
                                     <div class="form-group">
                                         <strong>Tanár avatar:</strong>
-                                        <input type="text" name="avatar" value="{{ $tanar->avatar }}" class="form-control"
-                                               placeholder="Tanár avatar">
+                                        <img src="{{ asset('storage/kepek/'.$tanar->avatar) }}" width="150" height="auto" alt="">
                                         @error('avatar')
                                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                         @enderror

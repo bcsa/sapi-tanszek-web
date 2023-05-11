@@ -1,3 +1,5 @@
+// import FileDrop from "./Helpers/FileDrop.vue";
+
 require('./bootstrap');
 
 import Vue from 'vue';
@@ -13,13 +15,15 @@ import bootstrap from 'bootstrap'
 
 import * as VueGoogleMaps from "vue2-google-maps" // Import package
 
+Vue.component('file-drop', FileDrop)
+
 Vue.config.productionTip = false
-Vue.use(VueGoogleMaps, {
-    load: {
-        key: "AIzaSyBZEktUDzqx5sA6EJsNe53HRw5RA_l4eEQ",
-        libraries: "places"
-    }
-});
+// Vue.use(VueGoogleMaps, {
+//     load: {
+//         key: "AIzaSyBZEktUDzqx5sA6EJsNe53HRw5RA_l4eEQ",
+//         libraries: "places"
+//     }
+// });
 
 Vue.prototype._ = _
 

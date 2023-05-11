@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Rendezveny;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $rendezvenyek = Rendezveny::orderBy('id', 'desc')->paginate(10);
+        return view('home', compact('rendezvenyek'));
     }
 }

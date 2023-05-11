@@ -34,7 +34,11 @@
                                         <td>{{ $rendezveny->nev }}</td>
                                         <td>{{ $rendezveny->helyszin }}</td>
                                         <td>{{ $rendezveny->idopont }}</td>
-                                        <td>{{ $rendezveny->kepek }}</td>
+                                        <td>
+                                            @foreach ((array) $rendezveny->kepek as $kep)
+                                                <img src="{{ asset('storage/kepek/'.$kep) }}" width="150" height="auto" alt="">
+                                            @endforeach
+                                        </td>
                                         <td>{{ $rendezveny->leiras }}</td>
                                         <td>{{ $rendezveny->tipus }}</td>
                                         <td>

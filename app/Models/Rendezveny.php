@@ -12,4 +12,30 @@ class Rendezveny extends Model
     protected $table = 'rendezvenyek';
 
     protected $fillable = ['nev', 'helyszin', 'idopont', 'kepek', 'leiras', 'tipus'];
+
+    protected $appends = [
+        'ev',
+        'honap',
+        'nap',
+    ];
+
+    protected $casts = [
+        'idopont' => 'date',
+        'kepek' => 'array'
+    ];
+
+    public function getEvAttribute()
+    {
+        return $this->idopont->format('Y');
+    }
+
+    public function getHonapAttribute()
+    {
+        return $this->idopont->format('M');
+    }
+
+    public function getNapAttribute()
+    {
+        return $this->idopont->format('d');
+    }
 }

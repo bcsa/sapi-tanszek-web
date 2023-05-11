@@ -33,6 +33,7 @@
         "@popperjs/core": "^2.11.6",
         "animate.css": "^4.1.1",
         "bootstrap": "5.2.0",
+        "dropzone": "^6.0.0-beta.2",
         "laravel-mix-clean": "^0.1.0",
         "vue": "^2.6.1",
         "vue-responsive-video-background-player": "^1.2.2",

@@ -47,7 +47,7 @@
                                 <div class="col-10 mx-auto">
                                     <div class="form-group">
                                         <strong>Rendezvény képek:</strong>
-                                        <input type="text" name="kepek" class="form-control" placeholder="Rendezvény képek">
+                                        <input type="file" name="kepek[]" class="form-control" multiple />
                                         @error('kepek')
                                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                         @enderror
@@ -72,7 +72,7 @@
                                     </div>
                                 </div>
                                 <div class="col-10 mx-auto">
-                                    <v-btn small type="submit">Létrehozás</v-btn>
+                                    <v-btn small type="submit" id="submit">Létrehozás</v-btn>
                                 </div>
                             </div>
                         </form>

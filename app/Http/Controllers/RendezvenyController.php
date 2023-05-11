@@ -14,7 +14,7 @@ class RendezvenyController extends Controller
      */
     public function index()
     {
-        $rendezvenyek = Rendezveny::orderBy('id','desc')->paginate(5);
+        $rendezvenyek = Rendezveny::orderBy('id','desc')->cursorPaginate(10);
         return view('rendezvenyek.index', compact('rendezvenyek'));
     }
 
@@ -29,19 +29,39 @@ class RendezvenyController extends Controller
             'nev' => 'required',
             'helyszin' => 'required',
             'idopont' => 'required|date',
-            'kepek' => 'nullable',
             'leiras' => 'required',
             'tipus' => 'required',
         ]);
 
-        Rendezveny::create($request->post());
+        if($request->hasFile('kepek'))
+        {
+            $allowedExtensions = ['jpg','jpeg','png'];
+            $files = $request->file('kepek');
+
+            foreach($files as $file) {
+                $filename = $file->getClientOriginalName();
+                $extension = $file->getClientOriginalExtension();
+                $check = in_array($extension, $allowedExtensions);
+
+                if($check) {
+                    $file->move(storage_path('app/public/kepek'), $filename);
+                    $kepek[] = $filename;
+                } else {
+                    return false;
+                }
+            }
+        }
+
+        $data = collect($request->all());
+        $data->put('kepek', $kepek);
+
+        Rendezveny::create($data->all());
 
         return redirect()->route('rendezvenyek.index')->with('success', 'Sikeresen létrehoztad ezt a rendezvényt!');
     }
 
     public function show(Rendezveny $rendezveny)
     {
-
         return view('rendezvenyek.show', compact('rendezveny'));
     }
 

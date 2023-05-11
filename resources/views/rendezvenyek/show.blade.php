@@ -41,7 +41,9 @@
                         <div class="col-10 mx-auto">
                             <div class="form-group">
                                 <strong>Rendezvény képek:</strong>
-                                {{ $rendezveny->kepek }}
+                                @foreach ((array) $rendezveny->kepek as $kep)
+                                    <img src="{{ asset('storage/kepek/'.$kep) }}" width="150" height="auto" alt="">
+                                @endforeach
                             </div>
                         </div>
                         <div class="col-10 mx-auto">

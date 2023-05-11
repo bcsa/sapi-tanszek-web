@@ -29,3 +29,38 @@ p {
 .p-relative {
     position: relative;
 }
+
+.rendezveny-wrapper {
+    margin-bottom: 20px;
+
+    .col {
+        background-color: lightblue;
+    }
+
+    .details {
+        background-color: lightskyblue;
+
+        &.helyszin {
+            text-align: center;
+        }
+
+        .datum {
+            display: block;
+            color: midnightblue;
+
+            &.honap {
+                font-weight: bold;
+                font-size: 1.5rem;
+            }
+
+            &.nap {
+                font-weight: bold;
+                font-size: 2rem;
+            }
+
+            &.ev {
+
+            }
+        }
+    }
+}

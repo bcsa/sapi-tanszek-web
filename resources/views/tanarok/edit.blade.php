@@ -14,7 +14,7 @@
                     </div>
 
                     <div class="card-body">
-                        <form action="" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('tanarok.update', $tanar->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="row">
@@ -62,6 +62,7 @@
                                     <div class="form-group">
                                         <strong>Tanár avatar:</strong>
                                         <img src="{{ asset('storage/kepek/'.$tanar->avatar) }}" width="150" height="auto" alt="">
+                                        <input type="file" accept="image/*" name="avatar" class="form-control" placeholder="Tanár avatar"/>
                                         @error('avatar')
                                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                         @enderror

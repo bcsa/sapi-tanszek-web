@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-10">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
                         Rendezvények
@@ -33,13 +33,13 @@
                                         <td>{{ $rendezveny->id }}</td>
                                         <td>{{ $rendezveny->nev }}</td>
                                         <td>{{ $rendezveny->helyszin }}</td>
-                                        <td>{{ $rendezveny->idopont }}</td>
+                                        <td>{{ $rendezveny->idopont->toDateString() }}</td>
                                         <td>
                                             @foreach ((array) $rendezveny->kepek as $kep)
                                                 <img src="{{ asset('storage/kepek/'.$kep) }}" width="150" height="auto" alt="">
                                             @endforeach
                                         </td>
-                                        <td>{{ $rendezveny->leiras }}</td>
+                                        <td>{{ Str::limit($rendezveny->leiras, 200) }}</td>
                                         <td>{{ $rendezveny->tipus }}</td>
                                         <td>
                                             <form

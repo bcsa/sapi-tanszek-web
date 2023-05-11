@@ -35,7 +35,7 @@
                         <div class="col-10 mx-auto">
                             <div class="form-group">
                                 <strong>Rendezvény időpont:</strong>
-                                {{ $rendezveny->idopont }}
+                                {{ $rendezveny->idopont->toDateString() }}
                             </div>
                         </div>
                         <div class="col-10 mx-auto">

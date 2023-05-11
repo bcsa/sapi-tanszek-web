@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-10">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
                         Tanárok
@@ -33,7 +33,7 @@
                                         <td>{{ $tanar->nev }}</td>
                                         <td>{{ $tanar->email }}</td>
                                         <td>{{ $tanar->pozicio }}</td>
-                                        <td>{{ $tanar->bio }}</td>
+                                        <td>{{ Str::limit($tanar->bio, 200) }}</td>
                                         <td>
                                             <img src="{{ asset('storage/kepek/'.$tanar->avatar) }}" width="150" height="auto" alt="">
                                         </td>

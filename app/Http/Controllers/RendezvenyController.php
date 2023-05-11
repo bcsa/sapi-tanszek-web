@@ -7,11 +7,17 @@ use Illuminate\Http\Request;
 
 class RendezvenyController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    public function home()
+    {
+        $rendezvenyek = Rendezveny::orderBy('id','desc')->cursorPaginate(10);
+        return view('home', compact('rendezvenyek'));
+    }
+
     public function index()
     {
         $rendezvenyek = Rendezveny::orderBy('id','desc')->cursorPaginate(10);
@@ -69,12 +75,12 @@ class RendezvenyController extends Controller
 
     public function edit(Rendezveny $rendezveny)
     {
-        // TODO: kepek edit
         return view('rendezvenyek.edit', compact('rendezveny'));
     }
 
     public function update(Request $request, Rendezveny $rendezveny)
     {
+        // TODO: kepek edit
         $request->validate([
             'nev' => 'required',
             'helyszin' => 'required',

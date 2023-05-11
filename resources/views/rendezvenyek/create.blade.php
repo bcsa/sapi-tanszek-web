@@ -38,7 +38,7 @@
                                 <div class="col-10 mx-auto">
                                     <div class="form-group">
                                         <strong>Rendezvény időpont:</strong>
-                                        <input type="text" name="idopont" class="form-control" placeholder="Rendezvény időpont">
+                                        <input type="date" name="idopont" class="form-control" placeholder="Rendezvény időpont">
                                         @error('idopont')
                                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                         @enderror

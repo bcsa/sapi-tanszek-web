@@ -14,7 +14,7 @@ class TanarController extends Controller
      */
     public function index()
     {
-        $tanarok = Tanar::orderBy('id','desc')->paginate(5);
+        $tanarok = Tanar::orderBy('id','desc')->cursorPaginate(10);
         return view('tanarok.index', compact('tanarok'));
     }
 
@@ -56,7 +56,6 @@ class TanarController extends Controller
 
     public function edit(Tanar $tanar)
     {
-        // TODO: avatar edit
         return view('tanarok.edit', compact('tanar'));
     }
 
@@ -70,7 +69,18 @@ class TanarController extends Controller
             'avatar' => 'required',
         ]);
 
-        $tanar->fill($request->post())->save();
+        if($request->hasFile('avatar'))
+        {
+            $file = $request->file('avatar');
+            $filename = $file->getClientOriginalName();
+
+            $file->move(storage_path('app/public/kepek'), $filename);
+        }
+
+        $data = collect($request->all());
+        $data->put('avatar', $filename);
+
+        $tanar->fill($data->all())->save();
 
         return redirect()->route('tanarok.index')->with('success', 'Sikeresen frissítetted ezt a tanárt!');
     }

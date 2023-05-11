@@ -34,7 +34,9 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [RendezvenyController::class, 'home'])->name('home');
+
+Route::post('/rendezvenyek/search', [RendezvenyController::class, 'search']);
 
 Route::get('profile', 'AdminController@index')->name('profile');
 Route::post('profile', 'AdminController@store')->name('submit-profile');

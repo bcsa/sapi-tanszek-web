@@ -14,7 +14,7 @@
                     </div>
 
                     <div class="card-body">
-                        <form action="" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('rendezvenyek.update', $rendezveny->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="row">
@@ -39,7 +39,7 @@
                                 <div class="col-10 mx-auto">
                                     <div class="form-group">
                                         <strong>Rendezvény időpont:</strong>
-                                        <input type="text" name="pozicio" value="{{ $rendezveny->pozicio }}" class="form-control" placeholder="Rendezvény időpont">
+                                        <input type="date" name="idopont" value="{{ $rendezveny->idopont->toDateString() }}" class="form-control" placeholder="Rendezvény időpont">
                                         @error('idopont')
                                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                         @enderror

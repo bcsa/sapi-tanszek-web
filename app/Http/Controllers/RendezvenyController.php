@@ -67,6 +67,7 @@ class RendezvenyController extends Controller
 
     public function edit(Rendezveny $rendezveny)
     {
+        // TODO: kepek edit
         return view('rendezvenyek.edit', compact('rendezveny'));
     }
 

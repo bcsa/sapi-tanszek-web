@@ -48,7 +48,9 @@
                                 <div class="col-10 mx-auto">
                                     <div class="form-group">
                                         <strong>Rendezvény képek:</strong>
-                                        <input type="text" name="kepek" value="{{ $rendezveny->kepek }}" class="form-control" placeholder="Rendezvény képek">
+                                        @foreach ((array) $rendezveny->kepek as $kep)
+                                            <img src="{{ asset('storage/kepek/'.$kep) }}" width="150" height="auto" alt="">
+                                        @endforeach
                                         @error('kepek')
                                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                         @enderror

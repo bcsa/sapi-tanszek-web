@@ -15,7 +15,7 @@ import bootstrap from 'bootstrap'
 
 import * as VueGoogleMaps from "vue2-google-maps" // Import package
 
-Vue.component('file-drop', FileDrop)
+// Vue.component('file-drop', FileDrop)
 
 Vue.config.productionTip = false
 // Vue.use(VueGoogleMaps, {

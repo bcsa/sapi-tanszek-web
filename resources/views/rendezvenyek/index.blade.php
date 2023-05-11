@@ -35,9 +35,9 @@
                                         <td>{{ $rendezveny->helyszin }}</td>
                                         <td>{{ $rendezveny->idopont->toDateString() }}</td>
                                         <td>
-                                            @foreach ((array) $rendezveny->kepek as $kep)
-                                                <img src="{{ asset('storage/kepek/'.$kep) }}" width="150" height="auto" alt="">
-                                            @endforeach
+                                            @if ($rendezveny->kepek)
+                                                <img src="{{ asset('storage/kepek/' . $rendezveny->kepek[0]) }}" width="150" height="auto" alt="">
+                                            @endif
                                         </td>
                                         <td>{{ Str::limit($rendezveny->leiras, 200) }}</td>
                                         <td>{{ $rendezveny->tipus }}</td>

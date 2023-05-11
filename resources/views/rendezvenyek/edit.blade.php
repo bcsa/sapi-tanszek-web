@@ -59,7 +59,7 @@
                                 <div class="col-10 mx-auto">
                                     <div class="form-group">
                                         <strong>Rendezvény leírás:</strong>
-                                        <input type="text" name="leiras" value="{{ $rendezveny->leiras }}" class="form-control" placeholder="Rendezvény leírás">
+                                        <textarea name="leiras" class="form-control" placeholder="Rendezvény leírás" rows="5">{{ $rendezveny->leiras }}</textarea>
                                         @error('leiras')
                                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                         @enderror

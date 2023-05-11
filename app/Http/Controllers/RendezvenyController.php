@@ -42,6 +42,8 @@ class RendezvenyController extends Controller
             'kepek.*.image' => 'Csak képek!',
         ]);
 
+        $data = collect($request->all());
+
         if($request->hasFile('kepek'))
         {
             $files = $request->file('kepek');
@@ -52,10 +54,9 @@ class RendezvenyController extends Controller
 
                 $kepek[] = $filename;
             }
-        }
 
-        $data = collect($request->all());
-        $data->put('kepek', $kepek);
+            $data->put('kepek', $kepek);
+        }
 
         Rendezveny::create($data->all());
 

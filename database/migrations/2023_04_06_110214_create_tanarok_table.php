@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nev');
             $table->string('email')->unique();
             $table->string('pozicio')->nullable();
-            $table->string('bio')->nullable();
+            $table->text('bio')->nullable();
             $table->string('avatar')->nullable();
             $table->timestamps();
         });

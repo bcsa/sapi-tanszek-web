@@ -51,8 +51,7 @@
                                 <div class="col-10 mx-auto">
                                     <div class="form-group">
                                         <strong>Tanár leírás:</strong>
-                                        <input type="text" name="bio" value="{{ $tanar->bio }}" class="form-control"
-                                               placeholder="Tanár leírás">
+                                        <textarea name="bio" class="form-control" placeholder="Tanár leírás" rows="5">{{ $tanar->bio }}</textarea>
                                         @error('bio')
                                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                         @enderror

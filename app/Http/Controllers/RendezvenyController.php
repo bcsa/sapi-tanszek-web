@@ -18,8 +18,8 @@ class RendezvenyController extends Controller
             $var = request('search');
 
             $rendezvenyek = Rendezveny::orderBy('idopont','desc')
-                ->where('leiras', 'like', "%$var%")
-                ->orWhere('nev', 'like', "%$var%")
+                ->where('nev', 'like', "%$var%")
+                ->orWhere('leiras', 'like', "%$var%")
                 ->orWhere('idopont', 'like', "%$var%")
                 ->orWhere('helyszin', 'like', "%$var%")
                 ->orWhere('tipus', 'like', "%$var%")

@@ -44,17 +44,17 @@
                     @endif
 
                     @forelse ($rendezvenyek as $rendezveny)
-                        <v-row class="rendezveny-wrapper">
+                        <v-row class="rendezveny-wrapper" @click="redirectToShow({{$rendezveny->id}})">
                             <v-col cols="1" class="details text-center align-self-center">
-                                <div class="datum nap">
+                                <div class="datum nap text-no-wrap">
                                     {{ $rendezveny->nap }}
                                 </div>
 
-                                <div class="datum honap">
+                                <div class="datum honap text-no-wrap">
                                     {{ $rendezveny->honap }}
                                 </div>
 
-                                <div class="datum ev">
+                                <div class="datum ev text-no-wrap">
                                     {{ $rendezveny->ev }}
                                 </div>
                             </v-col>
@@ -104,6 +104,10 @@
             // },
 
             methods: {
+                redirectToShow(id) {
+                    window.location.href = route('rendezvenyek.show', id)
+                },
+
                 search() {
                     let params = {
                         'test': 123

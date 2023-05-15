@@ -54,41 +54,41 @@
                                 ></v-text-field>
                             </v-col>
 
-                            <v-col cols="8" class="py-0">
-                                <v-label>
-                                    Pozíció
-                                </v-label>
-                                <v-text-field
-                                    v-model="pozicio"
-                                    dense
-                                    solo
-                                    placeholder="{{ $tanar->pozicio ?? 'tanár' }}"
-                                ></v-text-field>
-                            </v-col>
+{{--                            <v-col cols="8" class="py-0">--}}
+{{--                                <v-label>--}}
+{{--                                    Pozíció--}}
+{{--                                </v-label>--}}
+{{--                                <v-text-field--}}
+{{--                                    v-model="pozicio"--}}
+{{--                                    dense--}}
+{{--                                    solo--}}
+{{--                                    placeholder="{{ $tanar->pozicio ?? 'tanár' }}"--}}
+{{--                                ></v-text-field>--}}
+{{--                            </v-col>--}}
 
-                            <v-col cols="8" class="py-0">
-                                <v-label>
-                                    Leírás
-                                </v-label>
-                                <v-text-field
-                                    v-model="leiras"
-                                    dense
-                                    solo
-                                    placeholder="{{ $tanar->leiras ?? 'leírás' }}"
-                                ></v-text-field>
-                            </v-col>
+{{--                            <v-col cols="8" class="py-0">--}}
+{{--                                <v-label>--}}
+{{--                                    Leírás--}}
+{{--                                </v-label>--}}
+{{--                                <v-text-field--}}
+{{--                                    v-model="leiras"--}}
+{{--                                    dense--}}
+{{--                                    solo--}}
+{{--                                    placeholder="{{ $tanar->leiras ?? 'leírás' }}"--}}
+{{--                                ></v-text-field>--}}
+{{--                            </v-col>--}}
 
-                            <v-col cols="8" class="py-0">
-                                <v-label>
-                                    Avatar
-                                </v-label>
-                                <v-text-field
-                                    v-model="avatar"
-                                    dense
-                                    solo
-                                    placeholder="{{ $tanar->avatar ?? 'avatar' }}"
-                                ></v-text-field>
-                            </v-col>
+{{--                            <v-col cols="8" class="py-0">--}}
+{{--                                <v-label>--}}
+{{--                                    Avatar--}}
+{{--                                </v-label>--}}
+{{--                                <v-text-field--}}
+{{--                                    v-model="avatar"--}}
+{{--                                    dense--}}
+{{--                                    solo--}}
+{{--                                    placeholder="{{ $tanar->avatar ?? 'avatar' }}"--}}
+{{--                                ></v-text-field>--}}
+{{--                            </v-col>--}}
 
                             <v-col cols="8">
                                 <v-btn
@@ -117,9 +117,9 @@
             data: {
                 name: null,
                 email: null,
-                leiras: null,
-                pozicio: null,
-                avatar: null,
+                // leiras: null,
+                // pozicio: null,
+                // avatar: null,
                 isBusy: false,
                 isSent: false,
                 errorMessage: null,
@@ -148,8 +148,8 @@
                         axios.post(route('submit-profile'), {
                             name: this.name,
                             email: this.email,
-                            pozicio: this.pozicio,
-                            leiras: this.leiras,
+                            // pozicio: this.pozicio,
+                            // leiras: this.leiras,
                         }).then((response) => {
                             this.$refs.updateForm.reset()
                             this.isBusy = false

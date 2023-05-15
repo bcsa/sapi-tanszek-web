@@ -29,8 +29,8 @@
                                 type="search"
                                 class="form-control"
                                 placeholder="Keresés"
-                                name="search"
-                                value="{{ request('search') }}"
+                                name="s"
+                                value="{{ request('s') }}"
                             >
                         </form>
                     </v-col>
@@ -77,7 +77,7 @@
                             </v-col>
                         </v-row>
                     @empty
-                        Üres.
+                        Nincs találat.
                     @endforelse
 
                     {!! $rendezvenyek->links() !!}

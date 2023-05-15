@@ -14,6 +14,12 @@
                     </div>
 
                     <div class="card-body">
+                        @if (session('success'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
@@ -35,7 +41,11 @@
                                         <td>{{ $tanar->pozicio }}</td>
                                         <td>{{ Str::limit($tanar->bio, 200) }}</td>
                                         <td>
-                                            <img src="{{ asset('storage/kepek/'.$tanar->avatar) }}" width="150" height="auto" alt="">
+                                            @if ($tanar->avatar)
+                                                <img src="{{ asset('storage/kepek/'.$tanar->avatar) }}" width="150" height="auto" alt="">
+                                            @else
+                                                <img src="https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png" width="150" height="auto" alt="">
+                                            @endif
                                         </td>
                                         <td>
                                             <form

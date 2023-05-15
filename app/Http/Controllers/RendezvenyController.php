@@ -14,16 +14,8 @@ class RendezvenyController extends Controller
 
     public function home()
     {
-        if (request('search')) {
-            $var = request('search');
-
-            $rendezvenyek = Rendezveny::orderBy('idopont','desc')
-                ->where('nev', 'like', "%$var%")
-                ->orWhere('leiras', 'like', "%$var%")
-                ->orWhere('idopont', 'like', "%$var%")
-                ->orWhere('helyszin', 'like', "%$var%")
-                ->orWhere('tipus', 'like', "%$var%")
-                ->cursorPaginate(10);
+        if (request('s')) {
+            $rendezvenyek = $this->search(request('s'));
         } else {
             $rendezvenyek = Rendezveny::orderBy('idopont','desc')->cursorPaginate(10);
         }
@@ -76,17 +68,17 @@ class RendezvenyController extends Controller
         return redirect()->route('rendezvenyek.index')->with('success', 'Sikeresen létrehoztad ezt a rendezvényt!');
     }
 
-    public function search(Request $request)
+    public function search($var)
     {
-        $rendezvenyek = Rendezveny::orderBy('id','desc')
-            ->where('leiras', 'like', "%$request->search_term%")
-            ->orWhere('nev', 'like', "%$request->search_term%")
-            ->orWhere('idopont', 'like', "%$request->search_term%")
-            ->orWhere('helyszin', 'like', "%$request->search_term%")
-            ->orWhere('tipus', 'like', "%$request->search_term%")
+        $rendezvenyek = Rendezveny::orderBy('idopont','desc')
+            ->where('nev', 'like', "%$var%")
+            ->orWhere('leiras', 'like', "%$var%")
+            ->orWhere('idopont', 'like', "%$var%")
+            ->orWhere('helyszin', 'like', "%$var%")
+            ->orWhere('tipus', 'like', "%$var%")
             ->cursorPaginate(10);
 
-        return route('home', compact('rendezvenyek'));
+        return $rendezvenyek;
     }
 
     public function show(Rendezveny $rendezveny)

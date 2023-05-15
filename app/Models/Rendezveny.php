@@ -12,7 +12,7 @@ class Rendezveny extends Model
 
     protected $table = 'rendezvenyek';
 
-    protected $fillable = ['nev', 'helyszin', 'idopont', 'kepek', 'leiras', 'tipus'];
+    protected $fillable = ['nev', 'idopont', 'helyszin', 'resztvevok', 'tipus', 'kepek', 'leiras', 'tipus'];
 
     protected $appends = [
         'ev',

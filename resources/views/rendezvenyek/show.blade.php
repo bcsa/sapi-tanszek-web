@@ -28,14 +28,26 @@
                         </div>
                         <div class="col-10 mx-auto">
                             <div class="form-group">
+                                <strong>Rendezvény időpont:</strong>
+                                {{ $rendezveny->idopont }}
+                            </div>
+                        </div>
+                        <div class="col-10 mx-auto">
+                            <div class="form-group">
                                 <strong>Rendezvény helyszín:</strong>
                                 {{ $rendezveny->helyszin }}
                             </div>
                         </div>
                         <div class="col-10 mx-auto">
                             <div class="form-group">
-                                <strong>Rendezvény időpont:</strong>
-                                {{ $rendezveny->idopont }}
+                                <strong>Rendezvény résztvevőinek száma:</strong>
+                                {{ $rendezveny->resztvevok }}
+                            </div>
+                        </div>
+                        <div class="col-10 mx-auto">
+                            <div class="form-group">
+                                <strong>Rendezvény típus:</strong>
+                                {{ $rendezveny->tipus }}
                             </div>
                         </div>
                         <div class="col-10 mx-auto">
@@ -54,12 +66,6 @@
                             <div class="form-group">
                                 <strong>Rendezvény leírás:</strong>
                                 {{ $rendezveny->leiras }}
-                            </div>
-                        </div>
-                        <div class="col-10 mx-auto">
-                            <div class="form-group">
-                                <strong>Rendezvény típus:</strong>
-                                {{ $rendezveny->tipus }}
                             </div>
                         </div>
                         <div class="col-10 mx-auto">

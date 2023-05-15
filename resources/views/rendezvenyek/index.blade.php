@@ -25,11 +25,12 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Rendezvény neve</th>
-                                    <th>Rendezvény helyszíne</th>
                                     <th>Rendezvény időpontja</th>
+                                    <th>Rendezvény helyszíne</th>
+                                    <th>Rendezvény résztvevőinek száma</th>
+                                    <th>Rendezvény típusa</th>
                                     <th>Rendezvény képek</th>
                                     <th>Rendezvény leírása</th>
-                                    <th>Rendezvény típusa</th>
                                     <th>Műveletek</th>
                                 </tr>
                             </thead>
@@ -38,8 +39,10 @@
                                     <tr>
                                         <td>{{ $rendezveny->id }}</td>
                                         <td>{{ $rendezveny->nev }}</td>
-                                        <td>{{ $rendezveny->helyszin }}</td>
                                         <td>{{ $rendezveny->idopont }}</td>
+                                        <td>{{ $rendezveny->helyszin }}</td>
+                                        <td>{{ $rendezveny->resztvevok }}</td>
+                                        <td>{{ $rendezveny->tipus }}</td>
                                         <td>
                                             @if ($rendezveny->kepek)
                                                 <img src="{{ asset('storage/kepek/' . $rendezveny->kepek[0]) }}" width="150" height="auto" alt="">
@@ -48,7 +51,6 @@
                                             @endif
                                         </td>
                                         <td>{{ Str::limit($rendezveny->leiras, 200) }}</td>
-                                        <td>{{ $rendezveny->tipus }}</td>
                                         <td>
                                             <form
                                                 action="{{ route('rendezvenyek.destroy', $rendezveny->id) }}"

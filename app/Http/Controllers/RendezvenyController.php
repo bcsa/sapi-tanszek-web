@@ -51,11 +51,12 @@ class RendezvenyController extends Controller
     {
         $request->validate([
             'nev' => 'required',
-            'helyszin' => 'required',
             'idopont' => 'required|date',
+            'helyszin' => 'required',
+            'resztvevok' => 'nullable',
+            'tipus' => 'required',
             'leiras' => 'required',
             'kepek.*' => 'image',
-            'tipus' => 'required',
         ], [
             'kepek.*.image' => 'Csak képek!',
         ]);
@@ -96,11 +97,12 @@ class RendezvenyController extends Controller
         // TODO: kepek edit
         $request->validate([
             'nev' => 'required',
-            'helyszin' => 'required',
             'idopont' => 'required|date',
+            'helyszin' => 'required',
+            'resztvevok' => 'nullable',
+            'tipus' => 'required',
             'kepek' => 'nullable',
             'leiras' => 'required',
-            'tipus' => 'required',
         ]);
 
         $rendezveny->fill($request->post())->save();

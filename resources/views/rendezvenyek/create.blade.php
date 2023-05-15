@@ -28,6 +28,15 @@
                                 </div>
                                 <div class="col-10 mx-auto">
                                     <div class="form-group">
+                                        <strong>Rendezvény időpont:</strong>
+                                        <input type="date" name="idopont" class="form-control" placeholder="Rendezvény időpont">
+                                        @error('idopont')
+                                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-10 mx-auto">
+                                    <div class="form-group">
                                         <strong>Rendezvény helyszín:</strong>
                                         <input type="text" name="helyszin" class="form-control" placeholder="Rendezvény helyszín">
                                         @error('helyszin')
@@ -37,10 +46,19 @@
                                 </div>
                                 <div class="col-10 mx-auto">
                                     <div class="form-group">
-                                        <strong>Rendezvény időpont:</strong>
-                                        <input type="date" name="idopont" class="form-control" placeholder="Rendezvény időpont">
-                                        @error('idopont')
-                                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                        <strong>Rendezvény résztvevőinek száma:</strong>
+                                        <input type="text" name="resztvevok" class="form-control" placeholder="Rendezvény résztvevőinek száma">
+                                        @error('resztvevok')
+                                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-10 mx-auto">
+                                    <div class="form-group">
+                                        <strong>Rendezvény típus:</strong>
+                                        <input type="text" name="tipus" class="form-control" placeholder="Rendezvény típus">
+                                        @error('tipus')
+                                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -62,15 +80,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-10 mx-auto">
-                                    <div class="form-group">
-                                        <strong>Rendezvény típus:</strong>
-                                        <input type="text" name="tipus" class="form-control" placeholder="Rendezvény típus">
-                                        @error('tipus')
-                                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
+
                                 <div class="col-10 mx-auto">
                                     <v-btn small type="submit" id="submit">Létrehozás</v-btn>
                                 </div>

@@ -7,11 +7,33 @@ use Illuminate\Http\Request;
 
 class TanarController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    public function home()
+    {
+        if (request('s')) {
+            $tanarok = $this->search(request('s'));
+        } else {
+            $tanarok = Tanar::orderBy('id','desc')->cursorPaginate(10);
+        }
+
+        return view('tanarok.list', compact('tanarok'));
+    }
+
+    public function search($var)
+    {
+        $tanarok = Tanar::orderBy('id','desc')
+            ->where('nev', 'like', "%$var%")
+            ->orWhere('email', 'like', "%$var%")
+            ->orWhere('pozicio', 'like', "%$var%")
+            ->cursorPaginate(10);
+
+        return $tanarok;
+    }
+
     public function index()
     {
         $tanarok = Tanar::orderBy('id','desc')->cursorPaginate(10);
@@ -29,8 +51,8 @@ class TanarController extends Controller
             'nev' => 'required',
             'email' => 'required',
             'pozicio' => 'required',
-            'bio' => 'required',
-            'avatar' => 'required|image',
+            'bio' => 'nullable',
+            'avatar' => 'image|max:1024',
         ]);
 
         $data = collect($request->all());
@@ -40,14 +62,14 @@ class TanarController extends Controller
             $file = $request->file('avatar');
             $filename = $file->getClientOriginalName();
 
-            $file->move(storage_path('app/public/kepek'), $filename);
+            $file->move(storage_path('app/public/avatars'), $filename);
 
             $data->put('avatar', $filename);
         }
 
         Tanar::create($data->all());
 
-        return redirect()->route('tanarok.index')->with('success', 'Sikeresen létrehoztad ezt a rendezvényt!');
+        return redirect()->route('tanarok.index')->with('success', 'Sikeresen létrehoztad ezt a tanárt!');
     }
 
     public function show(Tanar $tanar)
@@ -66,7 +88,8 @@ class TanarController extends Controller
             'nev' => 'required',
             'email' => 'required',
             'pozicio' => 'required',
-            'bio' => 'required',
+            'bio' => 'nullable',
+            'avatar' => 'image|max:1024',
         ]);
 
         $data = collect($request->all());
@@ -76,7 +99,7 @@ class TanarController extends Controller
             $file = $request->file('avatar');
             $filename = $file->getClientOriginalName();
 
-            $file->move(storage_path('app/public/kepek'), $filename);
+            $file->move(storage_path('app/public/avatars'), $filename);
 
             $data->put('avatar', $filename);
         }

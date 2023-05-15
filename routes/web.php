@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RendezvenyController;
 use App\Http\Controllers\TanarController;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::get('/', 'AdminController@index')->name('home');
+//Route::get('/', 'ProfileController@index')->name('home');
 
 
 //Auth::routes();
@@ -35,11 +36,13 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', [RendezvenyController::class, 'home'])->name('home');
+Route::get('/tanarok', [TanarController::class, 'home'])->name('home');
 
+Route::post('/tanarok/search', [TanarController::class, 'search']);
 Route::post('/rendezvenyek/search', [RendezvenyController::class, 'search']);
 
-Route::get('profile', 'AdminController@index')->name('profile');
-Route::post('profile', 'AdminController@store')->name('submit-profile');
+Route::get('profile', [ProfileController::class, 'index'])->name('profile');
+Route::post('profile', [ProfileController::class, 'store'])->name('submit-profile');
 
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {
     Route::resource('rendezvenyek', RendezvenyController::class)->parameters([

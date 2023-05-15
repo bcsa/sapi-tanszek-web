@@ -60,7 +60,11 @@
                                 <div class="col-10 mx-auto">
                                     <div class="form-group">
                                         <strong>Tanár avatar:</strong>
-                                        <img src="{{ asset('storage/kepek/'.$tanar->avatar) }}" width="150" height="auto" alt="">
+                                        @if ($tanar->avatar)
+                                            <img src="{{ asset('storage/avatars/'.$tanar->avatar) }}" width="150" height="auto" alt="">
+                                        @else
+                                            <img src="{{ asset('storage/avatars/defpic.jpg') }}" width="150" height="auto" alt="">
+                                        @endif
                                         <input type="file" accept="image/*" name="avatar" class="form-control" placeholder="Tanár avatar"/>
                                         @error('avatar')
                                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>

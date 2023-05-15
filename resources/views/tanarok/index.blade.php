@@ -27,7 +27,7 @@
                                     <th>Tanár neve</th>
                                     <th>Tanár email</th>
                                     <th>Tanár poziciója</th>
-                                    <th>Tanár leírása</th>
+{{--                                    <th>Tanár leírása</th>--}}
                                     <th>Tanár avatar</th>
                                     <th>Műveletek</th>
                                 </tr>
@@ -39,12 +39,12 @@
                                         <td>{{ $tanar->nev }}</td>
                                         <td>{{ $tanar->email }}</td>
                                         <td>{{ $tanar->pozicio }}</td>
-                                        <td>{{ Str::limit($tanar->bio, 200) }}</td>
+{{--                                        <td>{{ Str::limit($tanar->bio, 200) }}</td>--}}
                                         <td>
                                             @if ($tanar->avatar)
-                                                <img src="{{ asset('storage/kepek/'.$tanar->avatar) }}" width="150" height="auto" alt="">
+                                                <img src="{{ asset('storage/avatars/'.$tanar->avatar) }}" width="150" height="auto" alt="">
                                             @else
-                                                <img src="https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png" width="150" height="auto" alt="">
+                                                <img src="{{ asset('storage/avatars/defpic.jpg') }}" width="150" height="auto" alt="">
                                             @endif
                                         </td>
                                         <td>

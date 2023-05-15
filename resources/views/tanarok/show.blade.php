@@ -38,19 +38,19 @@
                                 {{ $tanar->pozicio }}
                             </div>
                         </div>
-                        <div class="col-10 mx-auto">
-                            <div class="form-group">
-                                <strong>Tanár leírás:</strong>
-                                {{ $tanar->bio }}
-                            </div>
-                        </div>
+{{--                        <div class="col-10 mx-auto">--}}
+{{--                            <div class="form-group">--}}
+{{--                                <strong>Tanár leírás:</strong>--}}
+{{--                                {{ $tanar->bio }}--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
                         <div class="col-10 mx-auto">
                             <div class="form-group">
                                 <strong>Tanár avatar:</strong>
                                 @if ($tanar->avatar)
-                                    <img src="{{ asset('storage/kepek/'.$tanar->avatar) }}" width="150" height="auto" alt="">
+                                    <img src="{{ asset('storage/avatars/' . $tanar->avatar) }}" width="150" height="auto" alt="">
                                 @else
-                                    <img src="https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png" width="150" height="auto" alt="">
+                                    <img src="{{ asset('storage/avatars/defpic.jpg') }}" width="150" height="auto" alt="">
                                 @endif
                             </div>
                         </div>

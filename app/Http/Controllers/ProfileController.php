@@ -5,14 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreAffiliate;
 use App\Http\Requests\UpdateUserRequest;
 use App\Mail\AffiliateRegistrationReceived;
-use App\Mail\ContactMessageReceived;
-use App\Models\ContactMessage;
-use App\Models\Tanar;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
 
-class AdminController extends Controller
+class ProfileController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -26,20 +22,20 @@ class AdminController extends Controller
 
     public function index()
     {
-        $user = User::where('id', Auth::id())->first();
-        return view('admin', compact('user'));
+        $tanar = User::where('id', Auth::id())->first();
+        return view('profile', compact('tanar'));
     }
 
     public function store(UpdateUserRequest $request)
     {
-        $user = Auth::user();
+        $tanar = Auth::user();
 
-        $user->name = $request->name;
-        $user->pozicio = $request->pozicio;
-        $user->leiras = $request->leiras;
-        $user->avatar = $request->avatar;
+        $tanar->name = $request->name;
+        $tanar->pozicio = $request->pozicio;
+        $tanar->leiras = $request->leiras;
+        $tanar->avatar = $request->avatar;
 
-        $user->save();
+        $tanar->save();
 
 //        Mail::to('csongiika@gmail.com')
 //            ->queue(new ContactMessageReceived($user));

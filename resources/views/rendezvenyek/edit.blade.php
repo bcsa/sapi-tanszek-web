@@ -49,7 +49,7 @@
                                     <div class="form-group">
                                         <strong>Rendezvény képek:</strong>
                                         @foreach ((array) $rendezveny->kepek as $kep)
-                                            <img src="{{ asset('storage/kepek/'.$kep) }}" width="150" height="auto" alt="">
+                                            <img src="{{ asset('storage/kepek/' . $kep) }}" width="150" height="auto" alt="">
                                         @endforeach
                                         <input type="file" accept="image/*" name="kepek[]" class="form-control" multiple />
                                         @error('kepek.*')

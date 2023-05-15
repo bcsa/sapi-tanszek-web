@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ $user->name }}</div>
+                <div class="card-header">{{ $tanar->name }}</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -34,7 +34,7 @@
                                     v-model="name"
                                     dense
                                     solo
-                                    placeholder="{{ $user->name }}"
+                                    placeholder="{{ $tanar->name }}"
                                     :rules="nameRules"
                                     required
                                 ></v-text-field>
@@ -48,7 +48,7 @@
                                     v-model="email"
                                     dense
                                     solo
-                                    placeholder="{{ $user->email }}"
+                                    placeholder="{{ $tanar->email }}"
                                     :rules="emailRules"
                                     required
                                 ></v-text-field>
@@ -62,7 +62,7 @@
                                     v-model="pozicio"
                                     dense
                                     solo
-                                    placeholder="{{ $user->pozicio ?? 'tanár' }}"
+                                    placeholder="{{ $tanar->pozicio ?? 'tanár' }}"
                                 ></v-text-field>
                             </v-col>
 
@@ -74,7 +74,7 @@
                                     v-model="leiras"
                                     dense
                                     solo
-                                    placeholder="{{ $user->leiras ?? 'leírás' }}"
+                                    placeholder="{{ $tanar->leiras ?? 'leírás' }}"
                                 ></v-text-field>
                             </v-col>
 
@@ -86,7 +86,7 @@
                                     v-model="avatar"
                                     dense
                                     solo
-                                    placeholder="{{ $user->avatar ?? 'avatar' }}"
+                                    placeholder="{{ $tanar->avatar ?? 'avatar' }}"
                                 ></v-text-field>
                             </v-col>
 

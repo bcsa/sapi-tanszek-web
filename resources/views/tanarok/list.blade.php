@@ -6,7 +6,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    Rendezvények
+                    Tanárok
                 </div>
 
                 <v-row>
@@ -43,49 +43,35 @@
                         </div>
                     @endif
 
-                    @forelse ($rendezvenyek as $rendezveny)
-                        <v-row class="rendezveny-wrapper" @click="redirectToShow({{ $rendezveny->id }})">
-                            <v-col cols="1" class="details text-center align-self-center">
-                                <div class="datum nap text-no-wrap">
-                                    {{ $rendezveny->nap }}
-                                </div>
-
-                                <div class="datum honap text-no-wrap">
-                                    {{ $rendezveny->honap }}
-                                </div>
-
-                                <div class="datum ev text-no-wrap">
-                                    {{ $rendezveny->ev }}
-                                </div>
-                            </v-col>
-
+                    @forelse ($tanarok as $tanar)
+                        <v-row class="rendezveny-wrapper" @click="redirectToShow({{ $tanar->id }})">
                             <v-col cols="3" class="text-center">
-                                @if ($rendezveny->kepek)
-                                    <img src="{{ asset('storage/kepek/' . $rendezveny->kepek[0]) }}" width="150" height="auto" alt="">
+                                @if ($tanar->avatar)
+                                    <img src="{{ asset('storage/avatars/' . $tanar->avatar) }}" width="150" height="auto" alt="">
                                 @else
-                                    <img src="https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png" width="200" height="auto" alt="">
+                                    <img src="{{ asset('storage/avatars/defpic.jpg') }}" width="150" height="auto" alt="">
                                 @endif
                             </v-col>
 
-                            <v-col cols="6">
-                                <h2>{{ $rendezveny->nev }}</h2>
-                                <h5>{{ Str::limit($rendezveny->leiras, 200) }}</h5>
+                            <v-col cols="7">
+                                <h2>{{ $tanar->nev }}</h2>
+                                <h5>{{ $tanar->email }}</h5>
                             </v-col>
 
                             <v-col cols="2" class="details helyszin align-self-center">
-                                {{ $rendezveny->helyszin }}
+                                {{ $tanar->pozicio }}
                             </v-col>
                         </v-row>
                     @empty
                         Nincs találat.
                     @endforelse
 
-                    @if (count($rendezvenyek))
-                        {{ count($rendezvenyek) }} találat.
+                    @if (count($tanarok))
+                        {{ count($tanarok) }} találat.
                     @endif
 
                     <div class="float-right">
-                        {!! $rendezvenyek->links() !!}
+                        {!! $tanarok->links() !!}
                     </div>
                 </div>
             </div>
@@ -111,7 +97,7 @@
 
             methods: {
                 redirectToShow(id) {
-                    window.location.href = route('rendezvenyek.show', id)
+                    window.location.href = route('tanarok.show', id)
                 },
 
                 search() {
@@ -131,7 +117,7 @@
                         params.search_term = this.searchTerm
                     }
 
-                    axios.post('/rendezvenyek/search', params).then((response) => {
+                    axios.post('/tanarok/search', params).then((response) => {
                         if (response && response.data) {
                             console.log(response.data)
                         }

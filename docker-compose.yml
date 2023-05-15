@@ -12,6 +12,7 @@ services:
       - APACHE_RUN_GROUP=#${UID}
     volumes:
       - .:/var/www/html
+      - ./custom-php.ini:/usr/local/etc/php/conf.d/local.ini
     depends_on:
       - mysql
     ports:

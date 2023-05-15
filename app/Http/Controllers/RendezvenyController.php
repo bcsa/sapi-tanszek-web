@@ -23,6 +23,19 @@ class RendezvenyController extends Controller
         return view('home', compact('rendezvenyek'));
     }
 
+    public function search($var)
+    {
+        $rendezvenyek = Rendezveny::orderBy('idopont','desc')
+            ->where('nev', 'like', "%$var%")
+            ->orWhere('leiras', 'like', "%$var%")
+            ->orWhere('idopont', 'like', "%$var%")
+            ->orWhere('helyszin', 'like', "%$var%")
+            ->orWhere('tipus', 'like', "%$var%")
+            ->cursorPaginate(10);
+
+        return $rendezvenyek;
+    }
+
     public function index()
     {
         $rendezvenyek = Rendezveny::orderBy('idopont','desc')->paginate(10);
@@ -66,19 +79,6 @@ class RendezvenyController extends Controller
         Rendezveny::create($data->all());
 
         return redirect()->route('rendezvenyek.index')->with('success', 'Sikeresen létrehoztad ezt a rendezvényt!');
-    }
-
-    public function search($var)
-    {
-        $rendezvenyek = Rendezveny::orderBy('idopont','desc')
-            ->where('nev', 'like', "%$var%")
-            ->orWhere('leiras', 'like', "%$var%")
-            ->orWhere('idopont', 'like', "%$var%")
-            ->orWhere('helyszin', 'like', "%$var%")
-            ->orWhere('tipus', 'like', "%$var%")
-            ->cursorPaginate(10);
-
-        return $rendezvenyek;
     }
 
     public function show(Rendezveny $rendezveny)

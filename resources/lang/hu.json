@@ -10,5 +10,9 @@
     "Log Out": "Kijelentkezés",
     "Logout": "Kijelentkezés",
     "Login": "Bejelentkezés",
-    "Register": "Regisztráció"
+    "Register": "Regisztráció",
+    "Showing": "Eredmény: ",
+    "to": " - ",
+    "of": " / ",
+    "results": "találatból"
 }

@@ -44,7 +44,7 @@
                     @endif
 
                     @forelse ($tanarok as $tanar)
-                        <v-row class="rendezveny-wrapper" @click="redirectToShow({{ $tanar->id }})">
+                        <v-row class="tanar-wrapper" @click="redirectToShow({{ $tanar->id }})">
                             <v-col cols="3" class="text-center">
                                 @if ($tanar->avatar)
                                     <img src="{{ asset('storage/avatars/' . $tanar->avatar) }}" width="150" height="auto" alt="">
@@ -58,7 +58,7 @@
                                 <h5>{{ $tanar->email }}</h5>
                             </v-col>
 
-                            <v-col cols="2" class="details helyszin align-self-center">
+                            <v-col cols="2" class="details pozicio align-self-center">
                                 {{ $tanar->pozicio }}
                             </v-col>
                         </v-row>

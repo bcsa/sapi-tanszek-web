@@ -30,7 +30,7 @@ p {
     position: relative;
 }
 
-.rendezveny-wrapper {
+.rendezveny-wrapper, .tanar-wrapper {
     background-color: forestgreen;
     margin-bottom: 20px;
     cursor: pointer;
@@ -42,7 +42,7 @@ p {
     .details {
         background-color: forestgreen;
 
-        &.helyszin {
+        &.helyszin, &.pozicio {
             text-align: center;
             color: white;
         }

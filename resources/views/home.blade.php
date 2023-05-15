@@ -44,7 +44,7 @@
                     @endif
 
                     @forelse ($rendezvenyek as $rendezveny)
-                        <v-row class="rendezveny-wrapper" @click="redirectToShow({{$rendezveny->id}})">
+                        <v-row class="rendezveny-wrapper" @click="redirectToShow({{ $rendezveny->id }})">
                             <v-col cols="1" class="details text-center align-self-center">
                                 <div class="datum nap text-no-wrap">
                                     {{ $rendezveny->nap }}

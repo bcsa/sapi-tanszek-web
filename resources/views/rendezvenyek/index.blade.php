@@ -37,6 +37,8 @@
                                         <td>
                                             @if ($rendezveny->kepek)
                                                 <img src="{{ asset('storage/kepek/' . $rendezveny->kepek[0]) }}" width="150" height="auto" alt="">
+                                            @else
+                                                <img src="https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png" width="150" height="auto" alt="">
                                             @endif
                                         </td>
                                         <td>{{ Str::limit($rendezveny->leiras, 200) }}</td>

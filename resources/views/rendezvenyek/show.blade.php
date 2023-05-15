@@ -41,9 +41,13 @@
                         <div class="col-10 mx-auto">
                             <div class="form-group">
                                 <strong>Rendezvény képek:</strong>
-                                @foreach ((array) $rendezveny->kepek as $kep)
-                                    <img src="{{ asset('storage/kepek/' . $kep) }}" width="150" height="auto" alt="">
-                                @endforeach
+                                @if ($rendezveny->kepek)
+                                    @foreach ((array) $rendezveny->kepek as $kep)
+                                        <img src="{{ asset('storage/kepek/' . $kep) }}" width="150" height="auto" alt="">
+                                    @endforeach
+                                @else
+                                    <img src="https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png" width="150" height="auto" alt="">
+                                @endif
                             </div>
                         </div>
                         <div class="col-10 mx-auto">

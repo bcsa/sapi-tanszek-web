@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * App\Models\Tanar
@@ -34,5 +35,20 @@ class Tanar extends Model
 
     protected $table = 'tanarok';
 
-    protected $fillable = ['nev', 'email', 'pozicio', 'bio', 'avatar'];
+    protected $fillable = [
+        'nev',
+        'email',
+        'pozicio',
+        'bio',
+        'avatar'
+    ];
+
+    protected $hidden = [
+        'pivot'
+    ];
+
+    public function rendezvenyek(): BelongsToMany
+    {
+        return $this->belongsToMany(Rendezveny::class);
+    }
 }

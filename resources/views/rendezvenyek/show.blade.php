@@ -9,6 +9,8 @@
                         Rendezvény részletek
 
                         <div class="float-end">
+                            <v-btn small href="{{ route('rendezvenyek.edit', $rendezveny->id) }}">Módosítás</v-btn>
+
                             <v-btn small href="{{ route('rendezvenyek.index') }}">Vissza</v-btn>
                         </div>
                     </div>
@@ -68,6 +70,14 @@
                                 {{ $rendezveny->leiras }}
                             </div>
                         </div>
+                        @if ($rendezveny->tanarok->isNotEmpty())
+                            <div class="col-10 mx-auto">
+                                <div class="form-group">
+                                    <strong>Rendezvényen résztvevő tanárok:</strong>
+                                    {{ $rendezveny->tanarok->pluck('nev')->implode(', ') }}
+                                </div>
+                            </div>
+                        @endif
                         <div class="col-10 mx-auto">
                             <div class="form-group">
                                 <strong>Rendezvény hozzáadva:</strong>

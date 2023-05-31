@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Rendezveny;
+use App\Models\Tanar;
 use Illuminate\Http\Request;
 
 class RendezvenyController extends Controller
@@ -77,7 +78,11 @@ class RendezvenyController extends Controller
             $data->put('kepek', $kepek);
         }
 
-        Rendezveny::create($data->all());
+        $rendezveny = Rendezveny::create($data->all());
+
+        if ($request->input('tanarok')) {
+            $rendezveny->tanarok()->sync(explode(",", $request->input('tanarok')));
+        }
 
         return redirect()->route('rendezvenyek.index')->with('success', 'Sikeresen létrehoztad ezt a rendezvényt!');
     }
@@ -89,7 +94,8 @@ class RendezvenyController extends Controller
 
     public function edit(Rendezveny $rendezveny)
     {
-        return view('rendezvenyek.edit', compact('rendezveny'));
+        $tanarok = Tanar::all();
+        return view('rendezvenyek.edit', compact('rendezveny', 'tanarok'));
     }
 
     public function update(Request $request, Rendezveny $rendezveny)
@@ -106,6 +112,10 @@ class RendezvenyController extends Controller
         ]);
 
         $rendezveny->fill($request->post())->save();
+
+        if ($request->input('tanarok')) {
+            $rendezveny->tanarok()->sync(explode(",", $request->input('tanarok')));
+        }
 
         return redirect()->route('rendezvenyek.index')->with('success', 'Sikeresen frissítetted ezt a rendezvényt!');
     }

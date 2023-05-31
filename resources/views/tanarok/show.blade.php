@@ -9,6 +9,8 @@
                         Tanár részletek
 
                         <div class="float-end">
+                            <v-btn small href="{{ route('tanarok.edit', $tanar->id) }}">Módosítás</v-btn>
+
                             <v-btn small href="{{ route('tanarok.index') }}">Vissza</v-btn>
                         </div>
                     </div>
@@ -54,6 +56,14 @@
                                 @endif
                             </div>
                         </div>
+                        @if ($tanar->rendezvenyek->isNotEmpty())
+                            <div class="col-10 mx-auto">
+                                <div class="form-group">
+                                    <strong>Tanár rendezvényei:</strong>
+                                    {{ $tanar->rendezvenyek->pluck('nev')->implode(', ') }}
+                                </div>
+                            </div>
+                        @endif
                         <div class="col-10 mx-auto">
                             <div class="form-group">
                                 <strong>Tanár hozzáadva:</strong>

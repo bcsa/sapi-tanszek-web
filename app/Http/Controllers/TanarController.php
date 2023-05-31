@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Rendezveny;
 use App\Models\Tanar;
 use Illuminate\Http\Request;
 
@@ -67,7 +68,11 @@ class TanarController extends Controller
             $data->put('avatar', $filename);
         }
 
-        Tanar::create($data->all());
+        $tanar = Tanar::create($data->all());
+
+        if ($request->input('rendezvenyek')) {
+            $tanar->rendezvenyek()->sync(explode(",", $request->input('rendezvenyek')));
+        }
 
         return redirect()->route('tanarok.index')->with('success', 'Sikeresen létrehoztad ezt a tanárt!');
     }
@@ -79,7 +84,8 @@ class TanarController extends Controller
 
     public function edit(Tanar $tanar)
     {
-        return view('tanarok.edit', compact('tanar'));
+        $rendezvenyek = Rendezveny::all();
+        return view('tanarok.edit', compact('tanar', 'rendezvenyek'));
     }
 
     public function update(Request $request, Tanar $tanar)
@@ -105,6 +111,10 @@ class TanarController extends Controller
         }
 
         $tanar->fill($data->all())->save();
+
+        if ($request->input('rendezvenyek')) {
+            $tanar->rendezvenyek()->sync(explode(",", $request->input('rendezvenyek')));
+        }
 
         return redirect()->route('tanarok.index')->with('success', 'Sikeresen frissítetted ezt a tanárt!');
     }

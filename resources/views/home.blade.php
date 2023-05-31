@@ -70,6 +70,9 @@
                             <v-col cols="6">
                                 <h2>{{ $rendezveny->nev }}</h2>
                                 <h5>{{ Str::limit($rendezveny->leiras, 200) }}</h5>
+                                @if ($rendezveny->resztvevok)
+                                    <h5 class="mt-10">Létszám: {{ $rendezveny->resztvevok }}</h5>
+                                @endif
                             </v-col>
 
                             <v-col cols="2" class="details helyszin align-self-center">

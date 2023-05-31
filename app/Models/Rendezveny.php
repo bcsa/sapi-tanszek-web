@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * App\Models\Rendezveny
@@ -43,7 +44,16 @@ class Rendezveny extends Model
 
     protected $table = 'rendezvenyek';
 
-    protected $fillable = ['nev', 'idopont', 'helyszin', 'resztvevok', 'tipus', 'kepek', 'leiras', 'tipus'];
+    protected $fillable = [
+        'nev',
+        'idopont',
+        'helyszin',
+        'resztvevok',
+        'tipus',
+        'kepek',
+        'leiras',
+        'tipus'
+    ];
 
     protected $appends = [
         'ev',
@@ -54,6 +64,10 @@ class Rendezveny extends Model
     protected $casts = [
         'idopont' => 'date',
         'kepek' => 'array'
+    ];
+
+    protected $hidden = [
+        'pivot'
     ];
 
     public function getIdopontAttribute($date): string
@@ -74,5 +88,10 @@ class Rendezveny extends Model
     public function getNapAttribute(): string
     {
         return Carbon::parse($this->attributes['idopont'])->format('d');
+    }
+
+    public function tanarok(): BelongsToMany
+    {
+        return $this->belongsToMany(Tanar::class);
     }
 }

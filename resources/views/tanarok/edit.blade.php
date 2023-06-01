@@ -66,17 +66,19 @@
                                                 <v-list-item-content>
                                                     <v-list-item-title v-text="rendezveny.nev"></v-list-item-title>
                                                     <v-list-item-subtitle v-text="rendezveny.idopont"></v-list-item-subtitle>
+                                                    <v-list-item-subtitle v-text="rendezveny.helyszin"></v-list-item-subtitle>
                                                 </v-list-item-content>
                                             </v-list-item>
                                         </v-list>
 
                                         <v-select
-                                            v-model="rendezvenyTanarok"
+                                            v-model="tanarRendezvenyei"
                                             :items="rendezvenyek"
                                             item-text="nev"
                                             item-value="id"
                                             multiple
                                             solo
+                                            placeholder="Válassz rendezvényeket"
                                             name="rendezvenyek"
                                         >
                                             <template v-slot:selection="{ item, index }">
@@ -87,7 +89,7 @@
                                                     v-if="index === 3"
                                                     class="grey--text text-caption"
                                                 >
-                                                  (+@{{ rendezvenyTanarok.length - 3 }} másik)
+                                                  (+@{{ tanarRendezvenyei.length - 3 }} másik)
                                                 </span>
                                             </template>
 
@@ -157,12 +159,12 @@
         let homeMixin = {
             data: {
                 rendezvenyek: {!! json_encode($rendezvenyek) !!},
-                rendezvenyTanarok: {!! json_encode($tanar->rendezvenyek->pluck('id')) !!},
+                tanarRendezvenyei: {!! json_encode($tanar->rendezvenyek->pluck('id')) !!},
             },
 
             computed: {
                 selectedRendezvenyek() {
-                    return this.rendezvenyTanarok.map((id) => this.rendezvenyek.find((el) => el.id === id))
+                    return this.tanarRendezvenyei.map((id) => this.rendezvenyek.find((el) => el.id === id))
                 }
             },
 

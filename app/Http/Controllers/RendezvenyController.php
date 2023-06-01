@@ -45,7 +45,8 @@ class RendezvenyController extends Controller
 
     public function create()
     {
-        return view('rendezvenyek.create');
+        $tanarok = Tanar::all();
+        return view('rendezvenyek.create', compact('tanarok'));
     }
 
     public function store(Request $request)

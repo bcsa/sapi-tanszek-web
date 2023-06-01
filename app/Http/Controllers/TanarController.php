@@ -37,13 +37,14 @@ class TanarController extends Controller
 
     public function index()
     {
-        $tanarok = Tanar::orderBy('id','desc')->cursorPaginate(10);
+        $tanarok = Tanar::orderBy('id','desc')->paginate(10);
         return view('tanarok.index', compact('tanarok'));
     }
 
     public function create()
     {
-        return view('tanarok.create');
+        $rendezvenyek = Rendezveny::all();
+        return view('tanarok.create', compact('rendezvenyek'));
     }
 
     public function store(Request $request)

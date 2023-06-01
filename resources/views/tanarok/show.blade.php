@@ -46,6 +46,32 @@
 {{--                                {{ $tanar->bio }}--}}
 {{--                            </div>--}}
 {{--                        </div>--}}
+                        @if ($tanar->rendezvenyek->isNotEmpty())
+                            <div class="col-10 mx-auto">
+                                <div class="form-group">
+                                    <strong>Tanár rendezvényei:</strong>
+
+                                    <v-list dense>
+                                        <v-list-item
+                                            v-for="rendezveny in tanarRendezvenyei"
+                                            :key="rendezveny.id"
+                                        >
+                                            <v-list-item-avatar>
+                                                <v-img
+                                                    :src="getRendezvenyAvatar(rendezveny)"
+                                                ></v-img>
+                                            </v-list-item-avatar>
+
+                                            <v-list-item-content>
+                                                <v-list-item-title v-text="rendezveny.nev"></v-list-item-title>
+                                                <v-list-item-subtitle v-text="rendezveny.idopont"></v-list-item-subtitle>
+                                                <v-list-item-subtitle v-text="rendezveny.helyszin"></v-list-item-subtitle>
+                                            </v-list-item-content>
+                                        </v-list-item>
+                                    </v-list>
+                                </div>
+                            </div>
+                        @endif
                         <div class="col-10 mx-auto">
                             <div class="form-group">
                                 <strong>Tanár avatar:</strong>
@@ -56,14 +82,6 @@
                                 @endif
                             </div>
                         </div>
-                        @if ($tanar->rendezvenyek->isNotEmpty())
-                            <div class="col-10 mx-auto">
-                                <div class="form-group">
-                                    <strong>Tanár rendezvényei:</strong>
-                                    {{ $tanar->rendezvenyek->pluck('nev')->implode(', ') }}
-                                </div>
-                            </div>
-                        @endif
                         <div class="col-10 mx-auto">
                             <div class="form-group">
                                 <strong>Tanár hozzáadva:</strong>
@@ -82,3 +100,25 @@
         </div>
     </div>
 @endsection
+
+@push('js')
+    <script type="text/javascript">
+        let homeMixin = {
+            data: {
+                tanarRendezvenyei: {!! json_encode($tanar->rendezvenyek) !!},
+            },
+
+            methods: {
+                getRendezvenyAvatar(rendezveny) {
+                    if (rendezveny.kepek) {
+                        return "{{ asset('storage/kepek/') . '/' }}" + rendezveny.kepek[0]
+                    } else {
+                        return "{{ asset('storage/avatars/defpic.jpg') }}"
+                    }
+                },
+            },
+        }
+
+        window.mixins.push(homeMixin)
+    </script>
+@endpush

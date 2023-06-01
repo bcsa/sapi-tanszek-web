@@ -55,6 +55,75 @@
                                 </div>
                                 <div class="col-10 mx-auto">
                                     <div class="form-group">
+                                        <strong>Rendezvényen résztvevő tanárok:</strong>
+
+                                        <v-list dense>
+                                            <v-list-item
+                                                v-for="tanar in selectedTanarok"
+                                                :key="tanar.id"
+                                            >
+                                                <v-list-item-avatar>
+                                                    <v-img
+                                                        :src="getTanarAvatar(tanar)"
+                                                    ></v-img>
+                                                </v-list-item-avatar>
+
+                                                <v-list-item-content>
+                                                    <v-list-item-title v-text="tanar.nev"></v-list-item-title>
+                                                    <v-list-item-subtitle v-text="tanar.pozicio"></v-list-item-subtitle>
+                                                </v-list-item-content>
+                                            </v-list-item>
+                                        </v-list>
+
+                                        <v-select
+                                            v-model="rendezvenyTanarok"
+                                            :items="tanarok"
+                                            item-text="nev"
+                                            item-value="id"
+                                            multiple
+                                            solo
+                                            placeholder="Válassz tanárokat"
+                                            name="tanarok"
+                                        >
+                                            <template v-slot:selection="{ item, index }">
+                                                <v-chip v-if="index < 3">
+                                                    <span>@{{ item.nev }}</span>
+                                                </v-chip>
+                                                <span
+                                                    v-if="index === 3"
+                                                    class="grey--text text-caption"
+                                                >
+                                                  (+@{{ rendezvenyTanarok.length - 3 }} másik)
+                                                </span>
+                                            </template>
+
+                                            <template v-slot:item="{ item }">
+                                                <v-checkbox
+                                                    :input-value="selectedTanarok.some(elem => elem.id === item.id)"
+                                                >
+                                                </v-checkbox>
+
+                                                <v-list-item-avatar
+                                                    class="mx-3"
+                                                >
+                                                    <v-img
+                                                        :src="getTanarAvatar(item)"
+                                                    ></v-img>
+                                                </v-list-item-avatar>
+
+                                                <v-list-item-content>
+                                                    <v-list-item-title v-text="item.nev"></v-list-item-title>
+                                                    <v-list-item-subtitle v-text="item.pozicio"></v-list-item-subtitle>
+                                                </v-list-item-content>
+                                            </template>
+                                        </v-select>
+                                        @error('tanarok')
+                                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-10 mx-auto">
+                                    <div class="form-group">
                                         <strong>Rendezvény típus:</strong>
                                         <input type="text" name="tipus" class="form-control" placeholder="Rendezvény típus">
                                         @error('tipus')
@@ -92,3 +161,32 @@
         </div>
     </div>
 @endsection
+
+@push('js')
+    <script type="text/javascript">
+        let homeMixin = {
+            data: {
+                tanarok: {!! json_encode($tanarok) !!},
+                rendezvenyTanarok: [],
+            },
+
+            computed: {
+                selectedTanarok() {
+                    return this.rendezvenyTanarok.map((id) => this.tanarok.find((el) => el.id === id))
+                }
+            },
+
+            methods: {
+                getTanarAvatar(tanar) {
+                    if (tanar.avatar) {
+                        return "{{ asset('storage/avatars/') . '/' }}" + tanar.avatar
+                    } else {
+                        return "{{ asset('storage/avatars/defpic.jpg') }}"
+                    }
+                },
+            },
+        }
+
+        window.mixins.push(homeMixin)
+    </script>
+@endpush

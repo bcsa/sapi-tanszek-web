@@ -83,6 +83,7 @@
                                             item-value="id"
                                             multiple
                                             solo
+                                            placeholder="Válassz tanárokat"
                                             name="tanarok"
                                         >
                                             <template v-slot:selection="{ item, index }">
@@ -172,10 +173,6 @@
             data: {
                 tanarok: {!! json_encode($tanarok) !!},
                 rendezvenyTanarok: {!! json_encode($rendezveny->tanarok->pluck('id')) !!},
-            },
-
-            mounted() {
-                // this.selectedTanarok = this.rendezvenyTanarok
             },
 
             computed: {

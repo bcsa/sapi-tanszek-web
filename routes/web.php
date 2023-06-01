@@ -22,8 +22,8 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes(['register' => false]);
 
-Route::get('/', [RendezvenyController::class, 'home'])->name('home');
-Route::get('/tanarok', [TanarController::class, 'home'])->name('home');
+Route::get('/', [RendezvenyController::class, 'home'])->name('rendezvenyek.home');
+Route::get('/tanarok', [TanarController::class, 'home'])->name('tanarok.home');
 
 Route::post('/tanarok/search', [TanarController::class, 'search']);
 Route::post('/rendezvenyek/search', [RendezvenyController::class, 'search']);

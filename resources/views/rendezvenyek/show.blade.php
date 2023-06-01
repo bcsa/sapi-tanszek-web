@@ -46,6 +46,31 @@
                                 {{ $rendezveny->resztvevok }}
                             </div>
                         </div>
+                        @if ($rendezveny->tanarok->isNotEmpty())
+                            <div class="col-10 mx-auto">
+                                <div class="form-group">
+                                    <strong>Rendezvényen résztvevő tanárok:</strong>
+
+                                    <v-list dense>
+                                        <v-list-item
+                                            v-for="tanar in rendezvenyTanarok"
+                                            :key="tanar.id"
+                                        >
+                                            <v-list-item-avatar>
+                                                <v-img
+                                                    :src="getTanarAvatar(tanar)"
+                                                ></v-img>
+                                            </v-list-item-avatar>
+
+                                            <v-list-item-content>
+                                                <v-list-item-title v-text="tanar.nev"></v-list-item-title>
+                                                <v-list-item-subtitle v-text="tanar.pozicio"></v-list-item-subtitle>
+                                            </v-list-item-content>
+                                        </v-list-item>
+                                    </v-list>
+                                </div>
+                            </div>
+                        @endif
                         <div class="col-10 mx-auto">
                             <div class="form-group">
                                 <strong>Rendezvény típus:</strong>
@@ -70,14 +95,6 @@
                                 {{ $rendezveny->leiras }}
                             </div>
                         </div>
-                        @if ($rendezveny->tanarok->isNotEmpty())
-                            <div class="col-10 mx-auto">
-                                <div class="form-group">
-                                    <strong>Rendezvényen résztvevő tanárok:</strong>
-                                    {{ $rendezveny->tanarok->pluck('nev')->implode(', ') }}
-                                </div>
-                            </div>
-                        @endif
                         <div class="col-10 mx-auto">
                             <div class="form-group">
                                 <strong>Rendezvény hozzáadva:</strong>
@@ -96,3 +113,25 @@
         </div>
     </div>
 @endsection
+
+@push('js')
+    <script type="text/javascript">
+        let homeMixin = {
+            data: {
+                rendezvenyTanarok: {!! json_encode($rendezveny->tanarok) !!},
+            },
+
+            methods: {
+                getTanarAvatar(tanar) {
+                    if (tanar.avatar) {
+                        return "{{ asset('storage/avatars/') . '/' }}" + tanar.avatar
+                    } else {
+                        return "{{ asset('storage/avatars/defpic.jpg') }}"
+                    }
+                },
+            },
+        }
+
+        window.mixins.push(homeMixin)
+    </script>
+@endpush

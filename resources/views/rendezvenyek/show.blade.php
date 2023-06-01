@@ -4,6 +4,12 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-10">
+                @if (session('success'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
                 <div class="card">
                     <div class="card-header">
                         Rendezvény részletek
@@ -66,11 +72,29 @@
                                                 <v-list-item-title v-text="tanar.nev"></v-list-item-title>
                                                 <v-list-item-subtitle v-text="tanar.pozicio"></v-list-item-subtitle>
                                             </v-list-item-content>
+
+                                            <v-list-item-action
+                                                v-if="tanar.id === userId"
+                                            >
+                                                <v-btn small href="{{ route('rendezvenyek.toggle-relation', $rendezveny->id) }}">
+                                                    Törlés
+                                                </v-btn>
+                                            </v-list-item-action>
                                         </v-list-item>
                                     </v-list>
                                 </div>
                             </div>
                         @endif
+                        <div
+                            v-if="!relationExists"
+                            class="col-10 mx-auto"
+                        >
+                            <div class="form-group">
+                                <v-btn small href="{{ route('rendezvenyek.toggle-relation', $rendezveny->id) }}">
+                                    Hozzáadás
+                                </v-btn>
+                            </div>
+                        </div>
                         <div class="col-10 mx-auto">
                             <div class="form-group">
                                 <strong>Rendezvény típus:</strong>
@@ -119,6 +143,14 @@
         let homeMixin = {
             data: {
                 rendezvenyTanarok: {!! json_encode($rendezveny->tanarok) !!},
+                {{--userId: {!! json_encode(Auth::user()->id) !!},--}}
+                userId: 1
+            },
+
+            computed: {
+                relationExists() {
+                    return this.rendezvenyTanarok.some(elem => elem.id === this.userId)
+                }
             },
 
             methods: {

@@ -32,6 +32,8 @@ Route::get('profile', [ProfileController::class, 'index'])->name('profile');
 Route::post('profile', [ProfileController::class, 'store'])->name('submit-profile');
 
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {
+    Route::get('/rendezvenyek/{rendezveny}/toggle-relation', [RendezvenyController::class, 'toggleTanarRelation'])->name('rendezvenyek.toggle-relation');
+
     Route::resource('rendezvenyek', RendezvenyController::class)->parameters([
         'rendezvenyek' => 'rendezveny'
     ]);

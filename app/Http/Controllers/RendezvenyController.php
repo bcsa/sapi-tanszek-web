@@ -136,4 +136,15 @@ class RendezvenyController extends Controller
 
         return redirect()->route('rendezvenyek.index')->with('success', 'Sikeresen törölted ezt a rendezvényt!');
     }
+
+    public function toggleTanarRelation(Rendezveny $rendezveny)
+    {
+//        $tanar_id = Auth::user()->id;
+        $tanar_id = 1;
+
+        $toggle = $rendezveny->tanarok()->toggle($tanar_id);
+
+        return redirect()->route('rendezvenyek.show', $rendezveny->id)
+            ->with('success', $toggle['attached'] ? 'Sikeresen hozzáadtad magad ehhez a rendezvényhez!' : 'Sikeresen törölted magad erről a rendezvényről!');
+    }
 }

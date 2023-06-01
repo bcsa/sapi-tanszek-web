@@ -23,7 +23,7 @@
                                         <strong>Rendezvény név:</strong>
                                         <input type="text" name="nev" value="{{ $rendezveny->nev }}" class="form-control" placeholder="Rendezvény név">
                                         @error('nev')
-                                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -32,7 +32,7 @@
                                         <strong>Rendezvény időpont:</strong>
                                         <input type="date" name="idopont" value="{{ $rendezveny->idopont }}" class="form-control" placeholder="Rendezvény időpont">
                                         @error('idopont')
-                                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -41,7 +41,7 @@
                                         <strong>Rendezvény helyszín:</strong>
                                         <input type="text" name="helyszin" value="{{ $rendezveny->helyszin }}" class="form-control" placeholder="Rendezvény helyszín">
                                         @error('helyszin')
-                                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -50,7 +50,7 @@
                                         <strong>Rendezvény résztvevőinek száma:</strong>
                                         <input type="text" name="resztvevok" value="{{ $rendezveny->resztvevok }}" class="form-control" placeholder="Rendezvény résztvevőinek száma">
                                         @error('resztvevok')
-                                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>

@@ -119,7 +119,7 @@
                                         <strong>Tanár leírás:</strong>
                                         <textarea name="bio" class="form-control" placeholder="Tanár leírás" rows="5"></textarea>
                                         @error('bio')
-                                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -128,7 +128,7 @@
                                         <strong>Tanár avatar:</strong>
                                         <input type="file" accept="image/*" name="avatar" class="form-control" placeholder="Tanár avatar"/>
                                         @error('avatar')
-                                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>

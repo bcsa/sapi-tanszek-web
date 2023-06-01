@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Rendezveny;
 use App\Models\Tanar;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class TanarController extends Controller
 {
@@ -18,7 +19,7 @@ class TanarController extends Controller
         if (request('s')) {
             $tanarok = $this->search(request('s'));
         } else {
-            $tanarok = Tanar::orderBy('id','desc')->cursorPaginate(10);
+            $tanarok = Tanar::orderBy('id', 'desc')->cursorPaginate(10);
         }
 
         return view('tanarok.list', compact('tanarok'));
@@ -26,7 +27,7 @@ class TanarController extends Controller
 
     public function search($var)
     {
-        $tanarok = Tanar::orderBy('id','desc')
+        $tanarok = Tanar::orderBy('id', 'desc')
             ->where('nev', 'like', "%$var%")
             ->orWhere('email', 'like', "%$var%")
             ->orWhere('pozicio', 'like', "%$var%")
@@ -37,13 +38,13 @@ class TanarController extends Controller
 
     public function index()
     {
-        $tanarok = Tanar::orderBy('id','desc')->paginate(10);
+        $tanarok = Tanar::orderBy('id', 'desc')->paginate(10);
         return view('tanarok.index', compact('tanarok'));
     }
 
     public function create()
     {
-        $rendezvenyek = Rendezveny::all();
+        $rendezvenyek = Rendezveny::orderBy('idopont', 'desc')->get();
         return view('tanarok.create', compact('rendezvenyek'));
     }
 
@@ -85,7 +86,7 @@ class TanarController extends Controller
 
     public function edit(Tanar $tanar)
     {
-        $rendezvenyek = Rendezveny::all();
+        $rendezvenyek = Rendezveny::orderBy('idopont', 'desc')->get();
         return view('tanarok.edit', compact('tanar', 'rendezvenyek'));
     }
 
@@ -122,7 +123,14 @@ class TanarController extends Controller
 
     public function destroy(Tanar $tanar)
     {
+        if ($tanar->avatar) {
+            if (File::exists(storage_path('app/public/avatars') . '/' . $tanar->avatar)) {
+                File::delete(storage_path('app/public/avatars') . '/' . $tanar->avatar);
+            }
+        }
+
         $tanar->delete();
+
         return redirect()->route('tanarok.index')->with('success', 'Sikeresen törölted ezt a tanárt!');
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Rendezveny;
 use App\Models\Tanar;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class RendezvenyController extends Controller
 {
@@ -18,7 +19,7 @@ class RendezvenyController extends Controller
         if (request('s')) {
             $rendezvenyek = $this->search(request('s'));
         } else {
-            $rendezvenyek = Rendezveny::orderBy('idopont','desc')->cursorPaginate(10);
+            $rendezvenyek = Rendezveny::orderBy('idopont', 'desc')->cursorPaginate(10);
         }
 
         return view('home', compact('rendezvenyek'));
@@ -26,7 +27,7 @@ class RendezvenyController extends Controller
 
     public function search($var)
     {
-        $rendezvenyek = Rendezveny::orderBy('idopont','desc')
+        $rendezvenyek = Rendezveny::orderBy('idopont', 'desc')
             ->where('nev', 'like', "%$var%")
             ->orWhere('leiras', 'like', "%$var%")
             ->orWhere('idopont', 'like', "%$var%")
@@ -39,13 +40,13 @@ class RendezvenyController extends Controller
 
     public function index()
     {
-        $rendezvenyek = Rendezveny::orderBy('idopont','desc')->paginate(10);
+        $rendezvenyek = Rendezveny::orderBy('idopont', 'desc')->paginate(10);
         return view('rendezvenyek.index', compact('rendezvenyek'));
     }
 
     public function create()
     {
-        $tanarok = Tanar::all();
+        $tanarok = Tanar::orderBy('nev', 'asc')->get();
         return view('rendezvenyek.create', compact('tanarok'));
     }
 
@@ -95,7 +96,7 @@ class RendezvenyController extends Controller
 
     public function edit(Rendezveny $rendezveny)
     {
-        $tanarok = Tanar::all();
+        $tanarok = Tanar::orderBy('nev', 'asc')->get();
         return view('rendezvenyek.edit', compact('rendezveny', 'tanarok'));
     }
 
@@ -123,7 +124,16 @@ class RendezvenyController extends Controller
 
     public function destroy(Rendezveny $rendezveny)
     {
+        if ($rendezveny->kepek) {
+            foreach($rendezveny->kepek as $kep) {
+                if (File::exists(storage_path('app/public/kepek') . '/' . $kep)) {
+                    File::delete(storage_path('app/public/kepek') . '/' . $kep);
+                }
+            }
+        }
+
         $rendezveny->delete();
+
         return redirect()->route('rendezvenyek.index')->with('success', 'Sikeresen törölted ezt a rendezvényt!');
     }
 }

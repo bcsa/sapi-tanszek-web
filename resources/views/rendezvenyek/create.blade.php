@@ -31,7 +31,7 @@
                                         <strong>Rendezvény időpont:</strong>
                                         <input type="date" name="idopont" class="form-control" placeholder="Rendezvény időpont">
                                         @error('idopont')
-                                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -49,7 +49,7 @@
                                         <strong>Rendezvény résztvevőinek száma:</strong>
                                         <input type="text" name="resztvevok" class="form-control" placeholder="Rendezvény résztvevőinek száma">
                                         @error('resztvevok')
-                                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -118,7 +118,7 @@
                                             </template>
                                         </v-select>
                                         @error('tanarok')
-                                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -127,7 +127,7 @@
                                         <strong>Rendezvény típus:</strong>
                                         <input type="text" name="tipus" class="form-control" placeholder="Rendezvény típus">
                                         @error('tipus')
-                                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -136,7 +136,7 @@
                                         <strong>Rendezvény képek:</strong>
                                         <input type="file" accept="image/*" name="kepek[]" class="form-control" multiple />
                                         @error('kepek.*')
-                                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
@@ -145,7 +145,7 @@
                                         <strong>Rendezvény leírás:</strong>
                                         <textarea name="leiras" class="form-control" placeholder="Rendezvény leírás" rows="5"></textarea>
                                         @error('leiras')
-                                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>

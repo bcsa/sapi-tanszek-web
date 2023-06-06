@@ -54,7 +54,7 @@
                             </v-col>
 
                             <v-col cols="7">
-                                <h2>{{ $tanar->nev }}</h2>
+                                <h2>{{ $tanar->name }}</h2>
                                 <h5>{{ $tanar->email }}</h5>
                             </v-col>
 

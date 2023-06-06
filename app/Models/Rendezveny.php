@@ -92,6 +92,6 @@ class Rendezveny extends Model
 
     public function tanarok(): BelongsToMany
     {
-        return $this->belongsToMany(Tanar::class);
+        return $this->belongsToMany(User::class);
     }
 }

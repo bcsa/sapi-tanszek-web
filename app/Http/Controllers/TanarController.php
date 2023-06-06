@@ -3,15 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Rendezveny;
-use App\Models\Tanar;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
+
+//TODO: soft-delete
 
 class TanarController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('admin', ['except' => ['index', 'show', 'home']]);
     }
 
     public function home()
@@ -19,7 +22,7 @@ class TanarController extends Controller
         if (request('s')) {
             $tanarok = $this->search(request('s'));
         } else {
-            $tanarok = Tanar::orderBy('id', 'desc')->cursorPaginate(10);
+            $tanarok = User::orderBy('id', 'desc')->cursorPaginate(10);
         }
 
         return view('tanarok.list', compact('tanarok'));
@@ -27,8 +30,8 @@ class TanarController extends Controller
 
     public function search($var)
     {
-        $tanarok = Tanar::orderBy('id', 'desc')
-            ->where('nev', 'like', "%$var%")
+        $tanarok = User::orderBy('id', 'desc')
+            ->where('name', 'like', "%$var%")
             ->orWhere('email', 'like', "%$var%")
             ->orWhere('pozicio', 'like', "%$var%")
             ->cursorPaginate(10);
@@ -38,7 +41,7 @@ class TanarController extends Controller
 
     public function index()
     {
-        $tanarok = Tanar::orderBy('id', 'desc')->paginate(10);
+        $tanarok = User::orderBy('id', 'desc')->paginate(10);
         return view('tanarok.index', compact('tanarok'));
     }
 
@@ -51,7 +54,7 @@ class TanarController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nev' => 'required',
+            'name' => 'required',
             'email' => 'required',
             'pozicio' => 'required',
             'bio' => 'nullable',
@@ -70,7 +73,9 @@ class TanarController extends Controller
             $data->put('avatar', $filename);
         }
 
-        $tanar = Tanar::create($data->all());
+        $data->put('password', Str::random(10));
+
+        $tanar = User::create($data->all());
 
         if ($request->input('rendezvenyek')) {
             $tanar->rendezvenyek()->sync(explode(",", $request->input('rendezvenyek')));
@@ -79,21 +84,21 @@ class TanarController extends Controller
         return redirect()->route('tanarok.index')->with('success', 'Sikeresen létrehoztad ezt a tanárt!');
     }
 
-    public function show(Tanar $tanar)
+    public function show(User $tanar)
     {
         return view('tanarok.show', compact('tanar'));
     }
 
-    public function edit(Tanar $tanar)
+    public function edit(User $tanar)
     {
         $rendezvenyek = Rendezveny::orderBy('idopont', 'desc')->get();
         return view('tanarok.edit', compact('tanar', 'rendezvenyek'));
     }
 
-    public function update(Request $request, Tanar $tanar)
+    public function update(Request $request, User $tanar)
     {
         $request->validate([
-            'nev' => 'required',
+            'name' => 'required',
             'email' => 'required',
             'pozicio' => 'required',
             'bio' => 'nullable',
@@ -118,10 +123,10 @@ class TanarController extends Controller
             $tanar->rendezvenyek()->sync(explode(",", $request->input('rendezvenyek')));
         }
 
-        return redirect()->route('tanarok.index')->with('success', 'Sikeresen frissítetted ezt a tanárt!');
+        return redirect()->route('tanarok.show', $tanar->id)->with('success', 'Sikeresen frissítetted ezt a tanárt!');
     }
 
-    public function destroy(Tanar $tanar)
+    public function destroy(User $tanar)
     {
         if ($tanar->avatar) {
             if (File::exists(storage_path('app/public/avatars') . '/' . $tanar->avatar)) {

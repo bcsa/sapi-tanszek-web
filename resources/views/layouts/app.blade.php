@@ -71,16 +71,22 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('rendezvenyek.index') }}">
-                                        Rendezvények
-                                    </a>
+                                    @if (Auth::user()->is_admin)
+                                        <a class="dropdown-item" href="{{ route('rendezvenyek.index') }}">
+                                            Rendezvények
+                                        </a>
 
-                                    <a class="dropdown-item" href="{{ route('tanarok.index') }}">
-                                        Tanárok
+                                        <a class="dropdown-item" href="{{ route('tanarok.index') }}">
+                                            Tanárok
+                                        </a>
+                                    @endif
+
+                                    <a class="dropdown-item" href="{{ route('tanarok.show', Auth::user()->id) }}">
+                                        Profil
                                     </a>
 
                                     <a class="dropdown-item" href="{{ route('profile') }}">
-                                        Profil
+                                        Profil szerkesztése
                                     </a>
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"

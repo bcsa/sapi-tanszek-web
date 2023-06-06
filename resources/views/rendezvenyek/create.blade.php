@@ -69,7 +69,7 @@
                                                 </v-list-item-avatar>
 
                                                 <v-list-item-content>
-                                                    <v-list-item-title v-text="tanar.nev"></v-list-item-title>
+                                                    <v-list-item-title v-text="tanar.name"></v-list-item-title>
                                                     <v-list-item-subtitle v-text="tanar.pozicio"></v-list-item-subtitle>
                                                 </v-list-item-content>
                                             </v-list-item>
@@ -87,7 +87,7 @@
                                         >
                                             <template v-slot:selection="{ item, index }">
                                                 <v-chip v-if="index < 3">
-                                                    <span>@{{ item.nev }}</span>
+                                                    <span>@{{ item.name }}</span>
                                                 </v-chip>
                                                 <span
                                                     v-if="index === 3"
@@ -112,7 +112,7 @@
                                                 </v-list-item-avatar>
 
                                                 <v-list-item-content>
-                                                    <v-list-item-title v-text="item.nev"></v-list-item-title>
+                                                    <v-list-item-title v-text="item.name"></v-list-item-title>
                                                     <v-list-item-subtitle v-text="item.pozicio"></v-list-item-subtitle>
                                                 </v-list-item-content>
                                             </template>

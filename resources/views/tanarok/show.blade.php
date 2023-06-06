@@ -4,12 +4,20 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-10">
+                @if (session('success'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
                 <div class="card">
                     <div class="card-header">
                         Tanár részletek
 
                         <div class="float-end">
-                            <v-btn small href="{{ route('tanarok.edit', $tanar->id) }}">Módosítás</v-btn>
+                            @if (Auth::user()->is_admin)
+                                <v-btn small href="{{ route('tanarok.edit', $tanar->id) }}">Módosítás</v-btn>
+                            @endif
 
                             <v-btn small href="{{ route('tanarok.index') }}">Vissza</v-btn>
                         </div>
@@ -25,7 +33,7 @@
                         <div class="col-10 mx-auto">
                             <div class="form-group">
                                 <strong>Tanár név:</strong>
-                                {{ $tanar->nev }}
+                                {{ $tanar->name }}
                             </div>
                         </div>
                         <div class="col-10 mx-auto">
@@ -67,6 +75,8 @@
                                                 <v-list-item-subtitle v-text="rendezveny.idopont"></v-list-item-subtitle>
                                                 <v-list-item-subtitle v-text="rendezveny.helyszin"></v-list-item-subtitle>
                                             </v-list-item-content>
+
+{{--                                            TODO: self-torles--}}
                                         </v-list-item>
                                     </v-list>
                                 </div>

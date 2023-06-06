@@ -22,20 +22,20 @@ class ProfileController extends Controller
 
     public function index()
     {
-        $tanar = User::where('id', Auth::id())->first();
-        return view('profile', compact('tanar'));
+        $user = User::where('id', Auth::id())->first();
+        return view('profile', compact('user'));
     }
 
     public function store(UpdateUserRequest $request)
     {
-        $tanar = Auth::user();
+        $user = Auth::user();
 
-        $tanar->name = $request->name;
-        $tanar->pozicio = $request->pozicio;
-        $tanar->leiras = $request->leiras;
-        $tanar->avatar = $request->avatar;
+        $user->name = $request->name;
+        $user->pozicio = $request->pozicio;
+        $user->leiras = $request->leiras;
+        $user->avatar = $request->avatar;
 
-        $tanar->save();
+        $user->save();
 
 //        Mail::to('csongiika@gmail.com')
 //            ->queue(new ContactMessageReceived($user));

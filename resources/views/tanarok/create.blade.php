@@ -20,8 +20,8 @@
                                 <div class="col-10 mx-auto">
                                     <div class="form-group">
                                         <strong>Tanár név:</strong>
-                                        <input type="text" name="nev" class="form-control" placeholder="Tanár név">
-                                        @error('nev')
+                                        <input type="text" name="name" class="form-control" placeholder="Tanár név">
+                                        @error('name')
                                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                         @enderror
                                     </div>

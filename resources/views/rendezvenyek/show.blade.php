@@ -15,7 +15,9 @@
                         Rendezvény részletek
 
                         <div class="float-end">
-                            <v-btn small href="{{ route('rendezvenyek.edit', $rendezveny->id) }}">Módosítás</v-btn>
+                            @if (Auth::user()->is_admin)
+                                <v-btn small href="{{ route('rendezvenyek.edit', $rendezveny->id) }}">Módosítás</v-btn>
+                            @endif
 
                             <v-btn small href="{{ route('rendezvenyek.index') }}">Vissza</v-btn>
                         </div>
@@ -69,7 +71,7 @@
                                             </v-list-item-avatar>
 
                                             <v-list-item-content>
-                                                <v-list-item-title v-text="tanar.nev"></v-list-item-title>
+                                                <v-list-item-title v-text="tanar.name"></v-list-item-title>
                                                 <v-list-item-subtitle v-text="tanar.pozicio"></v-list-item-subtitle>
                                             </v-list-item-content>
 
@@ -85,16 +87,18 @@
                                 </div>
                             </div>
                         @endif
-                        <div
-                            v-if="!relationExists"
-                            class="col-10 mx-auto"
-                        >
-                            <div class="form-group">
-                                <v-btn small href="{{ route('rendezvenyek.toggle-relation', $rendezveny->id) }}">
-                                    Hozzáadás
-                                </v-btn>
+                        @if (!Auth::user()->is_admin)
+                            <div
+                                v-if="!relationExists"
+                                class="col-10 mx-auto"
+                            >
+                                <div class="form-group">
+                                    <v-btn small href="{{ route('rendezvenyek.toggle-relation', $rendezveny->id) }}">
+                                        Hozzáadás
+                                    </v-btn>
+                                </div>
                             </div>
-                        </div>
+                        @endif
                         <div class="col-10 mx-auto">
                             <div class="form-group">
                                 <strong>Rendezvény típus:</strong>
@@ -143,8 +147,7 @@
         let homeMixin = {
             data: {
                 rendezvenyTanarok: {!! json_encode($rendezveny->tanarok) !!},
-                {{--userId: {!! json_encode(Auth::user()->id) !!},--}}
-                userId: 1
+                userId: {!! json_encode(Auth::user()->id) !!},
             },
 
             computed: {

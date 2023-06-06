@@ -9,7 +9,9 @@
                         Rendezvények
 
                         <div class="float-end">
-                            <v-btn small href="{{ route('rendezvenyek.create') }}">Új rendezvény</v-btn>
+                            @if (Auth::user()->is_admin)
+                                <v-btn small href="{{ route('rendezvenyek.create') }}">Új rendezvény</v-btn>
+                            @endif
                         </div>
                     </div>
 
@@ -59,14 +61,17 @@
                                                 <v-btn block small rounded class="mb-3" href="{{ route('rendezvenyek.show', $rendezveny->id) }}">
                                                     Részletek
                                                 </v-btn>
-                                                <v-btn block small rounded class="mb-3" href="{{ route('rendezvenyek.edit', $rendezveny->id) }}">
-                                                    Módosítás
-                                                </v-btn>
-                                                @csrf
-                                                @method('DELETE')
-                                                <v-btn block small rounded class="mb-3" type="submit">
-                                                    Törlés
-                                                </v-btn>
+
+                                                @if (Auth::user()->is_admin)
+                                                    <v-btn block small rounded class="mb-3" href="{{ route('rendezvenyek.edit', $rendezveny->id) }}">
+                                                        Módosítás
+                                                    </v-btn>
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <v-btn block small rounded class="mb-3" type="submit">
+                                                        Törlés
+                                                    </v-btn>
+                                                @endif
                                             </form>
                                         </td>
                                     </tr>

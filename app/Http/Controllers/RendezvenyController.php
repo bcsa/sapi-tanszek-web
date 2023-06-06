@@ -3,15 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Rendezveny;
-use App\Models\Tanar;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+
+//TODO: soft-delete
 
 class RendezvenyController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('admin', ['except' => ['index', 'show', 'home', 'toggleTanarRelation']]);
     }
 
     public function home()
@@ -46,7 +49,7 @@ class RendezvenyController extends Controller
 
     public function create()
     {
-        $tanarok = Tanar::orderBy('nev', 'asc')->get();
+        $tanarok = User::orderBy('name', 'asc')->get();
         return view('rendezvenyek.create', compact('tanarok'));
     }
 
@@ -96,7 +99,7 @@ class RendezvenyController extends Controller
 
     public function edit(Rendezveny $rendezveny)
     {
-        $tanarok = Tanar::orderBy('nev', 'asc')->get();
+        $tanarok = User::orderBy('name', 'asc')->get();
         return view('rendezvenyek.edit', compact('rendezveny', 'tanarok'));
     }
 
@@ -119,7 +122,7 @@ class RendezvenyController extends Controller
             $rendezveny->tanarok()->sync(explode(",", $request->input('tanarok')));
         }
 
-        return redirect()->route('rendezvenyek.index')->with('success', 'Sikeresen frissítetted ezt a rendezvényt!');
+        return redirect()->route('rendezvenyek.show', $rendezveny->id)->with('success', 'Sikeresen frissítetted ezt a rendezvényt!');
     }
 
     public function destroy(Rendezveny $rendezveny)
@@ -139,8 +142,7 @@ class RendezvenyController extends Controller
 
     public function toggleTanarRelation(Rendezveny $rendezveny)
     {
-//        $tanar_id = Auth::user()->id;
-        $tanar_id = 1;
+        $tanar_id = Auth::user()->id;
 
         $toggle = $rendezveny->tanarok()->toggle($tanar_id);
 

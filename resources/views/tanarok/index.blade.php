@@ -9,7 +9,9 @@
                         Tanárok
 
                         <div class="float-end">
-                            <v-btn small href="{{ route('tanarok.create') }}">Új tanár</v-btn>
+                            @if (Auth::user()->is_admin)
+                                <v-btn small href="{{ route('tanarok.create') }}">Új tanár</v-btn>
+                            @endif
                         </div>
                     </div>
 
@@ -36,7 +38,7 @@
                                 @foreach ($tanarok as $tanar)
                                     <tr>
                                         <td>{{ $tanar->id }}</td>
-                                        <td>{{ $tanar->nev }}</td>
+                                        <td>{{ $tanar->name }}</td>
                                         <td>{{ $tanar->email }}</td>
                                         <td>{{ $tanar->pozicio }}</td>
 {{--                                        <td>{{ Str::limit($tanar->bio, 200) }}</td>--}}
@@ -55,14 +57,17 @@
                                                 <v-btn block small rounded class="mb-3" href="{{ route('tanarok.show', $tanar->id) }}">
                                                     Részletek
                                                 </v-btn>
-                                                <v-btn block small rounded class="mb-3" href="{{ route('tanarok.edit', $tanar->id) }}">
-                                                    Módosítás
-                                                </v-btn>
-                                                @csrf
-                                                @method('DELETE')
-                                                <v-btn block small rounded type="submit">
-                                                    Törlés
-                                                </v-btn>
+
+                                                @if (Auth::user()->is_admin)
+                                                    <v-btn block small rounded class="mb-3" href="{{ route('tanarok.edit', $tanar->id) }}">
+                                                        Módosítás
+                                                    </v-btn>
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <v-btn block small rounded type="submit">
+                                                        Törlés
+                                                    </v-btn>
+                                                @endif
                                             </form>
                                         </td>
                                     </tr>

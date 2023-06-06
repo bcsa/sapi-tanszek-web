@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 //Route::get('/', 'ProfileController@index')->name('home');
 
-Auth::routes(['register' => false]);
+Auth::routes(['register' => false, 'confirm' => false]);
 
 Route::get('/', [RendezvenyController::class, 'home'])->name('rendezvenyek.home');
 Route::get('/tanarok', [TanarController::class, 'home'])->name('tanarok.home');

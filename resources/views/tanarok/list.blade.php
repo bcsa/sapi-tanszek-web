@@ -4,6 +4,12 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-12">
+            @if (session('status'))
+                <div class="alert alert-success" role="alert">
+                    {{ session('status') }}
+                </div>
+            @endif
+
             <div class="card">
                 <div class="card-header">
                     Tanárok
@@ -37,12 +43,6 @@
                 </v-row>
 
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
                     @forelse ($tanarok as $tanar)
                         <v-row class="tanar-wrapper" @click="redirectToShow({{ $tanar->id }})">
                             <v-col cols="3" class="text-center">

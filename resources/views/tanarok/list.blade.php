@@ -17,30 +17,51 @@
 
                 <v-row>
                     <v-col cols="11" class="mx-auto">
-{{--                        <v-form>--}}
-{{--                            <v-text-field--}}
-{{--                                v-model="searchTerm"--}}
-{{--                                hide-details--}}
-{{--                                label="Keresés"--}}
-{{--                                outlined--}}
-{{--                                single-line--}}
+                        <v-form @submit.prevent class="mb-10">
+                            <v-text-field
+                                v-model="searchTerm"
+                                hide-details
+                                label="Keresés"
+                                outlined
+                                dense
+                                single-line
 {{--                                append-icon="fas fa-times"--}}
 {{--                                @click:append="searchTerm = null"--}}
 {{--                                @keydown.enter="search()"--}}
-{{--                            ></v-text-field>--}}
-{{--                        </v-form>--}}
+                            ></v-text-field>
+                        </v-form>
 
-                        <form>
-                            <input
-                                type="search"
-                                class="form-control"
-                                placeholder="Keresés"
-                                name="s"
-                                value="{{ request('s') }}"
-                            >
-                        </form>
+{{--                        <form>--}}
+{{--                            <input--}}
+{{--                                type="search"--}}
+{{--                                class="form-control"--}}
+{{--                                placeholder="Keresés"--}}
+{{--                                name="s"--}}
+{{--                                value="{{ request('s') }}"--}}
+{{--                            >--}}
+{{--                        </form>--}}
                     </v-col>
                 </v-row>
+
+                <div class="card-body">
+                    <v-list dense>
+                        <v-list-item
+                            v-for="tanar in tanarok"
+                            :key="tanar.id"
+                        >
+                            <v-list-item-avatar>
+                                <v-img
+                                    :src="getTanarAvatar(tanar)"
+                                ></v-img>
+                            </v-list-item-avatar>
+
+                            <v-list-item-content>
+                                <v-list-item-title v-text="tanar.name"></v-list-item-title>
+                                <v-list-item-subtitle v-text="tanar.pozicio"></v-list-item-subtitle>
+                            </v-list-item-content>
+                        </v-list-item>
+                    </v-list>
+                </div>
 
                 <div class="card-body">
                     @forelse ($tanarok as $tanar)
@@ -87,22 +108,31 @@
                 searchTerm: null,
                 selectedFilter: null,
                 orderBy: null,
+                tanarok: [],
             },
 
-            // watch: {
-            //     searchTerm: function(value) {
-            //         console.log(value)
-            //     }
-            // },
+            mounted() {
+                this.$watch('searchTerm', _.debounce(function(value) {
+                    this.search(value)
+                }, 500))
+            },
 
             methods: {
                 redirectToShow(id) {
                     window.location.href = route('tanarok.show', id)
                 },
 
+                getTanarAvatar(tanar) {
+                    if (tanar.avatar) {
+                        return "{{ asset('storage/avatars/') . '/' }}" + tanar.avatar
+                    } else {
+                        return "{{ asset('storage/avatars/defpic.jpg') }}"
+                    }
+                },
+
                 search() {
                     let params = {
-                        'test': 123
+                        // 'test': 123
                     }
 
                     if (this.orderBy) {
@@ -117,9 +147,10 @@
                         params.search_term = this.searchTerm
                     }
 
-                    axios.post('/tanarok/search', params).then((response) => {
+                    axios.post(route('tanarok.search', params.search_term)).then((response) => {
                         if (response && response.data) {
-                            console.log(response.data)
+                            this.tanarok = response.data.data
+                            // console.log(response.data.data)
                         }
                     })
                 }

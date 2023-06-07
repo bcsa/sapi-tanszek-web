@@ -17,30 +17,52 @@
 
                 <v-row>
                     <v-col cols="11" class="mx-auto">
-{{--                        <v-form>--}}
-{{--                            <v-text-field--}}
-{{--                                v-model="searchTerm"--}}
-{{--                                hide-details--}}
-{{--                                label="Keresés"--}}
-{{--                                outlined--}}
-{{--                                single-line--}}
+                        <v-form @submit.prevent class="mb-10">
+                            <v-text-field
+                                v-model="searchTerm"
+                                hide-details
+                                label="Keresés"
+                                outlined
+                                dense
+                                single-line
 {{--                                append-icon="fas fa-times"--}}
 {{--                                @click:append="searchTerm = null"--}}
 {{--                                @keydown.enter="search()"--}}
-{{--                            ></v-text-field>--}}
-{{--                        </v-form>--}}
+                            ></v-text-field>
+                        </v-form>
 
-                        <form>
-                            <input
-                                type="search"
-                                class="form-control"
-                                placeholder="Keresés"
-                                name="s"
-                                value="{{ request('s') }}"
-                            >
-                        </form>
+{{--                        <form>--}}
+{{--                            <input--}}
+{{--                                type="search"--}}
+{{--                                class="form-control"--}}
+{{--                                placeholder="Keresés"--}}
+{{--                                name="s"--}}
+{{--                                value="{{ request('s') }}"--}}
+{{--                            >--}}
+{{--                        </form>--}}
                     </v-col>
                 </v-row>
+
+                <div class="card-body">
+                    <v-list dense>
+                        <v-list-item
+                            v-for="rendezveny in rendezvenyek"
+                            :key="rendezveny.id"
+                        >
+                            <v-list-item-avatar>
+                                <v-img
+                                    :src="getRendezvenyAvatar(rendezveny)"
+                                ></v-img>
+                            </v-list-item-avatar>
+
+                            <v-list-item-content>
+                                <v-list-item-title v-text="rendezveny.nev"></v-list-item-title>
+                                <v-list-item-subtitle v-text="rendezveny.idopont"></v-list-item-subtitle>
+                                <v-list-item-subtitle v-text="rendezveny.helyszin"></v-list-item-subtitle>
+                            </v-list-item-content>
+                        </v-list-item>
+                    </v-list>
+                </div>
 
                 <div class="card-body">
                     @forelse ($rendezvenyek as $rendezveny)
@@ -104,22 +126,31 @@
                 searchTerm: null,
                 selectedFilter: null,
                 orderBy: null,
+                rendezvenyek: [],
             },
 
-            // watch: {
-            //     searchTerm: function(value) {
-            //         console.log(value)
-            //     }
-            // },
+            mounted() {
+                this.$watch('searchTerm', _.debounce(function(value) {
+                    this.search(value)
+                }, 500))
+            },
 
             methods: {
                 redirectToShow(id) {
                     window.location.href = route('rendezvenyek.show', id)
                 },
 
+                getRendezvenyAvatar(rendezveny) {
+                    if (rendezveny.kepek) {
+                        return "{{ asset('storage/kepek/') . '/' }}" + rendezveny.kepek[0]
+                    } else {
+                        return "{{ asset('storage/avatars/defpic.jpg') }}"
+                    }
+                },
+
                 search() {
                     let params = {
-                        'test': 123
+                        // 'test': 123
                     }
 
                     if (this.orderBy) {
@@ -134,12 +165,13 @@
                         params.search_term = this.searchTerm
                     }
 
-                    axios.post('/rendezvenyek/search', params).then((response) => {
+                    axios.post(route('rendezvenyek.search', params.search_term)).then((response) => {
                         if (response && response.data) {
-                            console.log(response.data)
+                            this.rendezvenyek = response.data.data
+                            // console.log(response.data.data)
                         }
                     })
-                }
+                },
             },
         }
 

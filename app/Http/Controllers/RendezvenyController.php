@@ -14,7 +14,7 @@ class RendezvenyController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('admin', ['except' => ['index', 'show', 'home', 'toggleTanarRelation']]);
+        $this->middleware('admin', ['except' => ['index', 'show', 'home', 'search', 'toggleTanarRelation']]);
     }
 
     public function home()

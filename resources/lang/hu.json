@@ -5,7 +5,7 @@
     "Confirm Password": "Jelszó megerősítés",
     "Remember Me": "Jegyezz meg",
     "Forgot Your Password?": "Elfelejtett jelszó?",
-    "Reset Password": "Elfelejtett jelszó",
+    "Reset Password": "Jelszó helyreállítás",
     "Send Password Reset Link": "Küldés",
     "Log Out": "Kijelentkezés",
     "Logout": "Kijelentkezés",
@@ -14,5 +14,12 @@
     "Showing": "Eredmény: ",
     "to": " - ",
     "of": " / ",
-    "results": "találatból"
+    "results": "találatból",
+    "Regards": "Üdvözlettel",
+    "All rights reserved.": "Minden jog fenntarva.",
+    "Reset Password Notification": "Jelszó helyreállítás emlékeztető",
+    "You are receiving this email because we received a password reset request for your account.": "Azért kapod ezt az email, mert kérvényezted a jelszód cseréjét.",
+    "This password reset link will expire in :count minutes.": "Ez a jelszó helyreállító link lejár :count perc múlva.",
+    "If you did not request a password reset, no further action is required.": "Ha nem te kérted a jelszó helyreállítást, nincs további teendőd.",
+    "If you're having trouble clicking the \":actionText\" button, copy and paste the URL below\ninto your web browser:": "Ha probléma történik a(z) \":actionText\" gombra kattintáskor, kérlek használd ezt a linket:"
 }

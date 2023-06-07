@@ -14,7 +14,7 @@ class TanarController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('admin', ['except' => ['index', 'show', 'home']]);
+        $this->middleware('admin', ['except' => ['index', 'show', 'home', 'search']]);
     }
 
     public function home()

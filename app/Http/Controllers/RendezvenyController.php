@@ -28,15 +28,19 @@ class RendezvenyController extends Controller
         return view('home', compact('rendezvenyek'));
     }
 
-    public function search($var)
+    public function search($var = null)
     {
-        $rendezvenyek = Rendezveny::orderBy('idopont', 'desc')
-            ->where('nev', 'like', "%$var%")
-            ->orWhere('leiras', 'like', "%$var%")
-            ->orWhere('idopont', 'like', "%$var%")
-            ->orWhere('helyszin', 'like', "%$var%")
-            ->orWhere('tipus', 'like', "%$var%")
-            ->cursorPaginate(10);
+        if ($var) {
+            $rendezvenyek = Rendezveny::orderBy('idopont', 'desc')
+                ->where('nev', 'like', "%$var%")
+                ->orWhere('leiras', 'like', "%$var%")
+                ->orWhere('idopont', 'like', "%$var%")
+                ->orWhere('helyszin', 'like', "%$var%")
+                ->orWhere('tipus', 'like', "%$var%")
+                ->cursorPaginate(10);
+        } else {
+            $rendezvenyek = Rendezveny::orderBy('idopont', 'desc')->cursorPaginate(10);
+        }
 
         return $rendezvenyek;
     }

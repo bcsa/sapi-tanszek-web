@@ -16,7 +16,7 @@
                 </div>
 
                 <v-row>
-                    <v-col cols="11" class="mx-auto">
+                    <v-col cols="4" class="ml-5 mt-5">
                         <v-form @submit.prevent class="mb-10">
                             <v-text-field
                                 v-model="searchTerm"
@@ -25,8 +25,8 @@
                                 outlined
                                 dense
                                 single-line
-{{--                                append-icon="fas fa-times"--}}
-{{--                                @click:append="searchTerm = null"--}}
+                                append-icon="fas fa-times"
+                                @click:append="searchTerm = null"
 {{--                                @keydown.enter="search()"--}}
                             ></v-text-field>
                         </v-form>

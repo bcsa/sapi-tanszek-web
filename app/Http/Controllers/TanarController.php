@@ -28,13 +28,17 @@ class TanarController extends Controller
         return view('tanarok.list', compact('tanarok'));
     }
 
-    public function search($var)
+    public function search($var = null)
     {
-        $tanarok = User::orderBy('id', 'desc')
-            ->where('name', 'like', "%$var%")
-            ->orWhere('email', 'like', "%$var%")
-            ->orWhere('pozicio', 'like', "%$var%")
-            ->cursorPaginate(10);
+        if ($var) {
+            $tanarok = User::orderBy('id', 'desc')
+                ->where('name', 'like', "%$var%")
+                ->orWhere('email', 'like', "%$var%")
+                ->orWhere('pozicio', 'like', "%$var%")
+                ->cursorPaginate(10);
+        } else {
+            $tanarok = User::orderBy('id', 'desc')->cursorPaginate(10);
+        }
 
         return $tanarok;
     }

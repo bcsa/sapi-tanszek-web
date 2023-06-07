@@ -46,5 +46,7 @@ mix.webpackConfig({
 
 mix.js('resources/js/app.js', 'public/js').vue();
 
+mix.copyDirectory('node_modules/@fortawesome/fontawesome-free/webfonts', 'public/webfonts');
+
 mix.sass('resources/scss/app.scss', 'public/css').version();
 mix.sass('resources/scss/web.scss', 'public/css').version();

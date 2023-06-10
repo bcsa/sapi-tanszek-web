@@ -5,7 +5,7 @@
 <script>
 
 export default {
-    name: "SolarCalculatorLayout",
+    name: "HomeLayout",
 
     data() {
         return {

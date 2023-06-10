@@ -82,12 +82,11 @@
                                 <v-label>
                                     Avatar
                                 </v-label>
-                                <v-text-field
-                                    v-model="avatar"
-                                    dense
-                                    solo
-                                    placeholder="{{ $user->avatar ?? 'avatar' }}"
-                                ></v-text-field>
+                                <v-img
+                                    max-height="300"
+                                    max-width="300"
+                                    :src="getTanarAvatar({{ $user }})"
+                                ></v-img>
                             </v-col>
 
                             <v-col cols="8">
@@ -136,6 +135,14 @@
             },
 
             methods: {
+                getTanarAvatar(tanar) {
+                    if (tanar.avatar) {
+                        return "{{ asset('storage/avatars/') . '/' }}" + tanar.avatar
+                    } else {
+                        return "{{ asset('storage/avatars/defpic.jpg') }}"
+                    }
+                },
+
                 submitUserUpdate() {
                     if (!this.$refs.updateForm.validate()) {
                         return

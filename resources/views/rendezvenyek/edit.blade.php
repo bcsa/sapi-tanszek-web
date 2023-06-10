@@ -176,7 +176,7 @@
             },
 
             mounted() {
-                console.log(this.rendezvenyTanarok, this.selectedTanarok)
+                // console.log(this.rendezvenyTanarok, this.selectedTanarok)
             },
 
             computed: {

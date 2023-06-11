@@ -19,26 +19,22 @@ class TanarController extends Controller
 
     public function home()
     {
-        if (request('s')) {
-            $tanarok = $this->search(request('s'));
-        } else {
-            $tanarok = User::orderBy('id', 'desc')->cursorPaginate(10);
-        }
+        $tanarok = User::orderBy('id', 'desc')->paginate(10);
 
         return view('tanarok.list', compact('tanarok'));
     }
 
-    public function search($var = null)
+    public function search(Request $request)
     {
-        if ($var) {
-            $tanarok = User::orderBy('id', 'desc')
-                ->where('name', 'like', "%$var%")
-                ->orWhere('email', 'like', "%$var%")
-                ->orWhere('pozicio', 'like', "%$var%")
-                ->cursorPaginate(10);
-        } else {
-            $tanarok = User::orderBy('id', 'desc')->cursorPaginate(10);
+        $query = User::select('*');
+
+        if ($term = $request->input('search_term')) {
+            $query->where('name', 'like', "%$term%")
+                ->orWhere('email', 'like', "%$term%")
+                ->orWhere('pozicio', 'like', "%$term%");
         }
+
+        $tanarok = $query->paginate(10);
 
         return $tanarok;
     }
@@ -125,6 +121,8 @@ class TanarController extends Controller
 
         if ($request->input('rendezvenyek')) {
             $tanar->rendezvenyek()->sync(explode(",", $request->input('rendezvenyek')));
+        } else {
+            $tanar->rendezvenyek()->detach();
         }
 
         return redirect()->route('tanarok.show', $tanar->id)->with('success', 'Sikeresen frissítetted ezt a tanárt!');

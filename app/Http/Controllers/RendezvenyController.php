@@ -19,28 +19,52 @@ class RendezvenyController extends Controller
 
     public function home()
     {
-        if (request('s')) {
-            $rendezvenyek = $this->search(request('s'));
-        } else {
-            $rendezvenyek = Rendezveny::orderBy('idopont', 'desc')->cursorPaginate(10);
-        }
+        $rendezvenyek = Rendezveny::orderBy('idopont', 'desc')->paginate(10);
 
         return view('home', compact('rendezvenyek'));
     }
 
-    public function search($var = null)
+    public function search(Request $request)
     {
-        if ($var) {
-            $rendezvenyek = Rendezveny::orderBy('idopont', 'desc')
-                ->where('nev', 'like', "%$var%")
-                ->orWhere('leiras', 'like', "%$var%")
-                ->orWhere('idopont', 'like', "%$var%")
-                ->orWhere('helyszin', 'like', "%$var%")
-                ->orWhere('tipus', 'like', "%$var%")
-                ->cursorPaginate(10);
-        } else {
-            $rendezvenyek = Rendezveny::orderBy('idopont', 'desc')->cursorPaginate(10);
+        $query = Rendezveny::select('*');
+
+        if ($request->input('order_by')) {
+            $query->orderBy($request->input('order_by'), 'desc');
         }
+
+        if ($categories = $request->input('categories')) {
+            $query->where(function ($q) use ($categories) {
+                foreach ($categories as $category) {
+                    $q->orWhere('tipus', 'like', "%$category%");
+                }
+            });
+        }
+
+        if ($filters = $request->input('years')) {
+            $query->where(function ($q) use ($filters) {
+                foreach ($filters as $filter) {
+                    $q->orWhere('idopont', 'like', "%$filter%");
+                }
+            });
+        }
+
+        if ($term = $request->input('search_term')) {
+            $query->where('nev', 'like', "%$term%")
+                ->orWhere('leiras', 'like', "%$term%")
+                ->orWhere('idopont', 'like', "%$term%")
+                ->orWhere('helyszin', 'like', "%$term%")
+                ->orWhere('tipus', 'like', "%$term%");
+        }
+
+        $rendezvenyek = $query->paginate(10);
+
+//        $rendezvenyek = Rendezveny::orderBy('idopont', 'desc')
+//            ->where('nev', 'like', "%$var%")
+//            ->orWhere('leiras', 'like', "%$var%")
+//            ->orWhere('idopont', 'like', "%$var%")
+//            ->orWhere('helyszin', 'like', "%$var%")
+//            ->orWhere('tipus', 'like', "%$var%")
+//            ->cursorPaginate(10);
 
         return $rendezvenyek;
     }
@@ -124,6 +148,8 @@ class RendezvenyController extends Controller
 
         if ($request->input('tanarok')) {
             $rendezveny->tanarok()->sync(explode(",", $request->input('tanarok')));
+        } else {
+            $rendezveny->tanarok()->detach();
         }
 
         return redirect()->route('rendezvenyek.show', $rendezveny->id)->with('success', 'Sikeresen frissítetted ezt a rendezvényt!');

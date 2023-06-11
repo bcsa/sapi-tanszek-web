@@ -20,15 +20,51 @@
                         <v-form @submit.prevent class="mb-10">
                             <v-text-field
                                 v-model="searchTerm"
+                                class="mb-10"
                                 hide-details
-                                label="Keresés"
-                                outlined
+                                label="Keresés..."
                                 dense
-                                single-line
+                                solo
                                 append-icon="fas fa-times"
                                 @click:append="searchTerm = null"
 {{--                                @keydown.enter="search()"--}}
                             ></v-text-field>
+
+                            <v-select
+                                v-model="selectedYear"
+                                class="my-3"
+                                hide-details
+                                :items="years"
+                                multiple
+                                dense
+                                solo
+                                placeholder="Év"
+                            ></v-select>
+
+                            <v-select
+                                v-model="selectedCategory"
+                                class="my-3"
+                                hide-details
+                                :items="categories"
+                                item-text="name"
+                                item-value="value"
+                                multiple
+                                dense
+                                solo
+                                placeholder="Kategória"
+                            ></v-select>
+
+                            <v-select
+                                v-model="orderBy"
+                                class="mt-10"
+                                hide-details
+                                :items="order"
+                                item-text="name"
+                                item-value="value"
+                                dense
+                                solo
+                                placeholder="Rendezés"
+                            ></v-select>
                         </v-form>
 
 {{--                        <form>--}}
@@ -105,9 +141,9 @@
                         Nincs találat.
                     @endforelse
 
-                    @if (count($rendezvenyek))
-                        {{ count($rendezvenyek) }} találat.
-                    @endif
+{{--                    @if (count($rendezvenyek))--}}
+{{--                        {{ count($rendezvenyek) }} találat.--}}
+{{--                    @endif--}}
 
                     <div class="float-right">
                         {!! $rendezvenyek->links() !!}
@@ -124,15 +160,54 @@
         let homeMixin = {
             data: {
                 searchTerm: null,
-                selectedFilter: null,
                 orderBy: null,
                 rendezvenyek: [],
+                years: ['2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023'],
+                selectedYear: null,
+                categories: [{
+                    name: 'Tábor',
+                    value: 'tábor'
+                }, {
+                    name: 'TDK',
+                    value: 'TDK'
+                }, {
+                    name: 'Verseny',
+                    value: 'verseny'
+                }, {
+                    name: 'Konferencia',
+                    value: 'konferencia'
+                }, {
+                    name: 'Workshop',
+                    value: 'workshop'
+                }],
+                order: [{
+                    name: 'Időpont',
+                    value: 'idopont'
+                }, {
+                    name: 'Név',
+                    value: 'nev'
+                }],
+                selectedCategory: null,
             },
 
             mounted() {
-                this.$watch('searchTerm', _.debounce(function(value) {
-                    this.search(value)
+                this.$watch('searchTerm', _.debounce(function() {
+                    this.search()
                 }, 500))
+            },
+
+            watch: {
+                selectedYear() {
+                    this.search()
+                },
+
+                selectedCategory() {
+                    this.search()
+                },
+
+                orderBy() {
+                    this.search()
+                }
             },
 
             methods: {
@@ -149,23 +224,25 @@
                 },
 
                 search() {
-                    let params = {
-                        // 'test': 123
-                    }
+                    let params = {}
 
                     if (this.orderBy) {
                         params.order_by = this.orderBy
                     }
 
-                    if (this.selectedFilter) {
-                        params.filter_by = this.selectedFilter
+                    if (this.selectedYear) {
+                        params.years = this.selectedYear
+                    }
+
+                    if (this.selectedCategory) {
+                        params.categories = this.selectedCategory
                     }
 
                     if (this.searchTerm) {
                         params.search_term = this.searchTerm
                     }
 
-                    axios.post(route('rendezvenyek.search', params.search_term)).then((response) => {
+                    axios.post(route('rendezvenyek.search', params)).then((response) => {
                         if (response && response.data) {
                             this.rendezvenyek = response.data.data
                             // console.log(response.data.data)

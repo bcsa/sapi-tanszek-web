@@ -20,11 +20,11 @@
                         <v-form @submit.prevent class="mb-10">
                             <v-text-field
                                 v-model="searchTerm"
+                                class="mb-10"
                                 hide-details
-                                label="Keresés"
-                                outlined
+                                label="Keresés..."
                                 dense
-                                single-line
+                                solo
                                 append-icon="fas fa-times"
                                 @click:append="searchTerm = null"
 {{--                                @keydown.enter="search()"--}}
@@ -87,9 +87,9 @@
                         Nincs találat.
                     @endforelse
 
-                    @if (count($tanarok))
-                        {{ count($tanarok) }} találat.
-                    @endif
+{{--                    @if (count($tanarok))--}}
+{{--                        {{ count($tanarok) }} találat.--}}
+{{--                    @endif--}}
 
                     <div class="float-right">
                         {!! $tanarok->links() !!}
@@ -131,26 +131,15 @@
                 },
 
                 search() {
-                    let params = {
-                        // 'test': 123
-                    }
-
-                    if (this.orderBy) {
-                        params.order_by = this.orderBy
-                    }
-
-                    if (this.selectedFilter) {
-                        params.filter_by = this.selectedFilter
-                    }
+                    let params = {}
 
                     if (this.searchTerm) {
                         params.search_term = this.searchTerm
                     }
 
-                    axios.post(route('tanarok.search', params.search_term)).then((response) => {
+                    axios.post(route('tanarok.search', params)).then((response) => {
                         if (response && response.data) {
                             this.tanarok = response.data.data
-                            // console.log(response.data.data)
                         }
                     })
                 }

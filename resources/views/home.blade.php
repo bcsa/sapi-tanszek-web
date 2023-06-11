@@ -109,7 +109,7 @@
                                 </div>
                             </v-col>
 
-                            <v-col cols="3" class="text-center lightgreen hidden-sm-and-down">
+                            <v-col cols="3" class="text-center lightgreen hide-on-mobile">
                                 @if ($rendezveny->kepek)
                                     <img src="{{ asset('storage/kepek/' . $rendezveny->kepek[0]) }}" width="150" height="auto" alt="">
                                 @else

@@ -32,6 +32,14 @@ p {
     position: relative;
 }
 
+@media only screen and (max-width: 768px) {
+    .rendezveny-wrapper, .tanar-wrapper {
+        .hide-on-mobile {
+            display: none !important;
+        }
+    }
+}
+
 .rendezveny-wrapper, .tanar-wrapper {
     background-color: forestgreen;
     margin-bottom: 20px;

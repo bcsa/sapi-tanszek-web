@@ -68,7 +68,7 @@
                                 <h5>{{ $tanar->email }}</h5>
                             </v-col>
 
-                            <v-col cols="2" class="details pozicio align-self-center hidden-sm-and-down">
+                            <v-col cols="2" class="details pozicio align-self-center hide-on-mobile">
                                 {{ $tanar->pozicio }}
                             </v-col>
                         </v-row>

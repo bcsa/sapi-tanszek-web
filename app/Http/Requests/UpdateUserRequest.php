@@ -27,7 +27,7 @@ class UpdateUserRequest extends FormRequest
             'name' => 'required|string',
             'pozicio' => 'nullable|string',
             'leiras' => 'nullable|string',
-            'avatar' => 'nullable|string',
+            'avatar' => 'nullable|image|max:1024',
         ];
     }
 }

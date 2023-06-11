@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreAffiliate;
 use App\Http\Requests\UpdateUserRequest;
-use App\Mail\AffiliateRegistrationReceived;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class ProfileController extends Controller
 {
@@ -32,8 +31,20 @@ class ProfileController extends Controller
 
         $user->name = $request->name;
         $user->pozicio = $request->pozicio;
-        $user->leiras = $request->leiras;
-        $user->avatar = $request->avatar;
+
+        if($request->hasFile('avatar'))
+        {
+            if (File::exists(storage_path('app/public/avatars') . '/' . $user->avatar)) {
+                File::delete(storage_path('app/public/avatars') . '/' . $user->avatar);
+            }
+
+            $file = $request->file('avatar');
+            $filename = $file->getClientOriginalName();
+
+            $file->move(storage_path('app/public/avatars'), $filename);
+
+            $user->avatar = $filename;
+        }
 
         $user->save();
 

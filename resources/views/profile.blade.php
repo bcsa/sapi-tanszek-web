@@ -46,6 +46,7 @@
                                 </v-label>
                                 <v-text-field
                                     v-model="email"
+                                    disabled
                                     dense
                                     solo
                                     placeholder="{{ $user->email }}"
@@ -66,27 +67,23 @@
                                 ></v-text-field>
                             </v-col>
 
-{{--                            <v-col cols="8" class="py-0">--}}
-{{--                                <v-label>--}}
-{{--                                    Leírás--}}
-{{--                                </v-label>--}}
-{{--                                <v-text-field--}}
-{{--                                    v-model="leiras"--}}
-{{--                                    dense--}}
-{{--                                    solo--}}
-{{--                                    placeholder="{{ $user->leiras ?? 'leírás' }}"--}}
-{{--                                ></v-text-field>--}}
-{{--                            </v-col>--}}
-
                             <v-col cols="8" class="py-0">
                                 <v-label>
                                     Avatar
                                 </v-label>
                                 <v-img
+                                    class="my-3"
                                     max-height="300"
                                     max-width="300"
                                     :src="getTanarAvatar({{ $user }})"
                                 ></v-img>
+                                <input
+                                    class="form-control my-3"
+                                    ref="avatarinput"
+                                    accept="image/*"
+                                    type="file"
+                                    @change="onFileSelect"
+                                />
                             </v-col>
 
                             <v-col cols="8">
@@ -116,7 +113,6 @@
             data: {
                 name: null,
                 email: null,
-                bio: null,
                 pozicio: null,
                 avatar: null,
                 isBusy: false,
@@ -134,6 +130,12 @@
                 ],
             },
 
+            mounted() {
+                this.name = {!! json_encode($user->name) !!}
+                this.email = {!! json_encode($user->email) !!}
+                this.pozicio = {!! json_encode($user->pozicio) !!}
+            },
+
             methods: {
                 getTanarAvatar(tanar) {
                     if (tanar.avatar) {
@@ -143,28 +145,40 @@
                     }
                 },
 
+                onFileSelect() {
+                    this.avatar = this.$refs.avatarinput.files[0]
+                },
+
                 submitUserUpdate() {
                     if (!this.$refs.updateForm.validate()) {
                         return
+                    }
+
+                    let formData = new FormData()
+
+                    if (this.name) {
+                        formData.append('name', this.name)
+                    }
+
+                    if (this.pozicio) {
+                        formData.append('pozicio', this.pozicio)
+                    }
+
+                    if (this.avatar) {
+                        formData.append('avatar', this.avatar)
                     }
 
                     this.errorMessage = null
                     if (!this.isBusy) {
                         this.isBusy = true
 
-                        axios.post(route('submit-profile'), {
-                            name: this.name,
-                            email: this.email,
-                            pozicio: this.pozicio,
-                            bio: this.bio,
-                        }).then((response) => {
-                            this.$refs.updateForm.reset()
+                        axios.post(route('submit-profile'), formData).then((response) => {
                             this.isBusy = false
                             this.isSent = true
                         }).catch((error) => {
                             if (error) {
-                                if (_.get(error.response.data.errors, 'email')) {
-                                    this.errorMessage = error.response.data.errors.email[0]
+                                if (_.get(error.response.data.errors, 'avatar')) {
+                                    this.errorMessage = error.response.data.errors.avatar[0]
                                 }
                             }
 

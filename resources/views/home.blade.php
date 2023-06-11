@@ -16,7 +16,7 @@
                 </div>
 
                 <v-row>
-                    <v-col cols="4" class="ml-5 mt-5">
+                    <v-col cols="11" md="4" class="ml-5 mt-5">
                         <v-form @submit.prevent class="mb-10">
                             <v-text-field
                                 v-model="searchTerm"
@@ -103,7 +103,7 @@
                 <div class="card-body">
                     @forelse ($rendezvenyek as $rendezveny)
                         <v-row class="rendezveny-wrapper" @click="redirectToShow({{ $rendezveny->id }})">
-                            <v-col cols="1" class="details text-center align-self-center">
+                            <v-col cols="3" md="1" class="details text-center align-self-center">
                                 <div class="datum nap text-no-wrap">
                                     {{ $rendezveny->nap }}
                                 </div>
@@ -117,7 +117,7 @@
                                 </div>
                             </v-col>
 
-                            <v-col cols="3" class="text-center">
+                            <v-col cols="3" class="text-center lightgreen hidden-sm-and-down">
                                 @if ($rendezveny->kepek)
                                     <img src="{{ asset('storage/kepek/' . $rendezveny->kepek[0]) }}" width="150" height="auto" alt="">
                                 @else
@@ -125,15 +125,15 @@
                                 @endif
                             </v-col>
 
-                            <v-col cols="6">
+                            <v-col cols="6" class="lightgreen">
                                 <h2>{{ $rendezveny->nev }}</h2>
-                                <h5>{{ Str::limit($rendezveny->leiras, 200) }}</h5>
+                                <h5>{{ Str::limit($rendezveny->leiras, 50) }}</h5>
                                 @if ($rendezveny->resztvevok)
                                     <h5 class="mt-10">Létszám: {{ $rendezveny->resztvevok }}</h5>
                                 @endif
                             </v-col>
 
-                            <v-col cols="2" class="details helyszin align-self-center">
+                            <v-col cols="3" md="2" class="details helyszin align-self-center">
                                 {{ $rendezveny->helyszin }}
                             </v-col>
                         </v-row>

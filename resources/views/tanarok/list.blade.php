@@ -15,12 +15,11 @@
                     Tanárok
                 </div>
 
-                <v-row>
-                    <v-col cols="11" md="4" class="ml-5 mt-5">
-                        <v-form @submit.prevent class="mb-10">
+                <v-form @submit.prevent>
+                    <v-row class="mx-3">
+                        <v-col cols="12">
                             <v-text-field
                                 v-model="searchTerm"
-                                class="mb-10"
                                 hide-details
                                 label="Keresés..."
                                 dense
@@ -29,19 +28,9 @@
                                 @click:append="searchTerm = null"
 {{--                                @keydown.enter="search()"--}}
                             ></v-text-field>
-                        </v-form>
-
-{{--                        <form>--}}
-{{--                            <input--}}
-{{--                                type="search"--}}
-{{--                                class="form-control"--}}
-{{--                                placeholder="Keresés"--}}
-{{--                                name="s"--}}
-{{--                                value="{{ request('s') }}"--}}
-{{--                            >--}}
-{{--                        </form>--}}
-                    </v-col>
-                </v-row>
+                        </v-col>
+                    </v-row>
+                </v-form>
 
                 <div class="card-body">
                     <v-list dense>

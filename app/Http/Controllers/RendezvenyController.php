@@ -28,16 +28,11 @@ class RendezvenyController extends Controller
     {
         $query = Rendezveny::select('*');
 
-        if ($request->input('order_by')) {
-            $query->orderBy($request->input('order_by'), 'desc');
-        }
-
-        if ($categories = $request->input('categories')) {
-            $query->where(function ($q) use ($categories) {
-                foreach ($categories as $category) {
-                    $q->orWhere('tipus', 'like', "%$category%");
-                }
-            });
+        if ($term = $request->input('search_term')) {
+            $query->where('nev', 'like', "%$term%")
+                ->orWhere('leiras', 'like', "%$term%")
+                ->orWhere('idopont', 'like', "%$term%")
+                ->orWhere('helyszin', 'like', "%$term%");
         }
 
         if ($filters = $request->input('years')) {
@@ -48,23 +43,19 @@ class RendezvenyController extends Controller
             });
         }
 
-        if ($term = $request->input('search_term')) {
-            $query->where('nev', 'like', "%$term%")
-                ->orWhere('leiras', 'like', "%$term%")
-                ->orWhere('idopont', 'like', "%$term%")
-                ->orWhere('helyszin', 'like', "%$term%")
-                ->orWhere('tipus', 'like', "%$term%");
+        if ($categories = $request->input('categories')) {
+            $query->where(function ($q) use ($categories) {
+                foreach ($categories as $category) {
+                    $q->orWhere('tipus', 'like', "%$category%");
+                }
+            });
+        }
+
+        if ($request->input('order_by')) {
+            $query->orderBy($request->input('order_by'), 'desc');
         }
 
         $rendezvenyek = $query->paginate(10);
-
-//        $rendezvenyek = Rendezveny::orderBy('idopont', 'desc')
-//            ->where('nev', 'like', "%$var%")
-//            ->orWhere('leiras', 'like', "%$var%")
-//            ->orWhere('idopont', 'like', "%$var%")
-//            ->orWhere('helyszin', 'like', "%$var%")
-//            ->orWhere('tipus', 'like', "%$var%")
-//            ->cursorPaginate(10);
 
         return $rendezvenyek;
     }

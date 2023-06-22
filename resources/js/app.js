@@ -8,6 +8,7 @@ import stringHelpers from './Helpers/string'
 import vueRoutes from '@js/routes.js'
 import VueRouter from 'vue-router';
 import _ from 'lodash'
+import vuescroll from 'vuescroll'
 
 // Vue.component('file-drop', FileDrop)
 
@@ -20,6 +21,21 @@ Vue.prototype.$helpers = {
 }
 
 Vue.use(VueRouter)
+
+Vue.use(vuescroll, {
+    ops: {
+        bar: {
+            background: '#6C5DD3',
+            onlyShowBarOnScroll: false,
+            keepShow: true,
+            minSize: 0.2
+        },
+
+        rail: {
+            background: '#01a99a',
+        }
+    }
+})
 
 const router = new VueRouter({
     routes: vueRoutes,

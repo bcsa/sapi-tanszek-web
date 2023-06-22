@@ -25,7 +25,7 @@ services:
   mysql:
       image: mariadb:10.7
       restart: on-failure
-      container_name: mysql_sapi
+      container_name: mariadb_sapi
       volumes:
           - ./run/var:/var/lib/mysql
       ports:
@@ -37,8 +37,8 @@ services:
           backend:
               aliases:
                   - db
-                  - mysql_sapi
-                  - mysql
+                  - mariadb_sapi
+                  - mariadb
 
 networks:
   backend:

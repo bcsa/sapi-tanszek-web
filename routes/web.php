@@ -22,14 +22,16 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes(['register' => false, 'confirm' => false]);
 
-Route::get('/', [RendezvenyController::class, 'home'])->name('rendezvenyek.home');
-Route::get('/tanarok', [TanarController::class, 'home'])->name('tanarok.home');
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/', [RendezvenyController::class, 'home'])->name('rendezvenyek.home');
+    Route::get('/tanarok', [TanarController::class, 'home'])->name('tanarok.home');
 
-Route::post('/tanarok/search', [TanarController::class, 'search'])->name('tanarok.search');
-Route::post('/rendezvenyek/search', [RendezvenyController::class, 'search'])->name('rendezvenyek.search');
+    Route::post('/tanarok/search', [TanarController::class, 'search'])->name('tanarok.search');
+    Route::post('/rendezvenyek/search', [RendezvenyController::class, 'search'])->name('rendezvenyek.search');
 
-Route::get('profile', [ProfileController::class, 'index'])->name('profile');
-Route::post('profile', [ProfileController::class, 'store'])->name('submit-profile');
+    Route::get('profile', [ProfileController::class, 'index'])->name('profile');
+    Route::post('profile', [ProfileController::class, 'store'])->name('submit-profile');
+});
 
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {
     Route::get('/rendezvenyek/{rendezveny}/toggle-relation', [RendezvenyController::class, 'toggleTanarRelation'])->name('rendezvenyek.toggle-relation');

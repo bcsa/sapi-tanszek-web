@@ -57,7 +57,7 @@ class RendezvenyController extends Controller
 
         $rendezvenyek = $query->paginate(10);
 
-        return $rendezvenyek;
+        return $rendezvenyek->withQueryString();
     }
 
     public function index()

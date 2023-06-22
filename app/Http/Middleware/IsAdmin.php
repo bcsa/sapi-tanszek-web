@@ -16,6 +16,5 @@ class IsAdmin
         }
 
         return redirect(RouteServiceProvider::HOME);
-//        abort(403);
     }
 }

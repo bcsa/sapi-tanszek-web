@@ -6,6 +6,7 @@ use App\Models\Rendezveny;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 
 //TODO: soft-delete
@@ -76,6 +77,10 @@ class TanarController extends Controller
         $data->put('password', Str::random(10));
 
         $tanar = User::create($data->all());
+
+        Password::sendResetLink(
+            $tanar->email
+        );
 
         if ($request->input('rendezvenyek')) {
             $tanar->rendezvenyek()->sync(explode(",", $request->input('rendezvenyek')));

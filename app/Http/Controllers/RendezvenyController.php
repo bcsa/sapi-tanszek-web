@@ -29,10 +29,12 @@ class RendezvenyController extends Controller
         $query = Rendezveny::select('*');
 
         if ($term = $request->input('search_term')) {
-            $query->where('nev', 'like', "%$term%")
-                ->orWhere('leiras', 'like', "%$term%")
-                ->orWhere('idopont', 'like', "%$term%")
-                ->orWhere('helyszin', 'like', "%$term%");
+            $query->where(function ($q) use ($term) {
+                $q->where('nev', 'like', "%$term%")
+                    ->orWhere('leiras', 'like', "%$term%")
+                    ->orWhere('idopont', 'like', "%$term%")
+                    ->orWhere('helyszin', 'like', "%$term%");
+            });
         }
 
         if ($filters = $request->input('years')) {
@@ -54,6 +56,8 @@ class RendezvenyController extends Controller
         if ($request->input('order_by')) {
             $query->orderBy($request->input('order_by'), 'desc');
         }
+
+//        dd($query->toSql());
 
         $rendezvenyek = $query->paginate(10);
 

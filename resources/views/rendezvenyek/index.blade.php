@@ -53,7 +53,7 @@
                                                     <img src="https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png" width="150" height="auto" alt="">
                                                 @endif
                                             </td>
-                                            <td>{{ Str::limit($rendezveny->leiras, 50) }}</td>
+                                            <td>{{ Str::limit($rendezveny->leiras, 40) }}</td>
                                             <td>
                                                 <form
                                                     action="{{ route('rendezvenyek.destroy', $rendezveny->id) }}"

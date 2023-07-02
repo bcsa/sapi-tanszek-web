@@ -22,20 +22,7 @@ Vue.prototype.$helpers = {
 
 Vue.use(VueRouter)
 
-Vue.use(vuescroll, {
-    ops: {
-        bar: {
-            background: '#6C5DD3',
-            onlyShowBarOnScroll: false,
-            keepShow: true,
-            minSize: 0.2
-        },
-
-        rail: {
-            background: '#01a99a',
-        }
-    }
-})
+Vue.use(vuescroll)
 
 const router = new VueRouter({
     routes: vueRoutes,

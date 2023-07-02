@@ -70,71 +70,73 @@
                     </v-row>
                 </v-form>
 
-                <vue-scroll v-if="rendezvenyek.length" class="card-body mt-10">
-                    <v-col class="py-0">
-                        <v-row
-                            v-for="rendezveny in rendezvenyek"
-                            :key="rendezveny.id"
-                            class="rendezveny-wrapper"
-                            @click="redirectToShow(rendezveny.id)"
-                        >
-                            <v-col cols="3" md="1" class="details text-center align-self-center">
-                                <div class="datum nap text-no-wrap">
-                                    @{{ rendezveny.nap }}
-                                </div>
+                <div class="scroll-wrapper">
+                    <vue-scroll v-if="rendezvenyek.length" class="card-body mt-10" @handle-scroll="handleScroll">
+                        <v-col class="py-0">
+                            <v-row
+                                v-for="rendezveny in rendezvenyek"
+                                :key="rendezveny.id"
+                                class="rendezveny-wrapper"
+                                @click="redirectToShow(rendezveny.id)"
+                            >
+                                <v-col cols="3" md="1" class="details text-center align-self-center">
+                                    <div class="datum nap text-no-wrap">
+                                        @{{ rendezveny.nap }}
+                                    </div>
 
-                                <div class="datum honap text-no-wrap">
-                                    @{{ rendezveny.honap }}
-                                </div>
+                                    <div class="datum honap text-no-wrap">
+                                        @{{ rendezveny.honap }}
+                                    </div>
 
-                                <div class="datum ev text-no-wrap">
-                                    @{{ rendezveny.ev }}
-                                </div>
-                            </v-col>
+                                    <div class="datum ev text-no-wrap">
+                                        @{{ rendezveny.ev }}
+                                    </div>
+                                </v-col>
 
-                            <v-col cols="3" class="text-center lightgreen hide-on-mobile">
-                                <img v-if="rendezveny.kepek" :src="'{{ asset('storage/kepek') }}/' + rendezveny.kepek[0]" width="150" height="auto" alt="">
-                                <img v-else src="https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png" width="200" height="auto" alt="">
-                            </v-col>
+                                <v-col cols="3" class="text-center lightgreen hide-on-mobile">
+                                    <img v-if="rendezveny.kepek" :src="'{{ asset('storage/kepek') }}/' + rendezveny.kepek[0]" width="150" height="auto" alt="">
+                                    <img v-else src="https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png" width="200" height="auto" alt="">
+                                </v-col>
 
-                            <v-col cols="6" class="lightgreen">
-                                <h2>@{{ rendezveny.nev }}</h2>
-                                <h5>@{{ rendezveny.leiras.substring(0,50)+"..." }}</h5>
-                                <h5 v-if="rendezveny.resztvevok" class="mt-10">Létszám: @{{ rendezveny.resztvevok }}</h5>
-                            </v-col>
+                                <v-col cols="6" class="lightgreen">
+                                    <h2>@{{ rendezveny.nev }}</h2>
+                                    <h5>@{{ rendezveny.leiras.substring(0,50)+"..." }}</h5>
+                                    <h5 v-if="rendezveny.resztvevok" class="mt-10">Létszám: @{{ rendezveny.resztvevok }}</h5>
+                                </v-col>
 
-                            <v-col cols="3" md="2" class="details helyszin align-self-center">
-                                @{{ rendezveny.helyszin }}
-                            </v-col>
-                        </v-row>
-                    </v-col>
+                                <v-col cols="3" md="2" class="details helyszin align-self-center">
+                                    @{{ rendezveny.helyszin }}
+                                </v-col>
+                            </v-row>
+                        </v-col>
 
-                    <v-col class="text-end" cols="12">
-                        Találatok száma: <span class="font-weight-bold">@{{ rendezvenyek.length }}</span>
-                    </v-col>
+                        <v-col class="text-end" cols="12">
+                            Találatok száma: <span class="font-weight-bold">@{{ rendezvenyek.length }}</span>
+                        </v-col>
 
-                    <v-col class="text-center" cols="12">
-                        <v-progress-circular
-                            v-show="isLoadingMore"
-                            :size="23"
-                            :width="3"
-                            class="mr-3"
-                            color="primary"
-                            indeterminate
-                        ></v-progress-circular>
-                        <v-btn
-                            v-show="!isLoadingMore && hasMoreEvents"
-                            rounded
-                            text
-                            @click="search(true)"
-                        >
-                            További találatok
-                        </v-btn>
-                    </v-col>
-                </vue-scroll>
+                        <v-col class="text-center" cols="12">
+                            <v-progress-circular
+                                v-show="isLoadingMore"
+                                :size="23"
+                                :width="3"
+                                class="mr-3"
+                                color="primary"
+                                indeterminate
+                            ></v-progress-circular>
+                            <v-btn
+                                v-show="!isLoadingMore && hasMoreEvents"
+                                rounded
+                                text
+                                @click="search(true)"
+                            >
+                                További találatok
+                            </v-btn>
+                        </v-col>
+                    </vue-scroll>
 
-                <div v-else class="card-body mt-10">
-                    Nincs találat.
+                    <div v-else class="card-body mt-10">
+                        Nincs találat.
+                    </div>
                 </div>
             </div>
         </div>
@@ -180,6 +182,8 @@
                 hasMoreEvents: true,
                 getEventsUrl: null,
 
+                // handleScroll: null,
+
                 params: {},
             },
 
@@ -189,6 +193,14 @@
                 this.$watch('searchTerm', _.debounce(function() {
                     this.search()
                 }, 500))
+
+                // this.handleScroll = _.debounce(this.handleScroll, 300)
+
+                // this.handleScroll = _.debounce(function(vertical, horizontal, nativeEvent) {
+                //     if (!this.isLoadingMore && vertical.process >= 0.95 && this.hasMoreEvents) {
+                //         this.search(true)
+                //     }
+                // }, 300)
 
                 this.getEventsUrl = route('rendezvenyek.search', this.params)
             },
@@ -208,22 +220,14 @@
             },
 
             methods: {
-                // handleScroll: _.debounce(function(vertical, horizontal, nativeEvent) {
-                //     if (!this.isLoadingMore && vertical.process >= 0.95 && this.hasMoreEvents) {
-                //         this.search(true)
-                //     }
-                // }, 300),
+                handleScroll(vertical, horizontal, nativeEvent) {
+                    if (!this.isLoadingMore && vertical.process >= 0.95 && this.hasMoreEvents) {
+                        this.search(true)
+                    }
+                },
 
                 redirectToShow(id) {
                     window.location.href = route('rendezvenyek.show', id)
-                },
-
-                getRendezvenyAvatar(rendezveny) {
-                    if (rendezveny.kepek) {
-                        return "{{ asset('storage/kepek/') . '/' }}" + rendezveny.kepek[0]
-                    } else {
-                        return "{{ asset('storage/avatars/defpic.jpg') }}"
-                    }
                 },
 
                 search(isFromScroll = false) {
@@ -257,10 +261,10 @@
                             this.rendezvenyek.push(...response.data.data)
                             this.getEventsUrl = response.data.next_page_url
                             this.hasMoreEvents = !!response.data.next_page_url
-                            // console.log(response.data)
                         }
                         this.isLoadingMore = false
                     }).catch((e) => {
+                        console.log(e)
                         this.isLoadingMore = false
                     })
                 },

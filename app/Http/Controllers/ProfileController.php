@@ -48,9 +48,6 @@ class ProfileController extends Controller
 
         $user->save();
 
-//        Mail::to('csongiika@gmail.com')
-//            ->queue(new ContactMessageReceived($user));
-
         return response(['success' => true]);
     }
 }

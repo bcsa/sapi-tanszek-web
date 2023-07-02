@@ -57,8 +57,6 @@ class RendezvenyController extends Controller
             $query->orderBy($request->input('order_by'), 'desc');
         }
 
-//        dd($query->toSql());
-
         $rendezvenyek = $query->paginate(10);
 
         return $rendezvenyek->withQueryString();
@@ -85,9 +83,9 @@ class RendezvenyController extends Controller
             'resztvevok' => 'nullable',
             'tipus' => 'required',
             'leiras' => 'required',
-            'kepek.*' => 'image',
+            'kepek.*' => 'image|max:4096',
         ], [
-            'kepek.*.image' => 'Csak képek!',
+            'kepek.*.image' => 'Csak képfájlt lehet feltölteni!',
         ]);
 
         $data = collect($request->all());
@@ -112,7 +110,8 @@ class RendezvenyController extends Controller
             $rendezveny->tanarok()->sync(explode(",", $request->input('tanarok')));
         }
 
-        return redirect()->route('rendezvenyek.index')->with('success', 'Sikeresen létrehoztad ezt a rendezvényt!');
+        return redirect()->route('rendezvenyek.index')
+            ->with('success', 'Sikeresen létrehoztad ezt a rendezvényt!');
     }
 
     public function show(Rendezveny $rendezveny)
@@ -135,8 +134,11 @@ class RendezvenyController extends Controller
             'helyszin' => 'required',
             'resztvevok' => 'nullable',
             'tipus' => 'required',
-            'kepek' => 'nullable',
             'leiras' => 'required',
+            'kepek' => 'nullable',
+            'kepek.*' => 'image|max:4096',
+        ], [
+            'kepek.*.image' => 'Csak képfájlt lehet feltölteni!',
         ]);
 
         $rendezveny->fill($request->post())->save();
@@ -147,7 +149,8 @@ class RendezvenyController extends Controller
             $rendezveny->tanarok()->detach();
         }
 
-        return redirect()->route('rendezvenyek.show', $rendezveny->id)->with('success', 'Sikeresen frissítetted ezt a rendezvényt!');
+        return redirect()->route('rendezvenyek.show', $rendezveny->id)
+            ->with('success', 'Sikeresen frissítetted ezt a rendezvényt!');
     }
 
     public function destroy(Rendezveny $rendezveny)
@@ -162,7 +165,8 @@ class RendezvenyController extends Controller
 
         $rendezveny->delete();
 
-        return redirect()->route('rendezvenyek.index')->with('success', 'Sikeresen törölted ezt a rendezvényt!');
+        return redirect()->route('rendezvenyek.index')
+            ->with('success', 'Sikeresen törölted ezt a rendezvényt!');
     }
 
     public function toggleTanarRelation(Rendezveny $rendezveny)
@@ -172,6 +176,8 @@ class RendezvenyController extends Controller
         $toggle = $rendezveny->tanarok()->toggle($tanar_id);
 
         return redirect()->route('rendezvenyek.show', $rendezveny->id)
-            ->with('success', $toggle['attached'] ? 'Sikeresen hozzáadtad magad ehhez a rendezvényhez!' : 'Sikeresen törölted magad erről a rendezvényről!');
+            ->with('success', $toggle['attached'] ?
+                'Sikeresen hozzáadtad magad ehhez a rendezvényhez!' :
+                'Sikeresen törölted magad erről a rendezvényről!');
     }
 }

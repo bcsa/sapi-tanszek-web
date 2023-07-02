@@ -16,7 +16,12 @@
 
                         <div class="float-end">
                             @if (Auth::user()->is_admin)
-                                <v-btn small href="{{ route('rendezvenyek.edit', $rendezveny->id) }}">Módosítás</v-btn>
+                                <v-btn
+                                    small
+                                    href="{{ route('rendezvenyek.edit', $rendezveny->id) }}"
+                                >
+                                    Módosítás
+                                </v-btn>
                             @endif
 
                             <v-btn small href="{{ route('rendezvenyek.index') }}">Vissza</v-btn>
@@ -48,12 +53,14 @@
                                 {{ $rendezveny->helyszin }}
                             </div>
                         </div>
-                        <div class="col-10 mx-auto">
-                            <div class="form-group">
-                                <strong>Rendezvény résztvevőinek száma:</strong>
-                                {{ $rendezveny->resztvevok }}
+                        @if ($rendezveny->resztvevok)
+                            <div class="col-10 mx-auto">
+                                <div class="form-group">
+                                    <strong>Rendezvény résztvevőinek száma:</strong>
+                                    {{ $rendezveny->resztvevok }}
+                                </div>
                             </div>
-                        </div>
+                        @endif
                         @if ($rendezveny->tanarok->isNotEmpty())
                             <div class="col-10 mx-auto">
                                 <div class="form-group">

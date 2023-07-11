@@ -62,6 +62,10 @@ class TanarController extends Controller
             'avatar' => 'image|max:1024',
         ]);
 
+        if (User::where('email', $request->input('email'))->exists()) {
+            return redirect()->route('tanarok.index')->with('error', 'Létező felhasználó!');
+        }
+
         $data = collect($request->all());
 
         if($request->hasFile('avatar'))
@@ -79,7 +83,7 @@ class TanarController extends Controller
         $tanar = User::create($data->all());
 
         Password::sendResetLink(
-            $tanar->email
+            $request->only('email')
         );
 
         if ($request->input('rendezvenyek')) {

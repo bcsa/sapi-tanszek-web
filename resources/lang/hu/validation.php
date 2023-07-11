@@ -21,12 +21,17 @@ return [
 
     'max' => [
         'file' => 'A(z) :attribute mérete nem lehet több, mint :max kilobájt.',
+        'numeric' => 'A(z) :attribute maximum :max lehet.',
+        'string'  => 'A(z) :attribute maximum :max karakter lehet.',
     ],
 
     'mimes' => 'A(z) :attribute kizárólag az alábbi fájlformátumok egyike lehet: :values.',
     'mimetypes' => 'A(z) :attribute kizárólag az alábbi fájlformátumok egyike lehet: :values.',
+
     'min' => [
         'file' => 'A(z) :attribute mérete nem lehet kevesebb, mint :min kilobájt.',
+        'numeric' => 'A(z) :attribute minimum :min kell legyen.',
+        'string'  => 'A(z) :attribute minimum :min karakter kell legyen.',
     ],
 
     'required' => 'A(z) :attribute megadása kötelező!',
@@ -36,6 +41,8 @@ return [
 
     'string' => 'A(z) :attribute szöveg kell, hogy legyen.',
     'unique' => 'A(z) :attribute már foglalt.',
+
+    'confirmed' => 'A(z) :attribute nem talál.',
 
     /*
     |--------------------------------------------------------------------------
@@ -74,7 +81,8 @@ return [
         'helyszin' => 'helyszín',
         'tipus' => 'típus',
         'leiras' => 'leírás',
-        'kepek.*' => 'kép'
+        'kepek.*' => 'kép',
+        'password' => 'jelszó'
     ],
 
 ];

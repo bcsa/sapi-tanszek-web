@@ -127,7 +127,6 @@ class RendezvenyController extends Controller
 
     public function update(Request $request, Rendezveny $rendezveny)
     {
-        // TODO: kepek edit
         $request->validate([
             'nev' => 'required',
             'idopont' => 'required|date',
@@ -141,7 +140,31 @@ class RendezvenyController extends Controller
             'kepek.*.image' => 'Csak képfájlt lehet feltölteni!',
         ]);
 
-        $rendezveny->fill($request->post())->save();
+        $data = collect($request->all());
+
+        if($request->hasFile('kepek'))
+        {
+            if ($rendezveny->kepek) {
+                foreach($rendezveny->kepek as $kep) {
+                    if (File::exists(storage_path('app/public/kepek') . '/' . $kep)) {
+                        File::delete(storage_path('app/public/kepek') . '/' . $kep);
+                    }
+                }
+            }
+
+            $files = $request->file('kepek');
+
+            foreach($files as $file) {
+                $filename = $file->getClientOriginalName();
+                $file->move(storage_path('app/public/kepek'), $filename);
+
+                $kepek[] = $filename;
+            }
+
+            $data->put('kepek', $kepek);
+        }
+
+        $rendezveny->fill($data->all())->save();
 
         if ($request->input('tanarok')) {
             $rendezveny->tanarok()->sync(explode(",", $request->input('tanarok')));

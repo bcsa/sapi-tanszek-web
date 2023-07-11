@@ -118,6 +118,12 @@ class TanarController extends Controller
 
         if($request->hasFile('avatar'))
         {
+            if ($tanar->avatar) {
+                if (File::exists(storage_path('app/public/avatars') . '/' . $tanar->avatar)) {
+                    File::delete(storage_path('app/public/avatars') . '/' . $tanar->avatar);
+                }
+            }
+
             $file = $request->file('avatar');
             $filename = $file->getClientOriginalName();
 

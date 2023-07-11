@@ -76,7 +76,19 @@
                                                 <v-list-item-subtitle v-text="rendezveny.helyszin"></v-list-item-subtitle>
                                             </v-list-item-content>
 
-{{--                                            TODO: self-torles--}}
+                                            <v-list-item-action>
+                                                <v-btn small :href="route('rendezvenyek.show', rendezveny.id)">
+                                                    Megtekintés
+                                                </v-btn>
+                                            </v-list-item-action>
+
+                                            @if (Auth::user()->id == $tanar->id)
+                                                <v-list-item-action>
+                                                    <v-btn small :href="route('rendezvenyek.toggle-relation', rendezveny.id)">
+                                                        Törlés
+                                                    </v-btn>
+                                                </v-list-item-action>
+                                            @endif
                                         </v-list-item>
                                     </v-list>
                                 </div>
